@@ -1,0 +1,34 @@
+.search {
+    text-align: center;
+    margin-bottom: var(--space-l);
+  &__text {
+    margin-bottom: 48px;
+  }
+
+  &__text-underline {
+    text-decoration: underline;
+  }
+
+  &__input-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 19px;
+  }
+
+  &__input {
+    border-radius: var(--border-radius);
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: var(--shadow-box-shadow);
+    }
+  }
+
+  &__btn {
+    padding: var(--space-s) var(--space-l);
+    border-radius: var(--border-radius);
+  }
+}

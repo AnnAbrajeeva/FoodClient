@@ -1,0 +1,22 @@
+.homepage {
+  &__hero {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+    margin-bottom: 36px;
+  }
+
+  &__hero-text {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__category {
+      max-width: 300px;
+      margin-left: auto;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+  }
+}

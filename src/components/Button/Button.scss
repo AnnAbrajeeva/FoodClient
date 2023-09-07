@@ -1,0 +1,35 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xxs);
+  padding: var(--space-s) var(--space-l);
+  background: var(--button-primary-bg);
+  border: none;
+  color: var(--button-primary-text, #fff);
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 18px;
+  min-height: 52px;
+
+ 
+
+  &:hover {
+    background: var(--button-primary-bg-hover);
+    outline: none;
+  } 
+  
+  &__loading:hover {
+    background: var(--brand);
+  }
+
+  &:disabled {
+    background: var(--button-primary-bg-disabled);
+    pointer-events: none;
+  }
+
+  &:active {
+    background: var(--button-primary-bg-active);
+  }
+}
