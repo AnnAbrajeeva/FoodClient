@@ -1,6 +1,6 @@
+import classNames from 'classnames';
 import React from 'react';
 import Text from '../Text/Text';
-import classNames from 'classnames';
 import './Card.scss';
 
 export type CardProps = {
@@ -30,8 +30,7 @@ const Card: React.FC<CardProps> = ({
   subtitle,
   contentSlot,
   onClick,
-  actionSlot,
-  ...rest
+  actionSlot
 }) => {
   const classes = classNames('card', className);
   return (
@@ -50,7 +49,7 @@ const Card: React.FC<CardProps> = ({
           <Text data-testid="text" weight="medium" maxLines={2} color="primary" view="p-20">
             {title}
           </Text>
-          <Text data-testid="text" maxLines={3} color="secondary" view="p-16">
+          <Text data-testid="text" maxLines={2} color="secondary" view="p-16">
             {subtitle}
           </Text>
         </div>

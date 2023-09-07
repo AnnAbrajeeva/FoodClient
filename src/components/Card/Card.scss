@@ -2,7 +2,6 @@
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 348px;
   background: var(--card-bg);
   padding-bottom: var(--space-xl);
   gap: var(--space-xl);
@@ -12,11 +11,13 @@
   }
 
   &__img {
-    height: 348px;
+    height: 360px;
     background: var(--card-image-bg);
 
     img {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 
