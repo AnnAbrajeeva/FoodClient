@@ -1,6 +1,11 @@
 .recipes-wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 80px;
+    gap: 64px 80px;
+
+    &__card {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+    }
 
 }
