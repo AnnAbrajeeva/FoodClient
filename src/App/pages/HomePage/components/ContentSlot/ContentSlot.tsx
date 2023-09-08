@@ -16,7 +16,7 @@ const ContentSlot: FC<ContentSlotProps> = ({options}) => {
     });
     return caloryAmount;
   };
-  return <Text weight="bold" color="accent">{`${calory(options)} kcal`}</Text>;
+  return <Text tag="span" weight="bold" color="accent">{`${calory(options)} kcal`}</Text>;
 };
 
 export default ContentSlot;

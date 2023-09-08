@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import HeroBg from 'assets/img/hero-bg.jpg';
 import HeroText from 'assets/img/hero-text.svg';
 import MultiDropdown, { Option } from 'components/MultiDropdown';
+import Pagination from 'components/Pagination';
 import { api, API_KEY } from '../../../api/api';
 import RecipesWrapper from './components/RecipesWrapper/RecipesWrapper';
 import Search from './components/Search/Search';
@@ -12,11 +13,23 @@ const HomePage = () => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<Option[]>([]);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+
+  const itemsPerPage = 9;
+
+  const getOffset = () => {
+    return (page - 1) * itemsPerPage + 1;
+  };
 
   useEffect(() => {
     async function getAllRecipes() {
       try {
-        const res = await api.get(`recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&offset=0&number=10&limitLicense=true`);
+        const res = await api.get(
+          `recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&offset=${getOffset()}&number=${itemsPerPage}&limitLicense=true`,
+        );
+        const totalPages = getPageCount(res.data.totalResults);
+        setTotal(totalPages);
         setRecipes(res.data.results);
       } catch (error) {
         if (error instanceof Error) {
@@ -24,8 +37,26 @@ const HomePage = () => {
         }
       }
     }
-    getAllRecipes()
-  }, []);
+    getAllRecipes();
+  }, [page]);
+
+  const changePage = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  const getPageCount = (total: number) => {
+    return Math.ceil(total / itemsPerPage);
+  };
+
+  const getPrevPage = () => {
+    const prev = page - 1;
+    setPage(prev > 0 ? prev : page);
+  };
+
+  const getNextPage = () => {
+    const next = page + 1;
+    setPage(next <= total ? next : page);
+  };
 
   const options: Option[] = [
     {
@@ -56,8 +87,16 @@ const HomePage = () => {
           value={category}
           onChange={setCategory}
         />
-        <RecipesWrapper recipes={recipes} />
-       
+        {recipes && <RecipesWrapper recipes={recipes} />}
+        <Pagination
+          getNextPage={getNextPage}
+          getPrevPage={getPrevPage}
+          onChange={changePage}
+          current={page}
+          total={total}
+          perPage={itemsPerPage}
+          disable={{ left: page === 1, right: page === total }}
+        />
       </div>
     </div>
   );

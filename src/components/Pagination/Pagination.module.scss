@@ -1,0 +1,48 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  &__next {
+    transform: scale(-1, -1);
+  }
+
+  &__btn {
+    background: none;
+    border-radius: var(--border-radius);
+    transition: all 0.3s linear;
+
+    &:disabled {
+      background: none;
+      opacity: 0.3;
+    }
+  }
+
+  &__num {
+    padding: 10px 15px;
+    color: var(--text-primary);
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    cursor: pointer;
+    transition: all 0.3s linear;
+
+    &:hover {
+        background: var(--button-primary-bg-hover);
+        padding: 10px 15px;
+    }
+
+    &--active {
+        padding: 10px 15px;
+        background: var(--brand);
+        color: #fff;
+    }
+  }
+
+  &__active {
+    color: red;
+  }
+}

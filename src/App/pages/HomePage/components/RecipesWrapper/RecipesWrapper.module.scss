@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 64px 80px;
+    margin-bottom: 48px;
 
     &__card {
         border-radius: var(--border-radius);

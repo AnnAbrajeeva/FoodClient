@@ -16,8 +16,6 @@ const RecipesWrapper: FC<RecipesWrapperProps> = ({ recipes }) => {
     return ingredients.map((item) => item.name).join(' + ');
   };
 
-  console.log(recipes);
-
   return (
     <div className={styles['recipes-wrapper']}>
       {recipes.map((recipe) => (
