@@ -1,4 +1,5 @@
 .dropdown {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-xxs);
@@ -8,6 +9,9 @@
   }
   
   &__box {
+    position: absolute;
+    bottom: -200%;
+    width: 100%;
     background: var(--dropdown-options-bg);
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
     border-radius: var(--border-radius);

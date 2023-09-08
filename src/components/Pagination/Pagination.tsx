@@ -18,8 +18,6 @@ type PaginationProps = {
 };
 
 const Pagination: FC<PaginationProps> = ({ getNextPage, getPrevPage, onChange, disable, current, total }) => {
-
-
   const isActive = (num: number | string) => {
     let className = '';
     if (num === current) {

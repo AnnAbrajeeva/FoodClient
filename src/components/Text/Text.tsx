@@ -31,11 +31,18 @@ const Text: React.FC<TextProps> = ({
 }) => {
   const Element = tag ? tag : 'p';
 
+  const weightText = {
+    normal: 400,
+    medium: 600,
+    bold: 700
+  }
+
   const styles = {
-    fontWeight: weight,
+    fontWeight: weight ? weightText[weight] : 400,
     color: color ? `var(--text-${color})` : 'inherit',
     lineClamp: maxLines,
     WebkitLineClamp: maxLines,
+    overflow: maxLines ? 'hidden': 'initial'
   };
 
   const classes = classNames('text', className, view && `text__view-${view}`);
