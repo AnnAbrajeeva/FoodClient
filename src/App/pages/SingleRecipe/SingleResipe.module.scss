@@ -68,4 +68,11 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
+
+  &__products {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 55px;
+  }
 }

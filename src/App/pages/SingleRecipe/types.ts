@@ -1,4 +1,4 @@
-import { Ingredient } from "../HomePage/types";
+import { Ingredient } from "./components/RecipeList/RecipeList";
 
 export type RecipeFull = {
   preparationMinutes: number;
@@ -15,11 +15,11 @@ export type RecipeFull = {
   analyzedInstructions: RecipeInstra[];
 };
 
-type RecipeInstra = {
+export type RecipeInstra = {
   steps: Step[];
 };
 
-type Step = {
+export type Step = {
   number: number;
   step: string;
   equipment: [
@@ -28,6 +28,6 @@ type Step = {
       name: string;
       localizedName: string;
       image: string;
-    },
-  ];
+    }
+  ]
 };

@@ -6,21 +6,31 @@ import styles from './RecipeList.module.scss';
 type RecipeListProps = {
   title: string;
   icon: string;
-  ingredients: Ingredient[];
+  extendedIngredients: Ingredient[];
 };
 
 export type Ingredient = {
-  original: string;
+    id: number,
+    aisle: string,
+    image: string,
+    consistency: string,
+    name: string,
+    nameClean: string,
+    original: string,
+    originalName: string,
+    amount: number,
+    unit: string,
+    meta: [],
 };
 
-const RecipeList: FC<RecipeListProps> = ({ title, icon, ingredients }) => {
+const RecipeList: FC<RecipeListProps> = ({ title, icon, extendedIngredients }) => {
   return (
     <div className={styles["recipe-list"]}>
       <Text weight="medium" view="p-20">
         {title}
       </Text>
       <div className={styles['recipe-list__ingred']}>
-        {ingredients.map((item, i) => (
+        {extendedIngredients.map((item, i) => (
           <RecipeIngredient key={i} value={item.original} icon={icon} />
         ))}
       </div>

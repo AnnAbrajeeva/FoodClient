@@ -1,0 +1,7 @@
+.recipe-list {
+    &__ingred {
+      margin-top: var(--space-xl);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }

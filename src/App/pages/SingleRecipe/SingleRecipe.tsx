@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Dish from 'assets/img/dish.svg';
-import Recipe from 'assets/img/recipe.jpg';
+import Equipment from 'assets/img/equipment.svg';
 import Button from 'components/Button';
 import Text from 'components/Text';
 import { api, API_KEY } from '../../../api/api';
+import RecipeEquip from './components/RecipeEquip';
+import RecipeList from './components/RecipeList';
 import RecipeParam from './components/RecipeParam';
 import { RecipeFull } from './types';
 import styles from './SingleResipe.module.scss';
-import RecipeList from './components/RecipeList';
 
 const SingleRecipe = () => {
   const [recipe, setRecipe] = useState<RecipeFull | null>(null);
@@ -27,7 +28,7 @@ const SingleRecipe = () => {
       }
     }
     getRecipe();
-  }, []);
+  }, [id]);
 
   const preparation =
     recipe?.preparationMinutes && recipe.preparationMinutes > 0 ? recipe.preparationMinutes : 'unknown';
@@ -79,7 +80,10 @@ const SingleRecipe = () => {
 
         <div className={styles.recipe__products}>
           {recipe?.extendedIngredients && (
-            <RecipeList title="Ingredients" icon={Dish} ingredients={recipe.extendedIngredients} />
+            <RecipeList title="Ingredients" icon={Dish} extendedIngredients={recipe.extendedIngredients} />
+          )}
+           {recipe?.extendedIngredients && (
+            <RecipeEquip title="Equipment" icon={Equipment} equipments={recipe.analyzedInstructions} />
           )}
         </div>
       </div>
