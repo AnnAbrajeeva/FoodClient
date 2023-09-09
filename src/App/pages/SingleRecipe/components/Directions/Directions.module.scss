@@ -1,0 +1,8 @@
+.directions {
+    &__wrapper {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-m);
+    }
+}

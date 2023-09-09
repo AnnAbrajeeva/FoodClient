@@ -2,6 +2,10 @@
   display: flex;
   gap: var(--space-m);
 
+  @media (max-width: 830px) {
+    display: none;
+  }
+
   a {
     position: relative;
     color: var(--text-primary, #000);

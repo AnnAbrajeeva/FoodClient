@@ -4,6 +4,18 @@
     gap: 64px 80px;
     margin-bottom: 48px;
 
+    @media (max-width: 1400px) {
+        gap: 20px 30px;
+    }
+
+    @media (max-width: 1040px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 670px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
     &__card {
         border-radius: var(--border-radius);
         overflow: hidden;

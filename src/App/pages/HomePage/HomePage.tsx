@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import HeroBg from 'assets/img/hero-bg.jpg';
 import HeroText from 'assets/img/hero-text.svg';
+import Loader from 'components/Loader';
 import MultiDropdown, { Option } from 'components/MultiDropdown';
 import Pagination from 'components/Pagination';
 import { api, API_KEY } from '../../../api/api';
@@ -15,6 +16,7 @@ const HomePage = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const itemsPerPage = 9;
 
@@ -25,13 +27,16 @@ const HomePage = () => {
   useEffect(() => {
     async function getAllRecipes() {
       try {
+        setIsLoading(true)
         const res = await api.get(
           `recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&offset=${getOffset()}&number=${itemsPerPage}&limitLicense=true`,
         );
         const totalPages = getPageCount(res.data.totalResults);
         setTotal(totalPages);
         setRecipes(res.data.results);
+        setIsLoading(false)
       } catch (error) {
+        setIsLoading(false)
         if (error instanceof Error) {
           throw new Error(error.message);
         }
@@ -75,10 +80,10 @@ const HomePage = () => {
   return (
     <div className={styles.homepage}>
       <div className={styles.homepage__hero}>
-        <img src={HeroBg} alt="Food" />
+        <img className={styles.homepage__img} src={HeroBg} alt="Food" />
         <img className={styles['homepage__hero-text']} src={HeroText} alt="Recipes" />
       </div>
-      <div className="container">
+      {isLoading ? <Loader /> : <div className="container">
         <Search value={search} onChange={setSearch} />
         <MultiDropdown
           className={styles.homepage__category}
@@ -97,7 +102,7 @@ const HomePage = () => {
           perPage={itemsPerPage}
           disable={{ left: page === 1, right: page === total }}
         />
-      </div>
+      </div>}
     </div>
   );
 };

@@ -1,0 +1,7 @@
+@import 'assets/styles/breakpoints.scss';
+@import 'assets/styles/burger.scss';
+
+.burger {
+    min-height: auto;
+    @include burger;
+}

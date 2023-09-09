@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import style from './Navigation.module.scss';
 
-const navLinks = [
+export const navLinks = [
   {
     path: '/',
     name: 'Recipes',
@@ -27,7 +27,7 @@ const navLinks = [
 const Navigation = () => {
   const setActive = ({ isActive }: { isActive: boolean }): string => (isActive ? style.active : '');
   return (
-    <div className={style.navigation}>
+    <nav className={style.navigation}>
       {navLinks.map((link) => {
         return (
           <NavLink className={setActive} key={link.path} to={link.path}>
@@ -35,7 +35,7 @@ const Navigation = () => {
           </NavLink>
         );
       })}
-    </div>
+    </nav>
   );
 };
 
