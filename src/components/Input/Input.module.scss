@@ -1,3 +1,5 @@
+@import 'styles/variables.scss';
+
 .input {
   display: flex;
   position: relative;
@@ -6,7 +8,7 @@
 
   &:focus input,
   &:active input {
-    border: 1px solid var(--input-border-focus);
+    border: 1px solid $input-border-focus;
   }
 
   &__text {
@@ -16,14 +18,14 @@
     width: 100%;
     height: 52px;
     align-items: center;
-    gap: var(--space-xxs);
+    gap: $spacing-8;
 
-    border: 1px solid var(--input-border);
-    background: var(--input-bg);
-    padding: var(--space-s) var(--space-xs);
+    border: 1px solid $input-border;
+    background: $input-bg;
+    padding: $spacing-14 $spacing-12;
     outline: none;
 
-    color: var(--input-text);
+    color: $input-text;
     font-family: Roboto;
     font-size: 16px;
     font-style: normal;
@@ -37,17 +39,17 @@
 
     &:focus,
     &:active {
-      border: 1px solid var(--input-border-focus);
+      border: 1px solid $input-border-focus;
     }
 
     &::placeholder {
-      color: var(--input-placeholder);
+      color: $input-placeholder;
     }
   }
 
   &__icon {
     position: absolute;
-    right: var(--space-xs);
+    right: $spacing-12;
     top: 50%;
     transform: translateY(-50%);
   }

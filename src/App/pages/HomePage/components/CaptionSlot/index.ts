@@ -1,1 +1,1 @@
-export {default} from './CaptionSlot.tsx';
+export { default } from './CaptionSlot.tsx';

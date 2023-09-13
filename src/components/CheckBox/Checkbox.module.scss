@@ -5,15 +5,15 @@
     height: 40px;
     flex-shrink: 0;
     border: 1px solid var(--checkbox-border);
-    background: var(--checkbox-bg);
+    background: $checkbox-bg;
     cursor: pointer;
 
     &--disabled {
-      background: var(--checkbox-bg-disabled);
+      background: $checkbox-bg-disabled;
       pointer-events: none;
 
       svg path {
-        stroke: var(--checkbox-check-disabled);
+        stroke: $checkbox-check-disabled;
       }
     }
 

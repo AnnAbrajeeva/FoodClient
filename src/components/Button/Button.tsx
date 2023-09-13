@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import React from 'react';
+import { FC } from 'react';
 import Loader from '../Loader/Loader';
-import './Button.scss';
+import s from './Button.module.scss';
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /** Состояние загрузки */
@@ -9,27 +9,15 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /** Текст кнопки */
   children: React.ReactNode;
   className?: string;
-  onClick?: () => void;
+  onClick?: () => void | undefined;
 };
 
-const Button: React.FC<ButtonProps> = ({
-  children,
-  loading,
-  className,
-  onClick,
-  ...rest
-}) => {
-  const btnloadingClass = loading ? 'btn__loading' : '';
-  const btnClass = classNames('btn', className, btnloadingClass);
+const Button: FC<ButtonProps> = ({ children, loading, className, onClick, ...rest }) => {
+  const btnClass = classNames(s.btn, className && className, loading && s.btn__loading);
 
   return (
-    <button
-    onClick={!loading ? onClick : undefined}
-    className={btnClass}
-    disabled={rest.disabled || loading}
-    {...rest}
-    >
-      {loading ? <Loader data-testid="loader" size="s" className="loader--button" /> : null}
+    <button onClick={onClick} className={btnClass} disabled={rest.disabled || loading} {...rest}>
+      {loading ? <Loader size="s" className={s['loader--button']} /> : null}
       {children}
     </button>
   );

@@ -3,7 +3,6 @@ import Layout from '../components/Layout';
 import HomePage from './pages/HomePage/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SingleRecipe from './pages/SingleRecipe/SingleRecipe';
-import './App.scss';
 
 function App() {
   return (

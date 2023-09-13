@@ -1,1 +1,1 @@
-export {default} from './RecipesWrapper';
+export { default } from './RecipesWrapper';

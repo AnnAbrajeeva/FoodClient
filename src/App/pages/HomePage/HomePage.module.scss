@@ -1,3 +1,6 @@
+@import 'styles/variables.scss';
+@import 'styles/breakpoints.scss';
+
 .homepage {
   display: flex;
   flex-direction: column;
@@ -22,7 +25,7 @@
     left: 50%;
     transform: translateX(-50%);
 
-    @media (max-width: 760px) {
+    @include small-tablet {
       max-width: 200px;
       width: 100%;
     }
@@ -32,7 +35,7 @@
     max-width: 300px;
     margin-bottom: 48px;
     margin-left: auto;
-    border-radius: var(--border-radius);
+    border-radius: $border-radius;
     cursor: pointer;
   }
 }

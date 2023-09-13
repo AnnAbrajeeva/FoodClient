@@ -25,7 +25,7 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    "plugin:react/jsx-runtime"
+    'plugin:react/jsx-runtime',
   ],
   plugins: ['@typescript-eslint', 'import', 'prettier', 'react', 'react-hooks'],
   rules: {

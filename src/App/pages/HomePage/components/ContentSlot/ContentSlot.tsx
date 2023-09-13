@@ -1,22 +1,15 @@
-import { FC } from "react";
-import Text from "components/Text";
-import { Calory } from "../../types";
+import { FC } from 'react';
+import Text from 'components/Text';
+import { Calory } from 'utils/entityTypes';
 
 type ContentSlotProps = {
-    options: Calory[];
-}
+  options: Calory[];
+};
 
-const ContentSlot: FC<ContentSlotProps> = ({options}) => {
-  const calory = (options: Calory[]) => {
-    let caloryAmount = 0;
-    options.forEach((val) => {
-      if (val.name === 'Calories') {
-        caloryAmount = val.amount;
-      }
-    });
-    return caloryAmount;
-  };
-  return <Text tag="span" weight="bold" color="accent">{`${calory(options)} kcal`}</Text>;
+const ContentSlot: FC<ContentSlotProps> = ({ options }) => {
+  const caloryAmount = options.find((option) => option.name === 'Calories')?.amount || 0;
+
+  return <Text tag="span" weight="bold" color="accent">{`${caloryAmount} kcal`}</Text>;
 };
 
 export default ContentSlot;

@@ -1,37 +1,27 @@
+import classNames from 'classnames';
 import { FC } from 'react';
+import Dish from 'assets/img/dish.svg';
 import Text from 'components/Text';
+import { Ingredient } from 'utils/entityTypes';
 import RecipeIngredient from '../RecipeIngredient';
 import styles from './RecipeList.module.scss';
 
 type RecipeListProps = {
   title: string;
-  icon: string;
   extendedIngredients: Ingredient[];
+  className: string;
 };
 
-export type Ingredient = {
-    id: number,
-    aisle: string,
-    image: string,
-    consistency: string,
-    name: string,
-    nameClean: string,
-    original: string,
-    originalName: string,
-    amount: number,
-    unit: string,
-    meta: [],
-};
-
-const RecipeList: FC<RecipeListProps> = ({ title, icon, extendedIngredients }) => {
+const RecipeList: FC<RecipeListProps> = ({ title, extendedIngredients, className }) => {
+  const classes = classNames(styles['recipe-list'], styles[className])
   return (
-    <div className={styles["recipe-list"]}>
-      <Text weight="medium" view="p-20">
+    <div className={classes}>
+      <Text className={styles["recipe-list__title"]} weight="medium" view="p-20">
         {title}
       </Text>
       <div className={styles['recipe-list__ingred']}>
         {extendedIngredients.map((item, i) => (
-          <RecipeIngredient key={i} value={item.original} icon={icon} />
+          <RecipeIngredient key={i} value={item.original} icon={Dish} />
         ))}
       </div>
     </div>

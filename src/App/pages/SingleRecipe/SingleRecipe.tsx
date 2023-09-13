@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Dish from 'assets/img/dish.svg';
-import Equipment from 'assets/img/equipment.svg';
 import Button from 'components/Button';
+import Container from 'components/Container';
 import Loader from 'components/Loader';
 import Text from 'components/Text';
-import { api, API_KEY } from '../../../api/api';
+import Arrow from 'components/icons/Arrow';
+import { RecipeFull } from 'utils/entityTypes';
+import { goBack } from 'utils/goBackToPrevPage';
+import { api, API_KEY } from '../../../config/api/api';
 import Directions from './components/Directions';
 import RecipeEquip from './components/RecipeEquip';
 import RecipeList from './components/RecipeList';
 import RecipeParam from './components/RecipeParam';
-import { RecipeFull } from './types';
 import styles from './SingleResipe.module.scss';
 
 const SingleRecipe = () => {
@@ -36,44 +37,30 @@ const SingleRecipe = () => {
     getRecipe();
   }, [id]);
 
-  const goBack = () => {
-    if (window.history.state && window.history.state.idx > 0) {
-      navigate(-1);
-    } else {
-      navigate('/', { replace: true });
-    }
-  };
-
   const preparation =
     recipe?.preparationMinutes && recipe.preparationMinutes > 0 ? `${recipe.preparationMinutes} minutes` : 'unknown';
 
   const cooking = recipe?.cookingMinutes && recipe.cookingMinutes > 0 ? `${recipe.cookingMinutes} minutes` : 'unknown';
 
-  const totalReady = recipe?.readyInMinutes ? `${recipe?.readyInMinutes} minutes` : 'unknown';
+  const totalReady = recipe?.readyInMinutes ? `${recipe.readyInMinutes} minutes` : 'unknown';
 
-  const likes = recipe?.aggregateLikes ? `${recipe?.aggregateLikes} likes` : 'unknown';
+  const likes = recipe?.aggregateLikes ? `${recipe.aggregateLikes} likes` : 'unknown';
 
-  const serving = recipe?.servings ? `${recipe?.servings} serving` : 'unknown';
+  const serving = recipe?.servings ? `${recipe.servings} serving` : 'unknown';
+
+  const hasBorder = (recipe && recipe.extendedIngredients.length > 0 && recipe.analyzedInstructions.length > 0) ? "recipe-list--border" : '';
+
 
   return (
     <div className={styles.recipe}>
-      <div className="container">
+      <Container>
         {isLoading ? (
-          <Loader size={'l'} />
+          <Loader size='l' />
         ) : (
           <>
             <div className={styles.recipe__title}>
-              <Button onClick={goBack} className={styles.recipe__back}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                  <path
-                    d="M20.1201 26.56L11.4268 17.8667C10.4001 16.84 10.4001 15.16 11.4268 14.1333L20.1201 5.44"
-                    stroke="#B5460F"
-                    strokeWidth="2"
-                    strokeMiterlimit="10"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+              <Button onClick={() => goBack(navigate)} className={styles.recipe__back}>
+               <Arrow width={32} height={32} color='#B5460F' />
               </Button>
               <Text weight="bold" view="title">
                 {recipe?.title}
@@ -81,7 +68,7 @@ const SingleRecipe = () => {
             </div>
             <div className={styles.recipe__header}>
               <div className={styles.recipe__img}>
-                <img src={recipe?.image} alt="Pancake" />
+                <img src={recipe?.image} alt={recipe?.title} />
               </div>
               <div className={styles.recipe__params}>
                 <RecipeParam title="Preparation" param={preparation} />
@@ -98,17 +85,17 @@ const SingleRecipe = () => {
 
             <div className={styles.recipe__products}>
               {recipe?.extendedIngredients && (
-                <RecipeList title="Ingredients" icon={Dish} extendedIngredients={recipe.extendedIngredients} />
+                <RecipeList className={hasBorder} title="Ingredients" extendedIngredients={recipe.extendedIngredients} />
               )}
               {recipe?.extendedIngredients && (
-                <RecipeEquip title="Equipment" icon={Equipment} equipments={recipe.analyzedInstructions} />
+                <RecipeEquip title="Equipment" equipments={recipe.analyzedInstructions} />
               )}
             </div>
 
-            {recipe && recipe.analyzedInstructions && <Directions steps={recipe.analyzedInstructions} />}
+            {recipe?.analyzedInstructions && <Directions steps={recipe.analyzedInstructions} />}
           </>
         )}
-      </div>
+      </Container>
     </div>
   );
 };

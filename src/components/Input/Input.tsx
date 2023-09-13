@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import React from 'react';
-import './Input.scss';
+import { forwardRef } from 'react';
+import s from './Input.module.scss';
 
 export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> & {
   /** Значение поля */
@@ -12,11 +12,11 @@ export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onCh
 };
 
 // eslint-disable-next-line react/display-name
-const Input = React.forwardRef<HTMLInputElement, InputProps>(({ value, onChange, afterSlot, ...rest }) => {
-  const classes = classNames('input__text', rest.className);
+const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, afterSlot, ...rest }) => {
+  const classes = classNames(s.input__text, rest.className);
 
   return (
-    <div className='input'>
+    <div className={s.input}>
       <input
         {...rest}
         className={classes}
@@ -26,7 +26,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ value, onChange,
         type="text"
         disabled={rest.disabled}
       />
-      {afterSlot && <div className="input__icon">{afterSlot}</div>}
+      {afterSlot && <div className={s.input__icon}>{afterSlot}</div>}
     </div>
   );
 });

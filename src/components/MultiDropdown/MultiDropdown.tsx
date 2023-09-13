@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Input from '../Input/Input';
 import ArrowDownIcon from '../icons/ArrowDownIcon';
 import DropdownItem from './DropdownItem';
-import './MultiDropDown.scss';
+import s from './MultiDropDown.module.scss';
 
 export type Option = {
   /** Ключ варианта, используется для отправки на бек/использования в коде */
@@ -42,13 +42,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [filteredOptions, setFilteredOptions] = useState(options);
 
-  const disableClass = disabled ? 'disable' : '';
-  const classes = classNames(
-    'dropdown',
-    isOpen ? 'open' : '',
-    disableClass,
-    className
-  );
+  const classes = classNames(s.dropdown, isOpen && s['dropdown--open'], disabled && s['dropdown--disable'], className);
 
   useEffect(() => {
     setFilteredOptions(options);
@@ -56,7 +50,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (isOpen && !(ref.current.contains(event.target))) {
+      if (isOpen && !ref.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
@@ -70,9 +64,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 
   const handleInputChange = (value: string) => {
     const inputValue = value.toLowerCase();
-    const filtered = options.filter((option) =>
-      option.value.toLowerCase().includes(inputValue)
-    );
+    const filtered = options.filter((option) => option.value.toLowerCase().includes(inputValue));
     setFilteredOptions(filtered);
   };
 
@@ -97,25 +89,20 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 
   return (
     <div ref={ref} className={classes}>
-      <Input       
+      <Input
         {...rest}
         className={className}
         onClick={handleDropdown}
-        afterSlot={<ArrowDownIcon />}
+        afterSlot={<ArrowDownIcon color='secondary' />}
         value={!isOpen && value.length ? getTitle(value) : ''}
         onChange={(e) => handleInputChange(e)}
         placeholder={isOpen ? getTitle(value) : 'Categories'}
         disabled={disabled}
       />
-      {(isOpen && !disabled) && (
-        <div className="dropdown__box">
+      {isOpen && !disabled && (
+        <div className={s.dropdown__box}>
           {filteredOptions.map((item: Option) => (
-            <DropdownItem
-              selected={value}
-              onChange={selectItem}
-              key={item.key}
-              value={item}
-            />
+            <DropdownItem selected={value} onChange={selectItem} key={item.key} value={item} />
           ))}
         </div>
       )}

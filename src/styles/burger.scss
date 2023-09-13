@@ -1,4 +1,4 @@
-@import "assets/styles/breakpoints.scss";
+@import "styles/breakpoints.scss";
 
 @mixin burger {
   --burger-width: 30px;
@@ -20,7 +20,7 @@
     background: transparent;
   }
 
-  @media (max-width: 860px) {
+  @include size-830 {
     display: block;
   }
 
@@ -31,7 +31,7 @@
     left: 0;
     width: 100%;
     height: var(--burger-line-height);
-    background-color: var(--brand);
+    background-color: $brand;
     transition:
       transform 0.3s ease-in-out,
       top 0.3s ease-in-out;
@@ -51,7 +51,7 @@
     top: 50%;
     width: 100%;
     height: var(--burger-line-height);
-    background-color: var(--brand);
+    background-color: $brand;
     transform: translateY(-50%);
     transition: transform 0.3s ease-in-out;
   }

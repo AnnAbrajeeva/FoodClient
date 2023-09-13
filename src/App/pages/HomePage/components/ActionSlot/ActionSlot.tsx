@@ -1,10 +1,7 @@
-import Button from "components/Button";
+import { memo } from 'react';
+import Button from 'components/Button';
 import styles from './ActionSlot.module.scss';
 
-const ActionSlot = () => {
-    return (
-        <Button className={styles["action-btn"]}>Save</Button>
-    )
-}
+const ActionSlot = () => <Button className={styles['action-btn']}>Save</Button>;
 
-export default ActionSlot;
+export default memo(ActionSlot);

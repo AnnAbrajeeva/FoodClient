@@ -9,7 +9,7 @@ type BurgerProps = {
 };
 
 const Burger: FC<BurgerProps> = ({ onChange, isOpen }) => {
-  const classes = classNames(styles.burger, isOpen ? styles["burger--active"] : '')
+  const classes = classNames(styles.burger, isOpen && styles['burger--active']);
   return (
     <Button onClick={onChange} className={classes}>
       <span className={styles.burger__line}></span>

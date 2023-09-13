@@ -1,3 +1,5 @@
+@import 'styles/variables.scss';
+
 .action-btn {
-    border-radius: var(--border-radius);
+  border-radius: $border-radius;
 }

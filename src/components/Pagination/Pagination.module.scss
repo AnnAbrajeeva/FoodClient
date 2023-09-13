@@ -1,8 +1,11 @@
+@import 'styles/variables.scss';
+@import 'styles/breakpoints.scss';
+
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  flex-wrap: wrap;
 
   &__next {
     transform: scale(-1, -1);
@@ -10,7 +13,7 @@
 
   &__btn {
     background: none;
-    border-radius: var(--border-radius);
+    border-radius: $border-radius;
     transition: all 0.3s linear;
 
     &:disabled {
@@ -21,7 +24,7 @@
 
   &__num {
     padding: 10px 15px;
-    color: var(--text-primary);
+    color: $text-primary;
     font-family: Roboto;
     font-size: 18px;
     font-style: normal;
@@ -31,14 +34,14 @@
     transition: all 0.3s linear;
 
     &:hover {
-        background: var(--button-primary-bg-hover);
-        padding: 10px 15px;
+      background: $button-primary-bg-hover;
+      padding: 10px 15px;
     }
 
     &--active {
-        padding: 10px 15px;
-        background: var(--brand);
-        color: #fff;
+      padding: 10px 15px;
+      background: $brand;
+      color: #fff;
     }
   }
 

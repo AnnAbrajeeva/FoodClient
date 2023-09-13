@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import Text from '../Text/Text';
-import './Card.scss';
+import s from './Card.module.scss';
 
 export type CardProps = {
   /** Дополнительный classname */
@@ -30,17 +30,17 @@ const Card: React.FC<CardProps> = ({
   subtitle,
   contentSlot,
   onClick,
-  actionSlot
+  actionSlot,
 }) => {
-  const classes = classNames('card', className);
+  const classes = classNames(s.card, className && className);
   return (
     <div onClick={onClick} className={classes}>
-      <div className="card__img">
+      <div className={s.card__img}>
         <img src={image} alt="product" />
       </div>
 
-      <div className="card__content">
-        <div className="card__descr">
+      <div className={s.card__content}>
+        <div className={s.card__descr}>
           {captionSlot && (
             <Text weight="medium" color="secondary" view="p-14">
               {captionSlot}
@@ -53,22 +53,15 @@ const Card: React.FC<CardProps> = ({
             {subtitle}
           </Text>
         </div>
-
-        
       </div>
-      <div className="card__footer">
-          {contentSlot && (
-            <Text
-              className="card__price"
-              weight="bold"
-              color="primary"
-              view="p-18"
-            >
-              {contentSlot}
-            </Text>
-          )}
-          <div className="card__action">{actionSlot}</div>
-        </div>
+      <div className={s.card__footer}>
+        {contentSlot && (
+          <Text className={s.card__price} weight="bold" color="primary" view="p-18">
+            {contentSlot}
+          </Text>
+        )}
+        <div className={s.card__action}>{actionSlot}</div>
+      </div>
     </div>
   );
 };

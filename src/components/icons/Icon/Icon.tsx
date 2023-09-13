@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FC } from "react";
 
 export type IconProps = React.SVGAttributes<SVGElement> & {
   className?: string;
@@ -7,10 +7,7 @@ export type IconProps = React.SVGAttributes<SVGElement> & {
   height?: number;
 };
 
-const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
-  children
-}) => {
-    
+const Icon: FC<React.PropsWithChildren<IconProps>> = ({ children }) => {
   return <div>{children}</div>;
 };
 

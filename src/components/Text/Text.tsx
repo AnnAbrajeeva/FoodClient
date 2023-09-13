@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import './Text.scss';
+import s from './Text.module.scss';
 
 export type TextProps = {
   /** Дополнительный класс */
@@ -19,33 +19,20 @@ export type TextProps = {
   maxLines?: number;
 };
 
-const Text: React.FC<TextProps> = ({
-  className,
-  view,
-  tag,
-  weight,
-  children,
-  color,
-  maxLines,
-  ...rest
-}) => {
+const Text: React.FC<TextProps> = ({ className, view, tag, weight, children, color, maxLines, ...rest }) => {
   const Element = tag ? tag : 'p';
 
-  const weightText = {
-    normal: 400,
-    medium: 600,
-    bold: 700
-  }
+  const colorClass = color && s[`text--${color}`];
+  const weightClass = weight && s[`text--${weight}`];
+  const viewClass = view && s[`text__view-${view}`]
 
   const styles = {
-    fontWeight: weight ? weightText[weight] : 400,
-    color: color ? `var(--text-${color})` : 'inherit',
     lineClamp: maxLines,
     WebkitLineClamp: maxLines,
-    overflow: maxLines ? 'hidden': 'initial'
+    overflow: maxLines ? 'hidden' : 'initial',
   };
 
-  const classes = classNames('text', className, view && `text__view-${view}`);
+  const classes = classNames(s.text, viewClass, colorClass, weightClass, className);
 
   return (
     <Element className={classes} style={styles} {...rest}>

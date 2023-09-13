@@ -1,12 +1,11 @@
 import classNames from 'classnames';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import Arrow from 'assets/img/arrow.svg';
 import Button from 'components/Button';
+import { createPagination } from 'utils/createPagination';
 import styles from './Pagination.module.scss';
 
 type PaginationProps = {
-  getNextPage: () => void;
-  getPrevPage: () => void;
   onChange: (num: number) => void;
   disable?: {
     left: boolean;
@@ -17,46 +16,31 @@ type PaginationProps = {
   perPage: number;
 };
 
-const Pagination: FC<PaginationProps> = ({ getNextPage, getPrevPage, onChange, disable, current, total }) => {
-  const isActive = (num: number | string) => {
-    let className = '';
-    if (num === current) {
-      className = styles['pagination__num--active'];
-    }
-    return className;
-  };
+const Pagination: FC<PaginationProps> = ({ onChange, disable, current, total }) => {
+  const isActive = (num: number | string) => num === current;
 
-  const pageArr = (): (number | string)[] => {
-    const arr = [];
-    if (total < 7) {
-      for (let i = 1; i <= total; i++) {
-        arr.push(i);
-      }
-      return arr;
-    }
+  const getPrevPage = useCallback(() => {
+    const prev = current - 1;
+    onChange(prev > 0 ? prev : current);
+  }, [current, onChange]);
 
-    for (let i = 1; i <= 3; i++) {
-      arr.push(i);
-    }
+  const getNextPage = useCallback(() => {
+    const next = current + 1;
+    onChange(next <= total ? next : current);
+  }, [current, onChange, total]);
 
-    arr.push('...');
+  
 
-    for (let i = total - 2; i <= total; i++) {
-      arr.push(i);
-    }
-
-    return arr;
-  };
   return (
     <div className={styles.pagination}>
       <Button disabled={disable?.left} onClick={getPrevPage} className={styles.pagination__btn}>
         <img className={styles.pagination__next} src={Arrow} alt="Prev page" />
       </Button>
-      {pageArr().map((num) => (
+      {createPagination(total, current).map((num, i) => (
         <p
           onClick={typeof num === 'number' ? () => onChange(num) : () => {}}
-          className={classNames(styles.pagination__num, isActive(num))}
-          key={num}
+          className={classNames(styles.pagination__num, isActive(num) && styles['pagination__num--active'])}
+          key={i}
         >
           {num}
         </p>
@@ -69,3 +53,4 @@ const Pagination: FC<PaginationProps> = ({ getNextPage, getPrevPage, onChange, d
 };
 
 export default Pagination;
+

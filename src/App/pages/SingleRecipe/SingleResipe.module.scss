@@ -1,3 +1,6 @@
+@import "styles/variables.scss";
+@import "styles/breakpoints.scss";
+
 .recipe {
   padding-top: 49px;
   padding-bottom: 53px;
@@ -7,6 +10,10 @@
     align-items: center;
     gap: 16px;
     margin-bottom: 37px;
+
+    @include small-tablet {
+      font-size: 30px;
+    }
   }
 
   &__back {
@@ -22,10 +29,17 @@
     display: flex;
     gap: 166px;
     margin-bottom: 48px;
+
+    @include small-desktop {
+      flex-wrap: wrap;
+      gap: 50px;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   &__img {
-    border-radius: var(--border-radius);
+    border-radius: $border-radius;
     overflow: hidden;
     max-width: 450px;
     max-height: 300px;
@@ -44,10 +58,14 @@
     align-self: center;
     row-gap: 50px;
     column-gap: 100px;
+
+    @include small-mobile {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &__descr {
-    border-radius: var(--border-radius);
+    border-radius: $border-radius;
     background: rgba(181, 70, 15, 0.33);
     padding: 36px;
     margin-bottom: 48px;
@@ -59,12 +77,8 @@
     line-height: 20px; /* 125% */
   }
 
-  &__ingredients {
-    border-right: 1px solid red;
-  }
-
   &__ingred-list {
-    margin-top: var(--space-xl);
+    margin-top: $spacing-24;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
@@ -72,8 +86,11 @@
   &__products {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
     gap: 40px;
     margin-bottom: 48px;
+
+    @include size-950 {
+      flex-wrap: wrap;
+    }
   }
 }

@@ -12,7 +12,7 @@ type SearchProps = {
 const Search = ({ value, onChange }: SearchProps) => {
   return (
     <div className={styles.search}>
-      <Text className={styles.search__text} view="p-20">
+      <Text className={styles["search__text"]} view="p-20">
         Find the perfect food and <span className={styles['search__text-underline']}>drink ideas</span> for every
         occasion, from <span className={styles['search__text-underline']}>weeknight dinners</span> to{' '}
         <span className={styles['search__text-underline']}>holiday feasts</span>.

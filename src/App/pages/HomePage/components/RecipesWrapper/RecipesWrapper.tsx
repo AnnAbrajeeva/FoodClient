@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import Card from 'components/Card';
-import { Ingredient, Recipe } from '../../types';
+import { Ingredient, Recipe } from 'utils/entityTypes';
 
 import ActionSlot from '../ActionSlot';
 import CaptionSlot from '../CaptionSlot';
@@ -19,23 +19,22 @@ const RecipesWrapper: FC<RecipesWrapperProps> = ({ recipes }) => {
 
   return (
     <div className={styles['recipes-wrapper']}>
-      {recipes.map((recipe) => (
-        <Link key={recipe.id} to={`recipe/${recipe.id}`}>
+      {recipes.map(({ id, cookingMinutes, readyInMinutes, nutrition, title, image }) => (
+        <Link key={id} to={`recipe/${id}`}>
           <Card
             className={styles['recipes-wrapper__card']}
             captionSlot={
-              recipe.cookingMinutes && recipe.cookingMinutes >= 1 ? (
-                <CaptionSlot text={recipe.cookingMinutes} />
+              cookingMinutes && cookingMinutes >= 1 ? (
+                <CaptionSlot timeToPrepare={cookingMinutes} />
               ) : (
-                <CaptionSlot text={recipe.readyInMinutes} />
+                <CaptionSlot timeToPrepare={readyInMinutes} />
               )
             }
-            contentSlot={<ContentSlot options={recipe.nutrition.nutrients} />}
+            contentSlot={<ContentSlot options={nutrition.nutrients} />}
             actionSlot={<ActionSlot />}
-            subtitle={recipe.nutrition.ingredients ? getProducts(recipe.nutrition.ingredients) : ''}
-            title={recipe.title}
-            image={recipe.image}
-            
+            subtitle={nutrition.ingredients ? getProducts(nutrition.ingredients) : ''}
+            title={title}
+            image={image}
           />
         </Link>
       ))}

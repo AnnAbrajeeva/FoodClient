@@ -1,10 +1,12 @@
+@import 'styles/variables.scss';
+
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-xxs);
-  padding: var(--space-s) var(--space-l);
-  background: var(--button-primary-bg);
+  gap: $spacing-8;
+  padding: $spacing-14 $spacing-20;
+  background: $button-primary-bg;
   border: none;
   color: var(--button-primary-text, #fff);
   font-family: Roboto;
@@ -15,23 +17,21 @@
   transition: all 0.3s linear;
   cursor: pointer;
 
- 
-
   &:hover {
-    background: var(--button-primary-bg-hover);
+    background: $button-primary-bg-hover;
     outline: none;
-  } 
-  
+  }
+
   &__loading:hover {
-    background: var(--brand);
+    background: $brand;
   }
 
   &:disabled {
-    background: var(--button-primary-bg-disabled);
+    background: $button-primary-bg-disabled;
     pointer-events: none;
   }
 
   &:active {
-    background: var(--button-primary-bg-active);
+    background: $button-primary-bg-active;
   }
 }

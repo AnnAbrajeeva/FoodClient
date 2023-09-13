@@ -1,24 +1,48 @@
+@import "styles/variables.scss";
+@import "styles/breakpoints.scss";
+
 .recipe-list {
   position: relative;
   padding-right: 30px;
-  border-right: 1px solid var(--brand);
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: -10px;
-    right: -4px;
-    width: 7px;
-    height: 7px;
-    border-radius: 100%;
-    background-color: var(--brand);
+  &--border {
+    border-right: 1px solid $brand;
+
+    @include size-950 {
+      border-right: none;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: -10px;
+      right: -4px;
+      width: 7px;
+      height: 7px;
+      border-radius: 100%;
+      background-color: $brand;
+
+      @include size-950 {
+        display: none;
+      }
+    }
+  }
+
+  &__title {
+    @include mobile {
+      text-align: center;
+    }
   }
 
   &__ingred {
-    margin-top: var(--space-xl);
+    margin-top: $spacing-24;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 40px;
     row-gap: 16px;
+
+    @include mobile {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 }
