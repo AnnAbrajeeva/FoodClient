@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import MultiDropdown, { MultiDropdownProps, Option } from './MultiDropdown';
 
 const OPTIONS = [
@@ -30,7 +30,7 @@ export default {
 };
 
 export const Default = (props: MultiDropdownProps) => {
-  const [value, setValue] = React.useState<Option[]>(Array.isArray(props.value) ? props.value : []);
+  const [value, setValue] = useState<Option[]>(Array.isArray(props.value) ? props.value : []);
 
   return (
     <MultiDropdown

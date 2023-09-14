@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 export type IconProps = React.SVGAttributes<SVGElement> & {
   className?: string;

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { IconProps } from '../Icon';
 import Icon from '../Icon/Icon';
-import s from './CheckIcon.module.scss'
+import s from './CheckIcon.module.scss';
 
 const CheckIcon: React.FC<IconProps> = ({ color, className, width, height, ...rest }) => {
   const iconColor = color && s[`icon--${color}`];

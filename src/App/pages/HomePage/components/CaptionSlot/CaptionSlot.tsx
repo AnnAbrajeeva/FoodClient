@@ -13,7 +13,7 @@ const CaptionSlot: FC<CaptionSlotProps> = ({ timeToPrepare }) => {
   return (
     <span className={styles.caption}>
       <img src={Time} alt="time to prepare" />
-      <Text tag="span" color='secondary' view="p-14">
+      <Text tag="span" color="secondary" view="p-14">
         {value}
       </Text>
     </span>

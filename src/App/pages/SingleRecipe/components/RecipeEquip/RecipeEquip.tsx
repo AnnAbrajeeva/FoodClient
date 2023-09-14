@@ -11,11 +11,15 @@ type RecipeEquipProps = {
 };
 
 const RecipeEquip: FC<RecipeEquipProps> = ({ title, equipments }) => {
-  const steps = useMemo(() => equipments[0].steps.map((step) => step.equipment), [equipments[0].steps]);
+  const steps = useMemo(() => equipments[0].steps.map((step) => step.equipment), [equipments[0].steps, equipments]);
 
-  const equip = useMemo(() => steps.map((item) => {
-    return item.map((val) => val.name);
-  }), [steps]);
+  const equip = useMemo(
+    () =>
+      steps.map((item) => {
+        return item.map((val) => val.name);
+      }),
+    [steps],
+  );
 
   const arr = Array.from(new Set(equip.reduce((acc, item) => acc.concat(item))));
 

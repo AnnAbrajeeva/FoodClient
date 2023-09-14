@@ -13,10 +13,10 @@ type RecipeListProps = {
 };
 
 const RecipeList: FC<RecipeListProps> = ({ title, extendedIngredients, className }) => {
-  const classes = classNames(styles['recipe-list'], styles[className])
+  const classes = classNames(styles['recipe-list'], styles[className]);
   return (
     <div className={classes}>
-      <Text className={styles["recipe-list__title"]} weight="medium" view="p-20">
+      <Text className={styles['recipe-list__title']} weight="medium" view="p-20">
         {title}
       </Text>
       <div className={styles['recipe-list__ingred']}>

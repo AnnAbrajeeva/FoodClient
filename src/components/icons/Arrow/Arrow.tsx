@@ -1,12 +1,12 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 type ArrowProps = {
-    width: number;
-    height: number;
-    color: string;
-}
+  width: number;
+  height: number;
+  color: string;
+};
 
-const Arrow: FC<ArrowProps> = ({width, height, color}) => {
+const Arrow: FC<ArrowProps> = ({ width, height, color }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 32 32" fill="none">
       <path

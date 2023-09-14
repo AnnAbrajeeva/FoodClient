@@ -24,7 +24,7 @@ const Text: React.FC<TextProps> = ({ className, view, tag, weight, children, col
 
   const colorClass = color && s[`text--${color}`];
   const weightClass = weight && s[`text--${weight}`];
-  const viewClass = view && s[`text__view-${view}`]
+  const viewClass = view && s[`text__view-${view}`];
 
   const styles = {
     lineClamp: maxLines,

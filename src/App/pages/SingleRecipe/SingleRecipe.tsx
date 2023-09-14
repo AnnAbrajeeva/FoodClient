@@ -48,19 +48,21 @@ const SingleRecipe = () => {
 
   const serving = recipe?.servings ? `${recipe.servings} serving` : 'unknown';
 
-  const hasBorder = (recipe && recipe.extendedIngredients.length > 0 && recipe.analyzedInstructions.length > 0) ? "recipe-list--border" : '';
-
+  const hasBorder =
+    recipe && recipe.extendedIngredients.length > 0 && recipe.analyzedInstructions.length > 0
+      ? 'recipe-list--border'
+      : '';
 
   return (
     <div className={styles.recipe}>
       <Container>
         {isLoading ? (
-          <Loader size='l' />
+          <Loader size="l" />
         ) : (
           <>
             <div className={styles.recipe__title}>
               <Button onClick={() => goBack(navigate)} className={styles.recipe__back}>
-               <Arrow width={32} height={32} color='#B5460F' />
+                <Arrow width={32} height={32} color="#B5460F" />
               </Button>
               <Text weight="bold" view="title">
                 {recipe?.title}
@@ -85,7 +87,11 @@ const SingleRecipe = () => {
 
             <div className={styles.recipe__products}>
               {recipe?.extendedIngredients && (
-                <RecipeList className={hasBorder} title="Ingredients" extendedIngredients={recipe.extendedIngredients} />
+                <RecipeList
+                  className={hasBorder}
+                  title="Ingredients"
+                  extendedIngredients={recipe.extendedIngredients}
+                />
               )}
               {recipe?.extendedIngredients && (
                 <RecipeEquip title="Equipment" equipments={recipe.analyzedInstructions} />

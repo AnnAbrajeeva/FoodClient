@@ -10,7 +10,8 @@ type MobileNavProps = {
 };
 
 const MobileNav: FC<MobileNavProps> = ({ closeNav, isOpen }) => {
-  const setActive = ({ isActive }: { isActive: boolean }): string => (isActive ? style['navigation__link--active'] : style['navigation__link']);
+  const setActive = ({ isActive }: { isActive: boolean }): string =>
+    isActive ? style['navigation__link--active'] : style['navigation__link'];
   const classes = classNames(style.navigation, isOpen ? style['navigation--open'] : '');
   return (
     <>

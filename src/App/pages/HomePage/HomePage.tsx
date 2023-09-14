@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import HeroBg from 'assets/img/hero-bg.jpg';
 import HeroText from 'assets/img/hero-text.svg';
@@ -5,9 +6,12 @@ import Container from 'components/Container';
 import Loader from 'components/Loader';
 import MultiDropdown, { Option } from 'components/MultiDropdown';
 import Pagination from 'components/Pagination';
-import { api, API_KEY } from 'config/api/api';
-import { Recipe } from 'utils/entityTypes';
+import Text from 'components/Text';
+import { API_KEY } from 'config/api/api';
+import RecipesStore from 'store/RecipesStore';
 import { getPageCount } from 'utils/getPageCount';
+import { Meta } from 'utils/meta';
+import { useLocalStore } from 'utils/useLocalStore';
 import RecipesWrapper from './components/RecipesWrapper';
 import Search from './components/Search';
 import styles from './HomePage.module.scss';
@@ -17,37 +21,24 @@ const ITEMS_PER_PAGE = 9;
 const HomePage = () => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<Option[]>([]);
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
 
   const offset = (page - 1) * ITEMS_PER_PAGE + 1;
 
+  const recipesStore = useLocalStore(() => new RecipesStore());
+
   useEffect(() => {
-    async function getAllRecipes() {
-      try {
-        setIsLoading(true);
-
-        const res = await api.get(
-          `recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&offset=${offset}&number=${ITEMS_PER_PAGE}&limitLicense=true`,
-        );
-
-        const totalPages = getPageCount(res.data.totalResults, ITEMS_PER_PAGE);
-
-        setTotal(totalPages);
-        setRecipes(res.data.results);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-
-        if (error instanceof Error) {
-          throw new Error(error.message);
-        }
+    try {
+      recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, apiKey: API_KEY });
+      const totalPages = getPageCount(recipesStore.totalRecipe, ITEMS_PER_PAGE);
+      setTotal(totalPages);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
       }
     }
-    getAllRecipes();
-  }, [page, offset]);
+  }, [offset, recipesStore]);
 
   const changePage = (newPage: number) => {
     setPage(newPage);
@@ -73,8 +64,8 @@ const HomePage = () => {
         <img className={styles.homepage__img} src={HeroBg} alt="Food" />
         <img className={styles['homepage__hero-text']} src={HeroText} alt="Recipes" />
       </div>
-      {isLoading ? (
-        <Loader size='l' />
+      {recipesStore.meta === Meta.loading ? (
+        <Loader size="l" />
       ) : (
         <Container>
           <Search value={search} onChange={setSearch} />
@@ -85,18 +76,22 @@ const HomePage = () => {
             value={category}
             onChange={setCategory}
           />
-          {recipes && <RecipesWrapper recipes={recipes} />}
-          <Pagination
-            onChange={changePage}
-            current={page}
-            total={total}
-            perPage={ITEMS_PER_PAGE}
-            disable={{ left: page === 1, right: page === total }}
-          />
+          {recipesStore.list ? (
+            <>
+              <RecipesWrapper recipes={recipesStore.list} />
+              <Pagination
+                onChange={changePage}
+                current={page}
+                total={total}
+                perPage={ITEMS_PER_PAGE}
+                disable={{ left: page === 1, right: page === total }}
+              />
+            </>
+          ) : <Text view='title' weight='bold'>Recipes not found</Text>}
         </Container>
       )}
     </div>
   );
 };
 
-export default HomePage;
+export default observer(HomePage);
