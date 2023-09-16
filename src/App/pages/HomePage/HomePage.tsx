@@ -5,8 +5,8 @@ import HeroText from 'assets/img/hero-text.svg';
 import Container from 'components/Container';
 import Loader from 'components/Loader';
 import MultiDropdown, { Option } from 'components/MultiDropdown';
+import NotFound from 'components/NotFound';
 import Pagination from 'components/Pagination';
-import Text from 'components/Text';
 import { API_KEY } from 'config/api/api';
 import RecipesStore from 'store/RecipesStore';
 import { getPageCount } from 'utils/getPageCount';
@@ -22,23 +22,16 @@ const HomePage = () => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<Option[]>([]);
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
 
   const offset = (page - 1) * ITEMS_PER_PAGE + 1;
 
   const recipesStore = useLocalStore(() => new RecipesStore());
 
   useEffect(() => {
-    try {
-      recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, apiKey: API_KEY });
-      const totalPages = getPageCount(recipesStore.totalRecipe, ITEMS_PER_PAGE);
-      setTotal(totalPages);
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(error.message);
-      }
-    }
+    recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, apiKey: API_KEY, search });
   }, [offset, recipesStore]);
+
+  const totalPages = getPageCount(recipesStore.totalRecipe, ITEMS_PER_PAGE);
 
   const changePage = (newPage: number) => {
     setPage(newPage);
@@ -58,6 +51,7 @@ const HomePage = () => {
   const getTitle = (arr: Option[]) => {
     return Object.values(arr).join('');
   };
+
   return (
     <div className={styles.homepage}>
       <div className={styles.homepage__hero}>
@@ -76,18 +70,20 @@ const HomePage = () => {
             value={category}
             onChange={setCategory}
           />
-          {recipesStore.list ? (
+          {recipesStore.list.length > 0 ? (
             <>
               <RecipesWrapper recipes={recipesStore.list} />
               <Pagination
                 onChange={changePage}
                 current={page}
-                total={total}
+                total={totalPages}
                 perPage={ITEMS_PER_PAGE}
-                disable={{ left: page === 1, right: page === total }}
+                disable={{ left: page === 1, right: page === totalPages }}
               />
             </>
-          ) : <Text view='title' weight='bold'>Recipes not found</Text>}
+          ) : (
+            <NotFound />
+          )}
         </Container>
       )}
     </div>

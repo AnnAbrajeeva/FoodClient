@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import Text from 'components/Text';
-import { RecipeInstruction } from 'utils/entityTypes';
+import { RecipeInstructionModel } from 'store/RecipeFullStore/models/recipe';
 import Step from '../Step';
 import styles from './Directions.module.scss';
 
 type DirectionsProps = {
-  steps: RecipeInstruction[];
+  steps: RecipeInstructionModel[];
 };
 
 const Directions: FC<DirectionsProps> = ({ steps }) => {

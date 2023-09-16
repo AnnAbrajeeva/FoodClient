@@ -12,13 +12,14 @@ export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onCh
 };
 
 // eslint-disable-next-line react/display-name
-const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, afterSlot, ...rest }) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, afterSlot, ...rest }, ref) => {
   const classes = classNames(s.input__text, rest.className);
 
   return (
     <div className={s.input}>
       <input
         {...rest}
+        ref={ref}
         className={classes}
         onChange={(e) => onChange(e.target.value)}
         value={value}

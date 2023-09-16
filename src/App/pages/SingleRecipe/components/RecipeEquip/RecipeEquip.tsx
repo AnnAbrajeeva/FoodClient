@@ -1,13 +1,13 @@
 import { FC, useMemo } from 'react';
 import Equipment from 'assets/img/equipment.svg';
 import Text from 'components/Text';
-import { RecipeInstruction } from 'utils/entityTypes';
+import { RecipeInstructionModel } from 'store/RecipeFullStore/models/recipe';
 import RecipeIngredient from '../RecipeIngredient';
 import styles from './RecipeEquip.module.scss';
 
 type RecipeEquipProps = {
   title: string;
-  equipments: RecipeInstruction[];
+  equipments: RecipeInstructionModel[];
 };
 
 const RecipeEquip: FC<RecipeEquipProps> = ({ title, equipments }) => {

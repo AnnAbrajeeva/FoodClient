@@ -1,14 +1,20 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
-import { api } from 'config/api/api';
+import { RecipeModel, normalizeRecipe } from 'store/RecipesStore/models/recipe';
 import { GetRecipesApiResponse, GetRecipesParams } from 'store/RecipesStore/types';
-import { Recipe } from 'utils/entityTypes';
+import { fetchApi } from 'utils/apiResponse';
 import { Meta } from 'utils/meta';
 import { ILocalStore } from 'utils/useLocalStore';
+import {
+  CollectionModel,
+  getInitialCollectionModel,
+  linearizeCollection,
+  normalizeCollection,
+} from './models/shared/collection';
 
 type PrivateFields = '_list' | '_meta' | '_totalRecipe';
 
 export default class RecipesStore implements ILocalStore {
-  private _list: Recipe[] = [];
+  private _list: CollectionModel<number, RecipeModel> = getInitialCollectionModel();
   private _totalRecipe = 0;
   private _meta: Meta = Meta.initial;
 
@@ -24,8 +30,8 @@ export default class RecipesStore implements ILocalStore {
     });
   }
 
-  get list(): Recipe[] {
-    return this._list;
+  get list(): RecipeModel[] {
+    return linearizeCollection(this._list);
   }
 
   get meta(): Meta {
@@ -36,24 +42,40 @@ export default class RecipesStore implements ILocalStore {
     return this._totalRecipe;
   }
 
-  async getRecipesList(params: GetRecipesParams): Promise<void> {
+  async getRecipesList({apiKey, offset, itemsPerPage, search}: GetRecipesParams): Promise<void> {
     this._meta = Meta.loading;
-    this._list = [];
+    this._list = getInitialCollectionModel();
 
-    const res = await api.get<GetRecipesApiResponse>(
-      `recipes/complexSearch?apiKey=${params.apiKey}&addRecipeNutrition=true&offset=${params.offset}&number=${params.itemsPerPage}&limitLicense=true`,
+    const searchParams = search ? `&query=${search}` : "";
+
+    const res = await fetchApi<GetRecipesApiResponse>(
+      `recipes/complexSearch?apiKey=${apiKey}&addRecipeNutrition=true&offset=${offset}&number=${itemsPerPage}&limitLicense=true${searchParams}`,
     );
 
-    runInAction(() => {
-      if (res && res.status === 200) {
-        this._meta = Meta.success;
-        this._list = res.data.results;
-        this._totalRecipe = res.data.totalResults;
-        return;
-      }
-
-      this._meta = Meta.error;
-    });
+    if (!res.isError) {
+      runInAction(() => {
+        if (res.data) {
+          try {
+            const list: RecipeModel[] = [];
+            for (const item of res.data.results) {
+              list.push(normalizeRecipe(item));
+            }
+            this._list = normalizeCollection(list, (listItem) => listItem.id);
+            this._totalRecipe = res.data.totalResults;
+            this._meta = Meta.success;
+            return;
+          } catch (error) {
+            this._meta = Meta.error;
+            this._list = getInitialCollectionModel();
+          }
+        }
+      });
+    } else {
+      runInAction(() => {
+        this._meta = Meta.error;
+        this._list = getInitialCollectionModel();
+      });
+    }
   }
 
   destroy(): void {}

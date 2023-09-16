@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import Text from 'components/Text';
-import { Calory } from 'utils/entityTypes';
+import { CaloryModel } from 'store/RecipesStore/models/recipe';
 
 type ContentSlotProps = {
-  options: Calory[];
+  options: CaloryModel[];
 };
 
 const ContentSlot: FC<ContentSlotProps> = ({ options }) => {

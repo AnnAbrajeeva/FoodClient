@@ -1,10 +1,12 @@
 import { Route, Routes } from 'react-router';
+import { useQueryParamsStoreInit } from 'store/RootStore/hooks/useQueryParamsStoreInit';
 import Layout from '../components/Layout';
 import HomePage from './pages/HomePage/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SingleRecipe from './pages/SingleRecipe/SingleRecipe';
 
 function App() {
+  useQueryParamsStoreInit();
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

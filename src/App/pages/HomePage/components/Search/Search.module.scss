@@ -13,6 +13,7 @@
   }
 
   &__input-wrapper {
+    position: relative;
     width: 100%;
     display: flex;
     align-items: center;
@@ -20,6 +21,7 @@
   }
 
   &__input {
+    position: relative;
     border-radius: $border-radius;
     border: 1px solid $input-border;
     background: $input-bg;
@@ -27,6 +29,19 @@
 
     &:hover {
       box-shadow: $shadow-box-shadow;
+    }
+  }
+
+  &__delete {
+    width: 30px;
+    height: 30px;
+    opacity: 0.3;
+    transition: all 0.3s linear;
+    cursor: pointer;
+    z-index: 20;
+
+    &:hover {
+      opacity: 0.8;
     }
   }
 
