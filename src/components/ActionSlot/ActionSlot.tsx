@@ -1,9 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import Button from 'components/Button';
-import FavoriteRecipesStore from 'store/FavoriteRecipesStore';
-import { useLocalStore } from 'utils/useLocalStore';
-import { useStores } from 'utils/useStores';
+import { StoresContext } from 'utils/favoriteContext';
 import styles from './ActionSlot.module.scss';
 
 type ActionSlotProps = {
@@ -11,16 +9,15 @@ type ActionSlotProps = {
 };
 
 const ActionSlot: FC<ActionSlotProps> = ({ id }) => {
-  const recipesStore = useLocalStore(() => new FavoriteRecipesStore());
-  // const { recipesStore } = useStores();
-  const [save, setSave] = useState(recipesStore.isFavorite(id));
+  const { isFavorite, addToFavorite, removeFavorite } = useContext(StoresContext);
+  const [save, setSave] = useState(isFavorite(id) || false);
 
   const saveRecipe = (id: number) => {
-    if (recipesStore.isFavorite(id)) {
-      recipesStore.removeFavorite(id);
+    if (isFavorite(id)) {
+      removeFavorite(id);
       setSave(false);
     } else {
-      recipesStore.addToFavorite(id);
+      addToFavorite(id);
       setSave(true);
     }
   };

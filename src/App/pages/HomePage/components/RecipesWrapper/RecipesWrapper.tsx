@@ -1,8 +1,8 @@
 import { FC, memo } from 'react';
 import { Link } from 'react-router-dom';
+import ActionSlot from 'components/ActionSlot';
 import Card from 'components/Card';
 import { IngredientModel, RecipeModel } from 'store/RecipesStore/models/recipe';
-import ActionSlot from '../ActionSlot';
 import CaptionSlot from '../CaptionSlot';
 import ContentSlot from '../ContentSlot';
 import styles from './RecipesWrapper.module.scss';

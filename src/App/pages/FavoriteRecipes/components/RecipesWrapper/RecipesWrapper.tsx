@@ -1,8 +1,8 @@
-import { FC, memo } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import ActionSlot from 'components/ActionSlot';
 import Card from 'components/Card';
 import { IngredientModel, RecipeModel } from 'store/RecipesStore/models/recipe';
-import ActionSlot from '../ActionSlot';
 import CaptionSlot from '../CaptionSlot';
 import ContentSlot from '../ContentSlot';
 import styles from './RecipesWrapper.module.scss';
@@ -19,7 +19,7 @@ const RecipesWrapper: FC<RecipesWrapperProps> = ({ recipes }) => {
   return (
     <div className={styles['recipes-wrapper']}>
       {recipes.map(({ id, cookingMinutes, readyInMinutes, nutrition, title, image }) => (
-        <Link key={id} to={`recipe/${id}`}>
+        <Link key={id} to={`/recipe/${id}`}>
           <Card
             className={styles['recipes-wrapper__card']}
             captionSlot={
@@ -41,4 +41,4 @@ const RecipesWrapper: FC<RecipesWrapperProps> = ({ recipes }) => {
   );
 };
 
-export default memo(RecipesWrapper);
+export default RecipesWrapper;

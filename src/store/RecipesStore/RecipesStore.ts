@@ -1,6 +1,6 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
 import { RecipeModel, normalizeRecipe } from 'store/RecipesStore/models/recipe';
-import { GetFavoriteRecipesParams, GetRecipesApiResponse, GetRecipesParams } from 'store/RecipesStore/types';
+import { GetRecipesApiResponse, GetRecipesParams } from 'store/RecipesStore/types';
 import { fetchApi } from 'utils/apiResponse';
 import { Meta } from 'utils/meta';
 import { ILocalStore } from 'utils/useLocalStore';
@@ -53,41 +53,6 @@ export default class RecipesStore implements ILocalStore {
 
     const res = await fetchApi<GetRecipesApiResponse>(
       `recipes/complexSearch?apiKey=${apiKey}&addRecipeNutrition=true&offset=${offset}&number=${itemsPerPage}&limitLicense=true${searchParams}${categoryDish}`,
-    );
-
-    if (!res.isError) {
-      runInAction(() => {
-        if (res.data) {
-          try {
-            const list: RecipeModel[] = [];
-            for (const item of res.data.results) {
-              list.push(normalizeRecipe(item));
-            }
-            this._list = normalizeCollection(list, (listItem) => listItem.id);
-            this._totalRecipe = res.data.totalResults;
-            this._meta = Meta.success;
-            return;
-          } catch (error) {
-            this._meta = Meta.error;
-            this._list = getInitialCollectionModel();
-          }
-        }
-      });
-    } else {
-      runInAction(() => {
-        this._meta = Meta.error;
-        this._list = getInitialCollectionModel();
-      });
-    }
-  }
-
-  async getFavoriteRecipesList({ apiKey, offset, itemsPerPage, ids }: GetFavoriteRecipesParams): Promise<void> {
-    this._meta = Meta.loading;
-    this._list = getInitialCollectionModel();
-
-
-    const res = await fetchApi<GetRecipesApiResponse>(
-      `recipes/informationBulk?ids=715538,716429&apiKey=${apiKey}&addRecipeNutrition=true&offset=${offset}&number=${itemsPerPage}&limitLicense=true`,
     );
 
     if (!res.isError) {
