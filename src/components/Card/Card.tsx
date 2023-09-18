@@ -29,12 +29,15 @@ const Card: React.FC<CardProps> = ({
   title,
   subtitle,
   contentSlot,
-  onClick,
   actionSlot,
 }) => {
   const classes = classNames(s.card, className && className);
+
+  const actionWithCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+  }
   return (
-    <div onClick={onClick} className={classes}>
+    <div className={classes}>
       <div className={s.card__img}>
         <img src={image} alt="product" />
       </div>
@@ -60,7 +63,7 @@ const Card: React.FC<CardProps> = ({
             {contentSlot}
           </Text>
         )}
-        <div className={s.card__action}>{actionSlot}</div>
+        <div onClick={(e) => actionWithCard(e)} className={s.card__action}>{actionSlot}</div>
       </div>
     </div>
   );

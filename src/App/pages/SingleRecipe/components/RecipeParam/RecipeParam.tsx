@@ -11,11 +11,11 @@ const RecipeParam: FC<RecipeParamProps> = ({ title, param }) => {
   let paramsValue = '';
 
   switch (title) {
-    case 'serving':
+    case 'Servings':
       paramsValue = param && param > 0 ? `${param} servings` : 'unknown';
       break;
 
-    case 'likes':
+    case 'Ratings':
       paramsValue = param && param > 0 ? `${param} likes` : 'unknown';
       break;
 

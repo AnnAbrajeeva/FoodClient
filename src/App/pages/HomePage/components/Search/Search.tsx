@@ -9,9 +9,10 @@ import styles from './Search.module.scss';
 type SearchProps = {
   value: string;
   onChange: (value: string) => void;
+  getRecipes: () => void;
 };
 
-const Search = ({ value, onChange }: SearchProps) => {
+const Search = ({ value, onChange, getRecipes }: SearchProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const clearSearch = () => {
     onChange('');
@@ -36,7 +37,7 @@ const Search = ({ value, onChange }: SearchProps) => {
           placeholder="Enter dishes"
         />
 
-        <Button className={styles.search__btn}>
+        <Button onClick={getRecipes} className={styles.search__btn}>
           <img src={SearchIcon} alt="Search dishes" />
         </Button>
       </div>

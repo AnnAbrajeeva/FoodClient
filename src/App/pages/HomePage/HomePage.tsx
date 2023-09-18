@@ -1,5 +1,8 @@
+import debounce from 'lodash.debounce';
 import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
+import { stringify } from 'qs';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HeroBg from 'assets/img/hero-bg.jpg';
 import HeroText from 'assets/img/hero-text.svg';
 import Container from 'components/Container';
@@ -9,7 +12,10 @@ import NotFound from 'components/NotFound';
 import Pagination from 'components/Pagination';
 import { API_KEY } from 'config/api/api';
 import RecipesStore from 'store/RecipesStore';
+import rootStore from 'store/RootStore';
 import { getPageCount } from 'utils/getPageCount';
+import { getSelectedCategories } from 'utils/getSelectedCategories';
+import { mealTypes } from 'utils/mealTypes';
 import { Meta } from 'utils/meta';
 import { useLocalStore } from 'utils/useLocalStore';
 import RecipesWrapper from './components/RecipesWrapper';
@@ -19,37 +25,54 @@ import styles from './HomePage.module.scss';
 const ITEMS_PER_PAGE = 9;
 
 const HomePage = () => {
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState<Option[]>([]);
-  const [page, setPage] = useState(1);
+  const [value, setValue] = useState((rootStore.query.getParam('search') as string) || '');
+  const [search, setSearch] = useState((rootStore.query.getParam('search') as string) || '');
+  const [category, setCategory] = useState<Option[]>(getSelectedCategories() || []);
+  const [page, setPage] = useState(Number(rootStore.query.getParam('page')) || 1);
+  const navigate = useNavigate();
 
   const offset = (page - 1) * ITEMS_PER_PAGE + 1;
 
   const recipesStore = useLocalStore(() => new RecipesStore());
 
   useEffect(() => {
-    recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, apiKey: API_KEY, search });
-  }, [offset, recipesStore]);
+    const queryString = stringify({
+      offset,
+      page,
+      search,
+      category: getTitle(category),
+    });
+    navigate(`?${queryString}`);
+  }, [offset, recipesStore, search, page, navigate, category]);
+
+  useEffect(() => {
+    recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, apiKey: API_KEY, search, category });
+  }, [offset, recipesStore, search, category]);
+
+  const getRecipes = () => {
+    recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, apiKey: API_KEY, search, category });
+  };
 
   const totalPages = getPageCount(recipesStore.totalRecipe, ITEMS_PER_PAGE);
 
-  const changePage = (newPage: number) => {
+  const changePage = useCallback((newPage: number) => {
     setPage(newPage);
-  };
+  }, []);
 
-  const options: Option[] = [
-    {
-      key: 'MEAT',
-      value: 'Meat',
-    },
-    {
-      key: 'Apl',
-      value: 'Apple',
-    },
-  ];
+  const updateSearchValue = useCallback(
+    debounce((str: string) => {
+      setSearch(str);
+    }, 1200),
+    [],
+  );
+
+  const setSearchValue = useCallback((value: string) => {
+    setValue(value);
+    updateSearchValue(value);
+  }, [updateSearchValue]);
 
   const getTitle = (arr: Option[]) => {
-    return Object.values(arr).join('');
+    return arr.map((category) => category.value).join(', ');
   };
 
   return (
@@ -62,11 +85,11 @@ const HomePage = () => {
         <Loader size="l" />
       ) : (
         <Container>
-          <Search value={search} onChange={setSearch} />
+          <Search value={value} getRecipes={getRecipes} onChange={setSearchValue} />
           <MultiDropdown
             className={styles.homepage__category}
             getTitle={getTitle}
-            options={options}
+            options={mealTypes}
             value={category}
             onChange={setCategory}
           />

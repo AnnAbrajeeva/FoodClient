@@ -44,7 +44,7 @@ const SingleRecipe = () => {
             <Arrow width={32} height={32} color="#B5460F" />
           </Button>
           <Text weight="bold" view="title">
-            {title && 'Go home'}
+            {title}
           </Text>
         </div>
         {recipesStore.recipe ? (
