@@ -27,8 +27,8 @@ const FavoriteRecipes = () => {
     <div className={s.favorite}>
       <StoresContext.Provider value={recipesStore}>
         <Container>
-          {recipesStore.meta === Meta.success && <Loader size="l" />}
-          {recipesStore.meta === Meta.error && (
+          {recipesStore.meta === Meta.loading && <Loader size="l" />}
+          {recipesStore.meta === Meta.success && (
             <>{recipesStore.list.length > 0 ? <RecipesWrapper recipes={recipesStore.list} /> : <NotFound />}</>
           )}
         </Container>
