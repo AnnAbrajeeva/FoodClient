@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 export interface ILocalStore {
-    destroy(): void;
+  destroy(): void;
 }
 
 export const useLocalStore = <T extends ILocalStore>(creator: () => T): T => {
@@ -12,8 +12,8 @@ export const useLocalStore = <T extends ILocalStore>(creator: () => T): T => {
   }
 
   useEffect(() => {
-    return () => container.current?.destroy()
-  }, [])
+    return () => container.current?.destroy();
+  }, []);
 
   return container.current;
 };

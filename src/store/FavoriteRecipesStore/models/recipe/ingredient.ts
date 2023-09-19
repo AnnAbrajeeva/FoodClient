@@ -39,5 +39,5 @@ export const normalizeIngredient = (from: IngredientApi): IngredientModel => {
     amount: from.amount,
     unit: from.unit,
     meta: from.meta,
-  }
+  };
 };

@@ -16,7 +16,7 @@ const Search = ({ value, onChange, getRecipes }: SearchProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const clearSearch = () => {
     onChange('');
-    inputRef.current?.focus()
+    inputRef.current?.focus();
   };
 
   return (
@@ -29,7 +29,7 @@ const Search = ({ value, onChange, getRecipes }: SearchProps) => {
 
       <div className={styles['search__input-wrapper']}>
         <Input
-          ref = {inputRef}
+          ref={inputRef}
           className={styles.search__input}
           value={value}
           afterSlot={value && <DeleteIcon onClick={clearSearch} className={styles.search__delete} />}

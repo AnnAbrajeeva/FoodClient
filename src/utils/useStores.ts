@@ -3,7 +3,7 @@ import RecipesStore from 'store/RecipesStore';
 import { useLocalStore } from 'utils/useLocalStore';
 
 const useStoresContext = () => {
- return createContext({
+  return createContext({
     recipesStore: useLocalStore(() => new RecipesStore()),
   });
 };

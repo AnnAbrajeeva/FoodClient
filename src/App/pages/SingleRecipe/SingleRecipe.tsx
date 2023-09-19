@@ -39,40 +39,45 @@ const SingleRecipe = () => {
       <Container>
         {recipesStore.meta === Meta.loading && <Loader size="l" />}
 
-        <div className={styles.recipe__title}>
-          <Button onClick={() => goBack(navigate)} className={styles.recipe__back}>
-            <Arrow width={32} height={32} color="#B5460F" />
-          </Button>
-          <Text weight="bold" view="title">
-            {title}
-          </Text>
-        </div>
-        {recipesStore.recipe ? (
+        {recipesStore.meta === Meta.success && (
           <>
-            <div className={styles.recipe__header}>
-              <div className={styles.recipe__img}>
-                <img src={image} alt={title} />
-              </div>
-              <div className={styles.recipe__params}>
-                {recipeParams &&
-                  Object.entries(recipeParams).map(([key, value]) => (
-                    <RecipeParam key={key} title={key} param={value} />
-                  ))}
-              </div>
-            </div>
-            <div className={styles.recipe__descr} dangerouslySetInnerHTML={{ __html: summary ? summary : '' }} />
-
-            <div className={styles.recipe__products}>
-              {extendedIngredients && (
-                <RecipeList className={hasBorder} title="Ingredients" extendedIngredients={extendedIngredients} />
-              )}
-              {analyzedInstructions && <RecipeEquip title="Equipment" equipments={analyzedInstructions} />}
+            <div className={styles.recipe__title}>
+              <Button onClick={() => goBack(navigate)} className={styles.recipe__back}>
+                <Arrow width={32} height={32} color="#B5460F" />
+              </Button>
+              <Text weight="bold" view="title">
+                {title ? title : 'Go back'}
+              </Text>
             </div>
 
-            {analyzedInstructions && <Directions steps={analyzedInstructions} />}
+            {recipesStore.recipe ? (
+              <>
+                <div className={styles.recipe__header}>
+                  <div className={styles.recipe__img}>
+                    <img src={image} alt={title} />
+                  </div>
+                  <div className={styles.recipe__params}>
+                    {recipeParams &&
+                      Object.entries(recipeParams).map(([key, value]) => (
+                        <RecipeParam key={key} title={key} param={value} />
+                      ))}
+                  </div>
+                </div>
+                <div className={styles.recipe__descr} dangerouslySetInnerHTML={{ __html: summary ? summary : '' }} />
+
+                <div className={styles.recipe__products}>
+                  {extendedIngredients && (
+                    <RecipeList className={hasBorder} title="Ingredients" extendedIngredients={extendedIngredients} />
+                  )}
+                  {analyzedInstructions && <RecipeEquip title="Equipment" equipments={analyzedInstructions} />}
+                </div>
+
+                {analyzedInstructions && <Directions steps={analyzedInstructions} />}
+              </>
+            ) : (
+              <NotFound />
+            )}
           </>
-        ) : (
-          <NotFound />
         )}
       </Container>
     </div>

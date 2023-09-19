@@ -95,7 +95,7 @@ export default class FavoriteRecipesStore implements ILocalStore {
       return this._favoriteIds.includes(id);
     }
     return false;
-  }
+  };
 
   destroy(): void {
     this._changeIdsReaction();

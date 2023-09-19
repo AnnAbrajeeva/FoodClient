@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 import { observer } from 'mobx-react-lite';
 import { stringify } from 'qs';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HeroBg from 'assets/img/hero-bg.jpg';
 import HeroText from 'assets/img/hero-text.svg';
@@ -35,15 +35,20 @@ const HomePage = () => {
 
   const recipesStore = useLocalStore(() => new RecipesStore());
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const queryString = stringify({
       offset,
       page,
       search,
       category: getTitle(category),
     });
-    navigate(`?${queryString}`);
-  }, [offset, recipesStore, search, page, navigate, category]);
+
+    const updateRoute = async () => {
+      await navigate(`?${queryString}`);
+    };
+
+    updateRoute();
+  }, [offset, search, page, navigate, category]);
 
   useEffect(() => {
     recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, apiKey: API_KEY, search, category });
@@ -66,10 +71,13 @@ const HomePage = () => {
     [],
   );
 
-  const setSearchValue = useCallback((value: string) => {
-    setValue(value);
-    updateSearchValue(value);
-  }, [updateSearchValue]);
+  const setSearchValue = useCallback(
+    (value: string) => {
+      setValue(value);
+      updateSearchValue(value);
+    },
+    [updateSearchValue],
+  );
 
   const getTitle = (arr: Option[]) => {
     return arr.map((category) => category.value).join(', ');
@@ -81,9 +89,8 @@ const HomePage = () => {
         <img className={styles.homepage__img} src={HeroBg} alt="Food" />
         <img className={styles['homepage__hero-text']} src={HeroText} alt="Recipes" />
       </div>
-      {recipesStore.meta === Meta.loading ? (
-        <Loader size="l" />
-      ) : (
+      {recipesStore.meta === Meta.loading && <Loader size="l" />}
+      {recipesStore.meta === Meta.success && (
         <Container>
           <Search value={value} getRecipes={getRecipes} onChange={setSearchValue} />
           <MultiDropdown

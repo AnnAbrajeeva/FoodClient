@@ -3,7 +3,6 @@ import { FC, useState } from 'react';
 import Button from 'components/Button';
 import FavoriteRecipesStore from 'store/FavoriteRecipesStore';
 import { useLocalStore } from 'utils/useLocalStore';
-import { useStores } from 'utils/useStores';
 import styles from './ActionSlot.module.scss';
 
 type ActionSlotProps = {

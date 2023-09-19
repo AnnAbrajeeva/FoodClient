@@ -9,14 +9,16 @@ import SingleRecipe from './pages/SingleRecipe/SingleRecipe';
 function App() {
   useQueryParamsStoreInit();
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="/favorite" element={<FavoriteRecipes />} />
-        <Route path="recipe/:id" element={<SingleRecipe />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
+    <main>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/favorite" element={<FavoriteRecipes />} />
+          <Route path="recipe/:id" element={<SingleRecipe />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </main>
   );
 }
 

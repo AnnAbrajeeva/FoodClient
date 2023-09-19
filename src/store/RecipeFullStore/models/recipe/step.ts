@@ -1,21 +1,21 @@
-import { normalizeEquipment, EquipmentModel, EquipmentApi} from "./equipment";
+import { normalizeEquipment, EquipmentModel, EquipmentApi } from './equipment';
 
 export type StepApi = {
   number: number;
   step: string;
-  equipment: EquipmentApi[]
+  equipment: EquipmentApi[];
 };
 
 export type StepModel = {
   number: number;
   step: string;
-  equipment: EquipmentModel[]
+  equipment: EquipmentModel[];
 };
 
 export const normalizeStep = (from: StepApi): StepModel => {
-    return {
-     number: from.number,
-     step: from.step,
-     equipment: from.equipment.map(normalizeEquipment)
-    };
+  return {
+    number: from.number,
+    step: from.step,
+    equipment: from.equipment.map(normalizeEquipment),
   };
+};
