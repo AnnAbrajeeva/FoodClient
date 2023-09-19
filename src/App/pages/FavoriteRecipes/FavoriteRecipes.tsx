@@ -12,6 +12,8 @@ import { useLocalStore } from 'utils/useLocalStore';
 import RecipesWrapper from './components/RecipesWrapper';
 import s from './FavoriteRecipes.module.scss';
 
+
+
 const FavoriteRecipes = () => {
   const recipesStore = useLocalStore(() => new FavoriteRecipesStore());
 
@@ -28,8 +30,12 @@ const FavoriteRecipes = () => {
       <StoresContext.Provider value={recipesStore}>
         <Container>
           {recipesStore.meta === Meta.loading && <Loader size="l" />}
-          {recipesStore.meta === Meta.success && (
-            <>{recipesStore.list.length > 0 ? <RecipesWrapper recipes={recipesStore.list} /> : <NotFound />}</>
+          {recipesStore.list.length > 0 ? (
+            <RecipesWrapper
+              recipes={recipesStore.list}
+            />
+          ) : (
+            <NotFound />
           )}
         </Container>
       </StoresContext.Provider>
