@@ -1,0 +1,34 @@
+@import './assets/fonts/Roboto/fonts.scss';
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: rgba(255, 192, 118, 0.23);
+  font-family: Roboto, 'sans-serif';
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+figure,
+pre {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+

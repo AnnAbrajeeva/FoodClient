@@ -1,0 +1,39 @@
+@import 'styles/variables.scss';
+
+.loader {
+  display: block;
+  margin: 0 auto;
+  animation: rotate 0.3s linear infinite;
+
+  & path {
+    fill: $brand;
+  }
+
+  &--button path {
+    fill: $button-primary-text;
+  }
+
+  &--small {
+    width: 24px;
+    height: 24px;
+  }
+
+  &--medium {
+    width: 48px;
+    height: 48px;
+  }
+
+  &--large {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

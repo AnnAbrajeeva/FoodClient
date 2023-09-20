@@ -1,0 +1,37 @@
+@import 'styles/variables.scss';
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-8;
+  padding: $spacing-14 $spacing-20;
+  background: $button-primary-bg;
+  border: none;
+  color: var(--button-primary-text, #fff);
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 18px;
+  min-height: 52px;
+  transition: all 0.3s linear;
+  cursor: pointer;
+
+  &:hover {
+    background: $button-primary-bg-hover;
+    outline: none;
+  }
+
+  &__loading:hover {
+    background: $brand;
+  }
+
+  &:disabled {
+    background: $button-primary-bg-disabled;
+    pointer-events: none;
+  }
+
+  &:active {
+    background: $button-primary-bg-active;
+  }
+}

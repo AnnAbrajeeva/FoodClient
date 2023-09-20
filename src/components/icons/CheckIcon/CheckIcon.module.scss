@@ -1,0 +1,19 @@
+@import "styles/variables.scss";
+
+.icon {
+  & path {
+    stroke: currentColor;
+  }
+
+  &--secondary path {
+    stroke: $text-secondary;
+  }
+
+  &--primary path {
+    stroke: $text-primary;
+  }
+
+  &--accent path {
+    stroke: $text-accent;
+  }
+}

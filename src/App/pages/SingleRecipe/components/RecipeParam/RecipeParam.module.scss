@@ -1,0 +1,9 @@
+@import 'styles/variables.scss';
+
+.param {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+  align-items: center;
+  text-align: center;
+}

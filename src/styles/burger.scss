@@ -1,0 +1,88 @@
+@import "styles/breakpoints.scss";
+
+@mixin burger {
+  --burger-width: 30px;
+  --burger-height: 26px;
+  --burger-line-height: 2px;
+
+  position: relative;
+  right: 5px;
+  display: none;
+  border: none;
+  padding: 0;
+  width: var(--burger-width);
+  height: var(--burger-height);
+  color: #000;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background: transparent;
+  }
+
+  @include size-830 {
+    display: block;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: var(--burger-line-height);
+    background-color: $brand;
+    transition:
+      transform 0.3s ease-in-out,
+      top 0.3s ease-in-out;
+  }
+
+  &::before {
+    top: 0;
+  }
+
+  &::after {
+    top: calc(100% - var(--burger-line-height));
+  }
+
+  &__line {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: var(--burger-line-height);
+    background-color: $brand;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &--active {
+    @include small-desktop {
+      position: absolute;
+      top: 18px;
+      right: 26px;
+      z-index: 9999;
+    }
+
+    &::before {
+      top: 50%;
+      transform: rotate(45deg);
+      transition:
+        transform 0.3s ease-in-out,
+        top 0.3s ease-in-out;
+    }
+
+    &::after {
+      top: 50%;
+      transform: rotate(-45deg);
+      transition:
+        transform 0.3s ease-in-out,
+        top 0.3s ease-in-out;
+    }
+
+    .burger__line {
+      transform: scale(0);
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+}
