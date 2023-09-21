@@ -95,7 +95,6 @@ module.exports = {
     host: 'localhost',
     port: 3000,
     hot: true,
-    watchFiles: ["./src/*"],
     historyApiFallback: true
   },
 };
