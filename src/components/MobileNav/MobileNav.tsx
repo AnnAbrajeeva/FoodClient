@@ -19,7 +19,7 @@ const MobileNav: FC<MobileNavProps> = ({ closeNav, isOpen }) => {
       <nav onClick={closeNav} className={classes}>
         {navLinks.map((link) => {
           return (
-            <NavLink onClick={closeNav} className={setActive} key={link.path} to={link.path}>
+            <NavLink className={setActive} key={link.path} to={link.path}>
               {link.name}
             </NavLink>
           );

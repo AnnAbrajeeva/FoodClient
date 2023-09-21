@@ -32,7 +32,7 @@ const Header = () => {
             </Text>
           </Link>
           <Navigation />
-          {isOpen && <MobileNav isOpen={isOpen} closeNav={handleBurger} />}
+          <MobileNav isOpen={isOpen} closeNav={handleBurger} />
           <div className={styles.header__user}>
             <NavLink to="/favorite">
               <img className={styles['header__user-icon']} src={Favor} alt="Favorite Recipes" />

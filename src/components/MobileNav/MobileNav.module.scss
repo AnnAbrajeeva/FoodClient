@@ -4,7 +4,6 @@
   display: flex;
   position: absolute;
   top: 0;
-  right: 0;
   width: 50%;
   height: 100vh;
   padding: 50px 40px;
@@ -13,7 +12,7 @@
   gap: 50px;
   z-index: 999;
   box-shadow: $shadow-box-shadow;
-  transform: translateX(-100%);
+  transform: translateX(200%);
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 
   @media (max-width: 600px) {

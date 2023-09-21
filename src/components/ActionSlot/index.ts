@@ -1,1 +1,1 @@
-export { default } from './ActionSlot.tsx';
+export { default } from './ActionSlot';

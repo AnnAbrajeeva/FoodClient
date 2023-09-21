@@ -1,38 +1,29 @@
 {
-    "compilerOptions": {
-	    "allowJs": true,
-	    "sourceMap": true,
-      "target": "es6",
-      "useDefineForClassFields": true,
-      "lib": ["ES2020", "DOM", "DOM.Iterable"],
-      "module": "ESNext",
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      "baseUrl": "src",
-      "paths": {
-        "components": ["components/*"],
-          "assets": ["assets/*"],
-          "config": ["config/*"],
-          "styles": ["styles/*"],
-          "utils": ["utils/*"],
-          "store": ["store/*"],
-      },
-  
-      "moduleResolution": "bundler",
-      "allowImportingTsExtensions": true,
-      "resolveJsonModule": true,
-      "isolatedModules": true,
-      "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true,
-      "noEmit": true,
-      "jsx": "react-jsx",
-  
-      "strict": true,
-      
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "noFallthroughCasesInSwitch": true
-    },
-    "include": ["src/**/*", "./declaration.d.ts"], 
-    "exclude": ["node_modules"]
-  }
+  "compilerOptions": {
+	"noEmit": true,
+	"allowJs": true,
+	"sourceMap": true,
+  "baseUrl": "src",
+	"paths": {
+  	"components/*": ["components/*"],
+  	"config/*": ["config/*"],
+  	"styles/*": ["styles/*"],
+  	"utils/*": ["utils/*"],
+  	"models/*": ["models/*"],
+  	"store/*": ["store/*"],
+  	"assets/*": ["assets/*"],
+	},
+	"strict": true,
+	"strictNullChecks": true,
+	"skipLibCheck": true,
+	"module": "es6",
+	"target": "es6",
+	"moduleResolution": "node",
+  "jsx": "react-jsx",
+	"esModuleInterop": true,
+	"allowSyntheticDefaultImports": true,
+  },
+ 
+  "include": ["src/**/*", "declaration.d.ts"], // какие файлы включены в проверку
+  "exclude": ["node_modules"] // какие файлы исключены
+}

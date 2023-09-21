@@ -71,9 +71,15 @@ const HomePage = () => {
     [],
   );
 
+  const setNewCategory = useCallback((category: Option[]) => {
+    setCategory(category)
+    setPage(1)
+  }, [])
+
   const setSearchValue = useCallback(
     (value: string) => {
       setValue(value);
+      setPage(1)
       updateSearchValue(value);
     },
     [updateSearchValue],
@@ -98,7 +104,7 @@ const HomePage = () => {
             getTitle={getTitle}
             options={mealTypes}
             value={category}
-            onChange={setCategory}
+            onChange={setNewCategory}
           />
           {recipesStore.list.length > 0 ? (
             <>

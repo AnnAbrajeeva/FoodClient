@@ -1,19 +1,12 @@
-const isProd = process.env.NODE_ENV === 'production';
+module.exports = (api) => {
+  api.cache.using(() => process.env.NODE_ENV);
+  const plugins = [
+    '@babel/plugin-proposal-optional-chaining',
+    process.env.NODE_ENV === 'development' && 'react-refresh/babel',
+  ].filter(Boolean);
 
-
-module.exports = api => {
-    api.cache.using(() => process.env.NODE_ENV);
-    return {
-        presets: [
-            "@babel/preset-env",
-            "@babel/preset-react",
-            "@babel/preset-typescript",
-            'mobx'
-        ],
-        plugins: [
-            "@babel/plugin-proposal-class-properties",
-            !isProd && 'react-refresh/babel',
-            '@babel/plugin-proposal-optional-chaining'
-        ].filter(Boolean)
-    }
-}
+  return {
+    plugins,
+    presets: ['@babel/preset-env', ["@babel/preset-react", {"runtime": "automatic"}], '@babel/preset-typescript', 'mobx'],
+  };
+};
