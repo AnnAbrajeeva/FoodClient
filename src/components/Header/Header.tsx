@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Favor from 'assets/img/favor.svg';
 import User from 'assets/img/user.svg';
@@ -9,10 +9,17 @@ import Navigation from 'components/Navigation';
 import Logo from '../../assets/img/logo.svg';
 import Text from '../../components/Text';
 import styles from './Header.module.scss';
+import { StoresContext } from 'utils/favoriteContext';
+import { observer } from 'mobx-react-lite';
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
+  const { favoriteIds } = useContext(StoresContext);
+  // const [favorite, setFavorite] = useState(0);
 
+  // useEffect(() => {
+
+  // })
   const handleBurger = useCallback(() => {
     setOpen((val) => !val);
   }, []);
@@ -34,8 +41,9 @@ const Header = () => {
           <Navigation />
           <MobileNav isOpen={isOpen} closeNav={handleBurger} />
           <div className={styles.header__user}>
-            <NavLink to="/favorite">
+            <NavLink className={styles['header__link-wrap']} to="/favorite">
               <img className={styles['header__user-icon']} src={Favor} alt="Favorite Recipes" />
+              {favoriteIds.length > 0 && <div className={styles['header__icon-count']}>{favoriteIds.length}</div>}
             </NavLink>
             <NavLink to="/login">
               <img className={styles['header__user-icon']} src={User} alt="Favorite Recipes" />
@@ -48,4 +56,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default observer(Header);
