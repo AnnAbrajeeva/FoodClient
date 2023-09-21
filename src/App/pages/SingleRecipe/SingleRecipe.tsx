@@ -39,6 +39,8 @@ const SingleRecipe = () => {
       <Container>
         {recipesStore.meta === Meta.loading && <Loader size="l" />}
 
+        {!recipesStore.recipe && recipesStore.meta === Meta.success && <NotFound />}
+        
         {recipesStore.meta === Meta.success && (
           <>
             <div className={styles.recipe__title}>
@@ -50,7 +52,7 @@ const SingleRecipe = () => {
               </Text>
             </div>
 
-            {recipesStore.recipe ? (
+            {recipesStore.recipe && (
               <>
                 <div className={styles.recipe__header}>
                   <div className={styles.recipe__img}>
@@ -74,8 +76,6 @@ const SingleRecipe = () => {
 
                 {analyzedInstructions && <Directions steps={analyzedInstructions} />}
               </>
-            ) : (
-              <NotFound />
             )}
           </>
         )}
