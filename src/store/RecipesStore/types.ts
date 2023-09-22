@@ -4,7 +4,6 @@ import { RecipeApi } from 'store/RecipesStore/models/recipe';
 export type GetRecipesParams = {
   offset: number;
   itemsPerPage: number;
-  apiKey: string;
   search: string;
   category: Option[];
 };

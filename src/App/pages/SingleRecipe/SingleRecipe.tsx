@@ -11,7 +11,7 @@ import { API_KEY } from 'config/api/api';
 import RecipeFullStore from 'store/RecipeFullStore';
 import { goBack } from 'utils/goBackToPrevPage';
 import { Meta } from 'utils/meta';
-import { useLocalStore } from 'utils/useLocalStore';
+import { useLocalStore } from 'hooks/useLocalStore';
 import Directions from './components/Directions';
 import RecipeEquip from './components/RecipeEquip';
 import RecipeList from './components/RecipeList';
@@ -40,7 +40,7 @@ const SingleRecipe = () => {
         {recipesStore.meta === Meta.loading && <Loader size="l" />}
 
         {!recipesStore.recipe && recipesStore.meta === Meta.success && <NotFound />}
-        
+
         {recipesStore.meta === Meta.success && (
           <>
             <div className={styles.recipe__title}>

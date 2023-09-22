@@ -4,7 +4,7 @@ import Container from 'components/Container';
 import Loader from 'components/Loader';
 import NotFound from 'components/NotFound';
 import { API_KEY } from 'config/api/api';
-import { StoresContext } from 'utils/favoriteContext';
+import { StoresContext } from 'store/FavoriteRecipesStore/favoriteContext';
 import { Meta } from 'utils/meta';
 
 import RecipesWrapper from './components/RecipesWrapper';

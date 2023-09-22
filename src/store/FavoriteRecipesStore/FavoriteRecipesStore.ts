@@ -5,7 +5,7 @@ import { GetFavoriteRecipesParams } from 'store/RecipesStore/types';
 import { fetchApi } from 'utils/apiResponse';
 import { getLocalItem, removeLocalItem, setLocalItem } from 'utils/localStorage';
 import { Meta } from 'utils/meta';
-import { ILocalStore } from 'utils/useLocalStore';
+import { ILocalStore } from 'hooks/useLocalStore';
 import {
   CollectionModel,
   getInitialCollectionModel,
@@ -51,7 +51,7 @@ export default class FavoriteRecipesStore implements ILocalStore {
     this._list = getInitialCollectionModel();
 
     const res = await fetchApi<RecipeApi[]>(
-      `recipes/informationBulk?ids=${ids}&apiKey=${apiKey}&includeNutrition=true`,
+      `recipes/informationBulk?ids=${ids}&apiKey=${apiKey}&includeNutrition=true`
     );
 
     if (!res.isError) {
@@ -105,6 +105,6 @@ export default class FavoriteRecipesStore implements ILocalStore {
     () => this._favoriteIds,
     (ids) => {
       this.getFavoriteRecipesList({ ids: ids.join(','), apiKey: API_KEY });
-    },
+    }
   );
 }

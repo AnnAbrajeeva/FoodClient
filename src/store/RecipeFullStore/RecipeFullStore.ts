@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
 import { fetchApi } from 'utils/apiResponse';
 import { Meta } from 'utils/meta';
-import { ILocalStore } from 'utils/useLocalStore';
+import { ILocalStore } from 'hooks/useLocalStore';
 import { RecipeFullApi, RecipeFullModel, normalizeRecipeFull } from './models/recipe/recipe';
 import { GetRecipeFullParams } from './types';
 

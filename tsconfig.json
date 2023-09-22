@@ -12,6 +12,7 @@
   	"models/*": ["models/*"],
   	"store/*": ["store/*"],
   	"assets/*": ["assets/*"],
+  	"hooks/*": ["hooks/*"],
 	},
 	"strict": true,
 	"strictNullChecks": true,

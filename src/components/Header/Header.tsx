@@ -9,7 +9,7 @@ import Navigation from 'components/Navigation';
 import Logo from '../../assets/img/logo.svg';
 import Text from '../../components/Text';
 import styles from './Header.module.scss';
-import { StoresContext } from 'utils/favoriteContext';
+import { StoresContext } from 'store/FavoriteRecipesStore/favoriteContext';
 import { observer } from 'mobx-react-lite';
 
 const Header = () => {

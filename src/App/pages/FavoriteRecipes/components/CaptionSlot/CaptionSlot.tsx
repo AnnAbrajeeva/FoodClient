@@ -8,7 +8,7 @@ type CaptionSlotProps = {
 };
 
 const CaptionSlot: FC<CaptionSlotProps> = ({ timeToPrepare }) => {
-  const value = timeToPrepare && timeToPrepare > 0 ? `${timeToPrepare} minutes` : '';
+  const value = timeToPrepare && timeToPrepare > 0 ? `${timeToPrepare} minutes` : '—';
 
   return (
     <span className={styles.caption}>

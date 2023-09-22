@@ -5,9 +5,9 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import HomePage from './pages/HomePage/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SingleRecipe from './pages/SingleRecipe/SingleRecipe';
-import { useLocalStore } from 'utils/useLocalStore';
+import { useLocalStore } from 'hooks/useLocalStore';
 import FavoriteRecipesStore from 'store/FavoriteRecipesStore';
-import { StoresContext } from 'utils/favoriteContext';
+import { StoresContext } from 'store/FavoriteRecipesStore/favoriteContext';
 
 function App() {
   useQueryParamsStoreInit();
