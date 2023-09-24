@@ -1,8 +1,9 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
+import { API_KEY } from 'config/api/api';
+import { RecipeFullApi, RecipeFullModel, normalizeRecipeFull } from 'entites/Recipe';
+import { ILocalStore } from 'hooks/useLocalStore';
 import { fetchApi } from 'utils/apiResponse';
 import { Meta } from 'utils/meta';
-import { ILocalStore } from 'hooks/useLocalStore';
-import { RecipeFullApi, RecipeFullModel, normalizeRecipeFull } from './models/recipe/recipe';
 import { GetRecipeFullParams } from './types';
 
 type PrivateFields = '_recipe' | '_meta';
@@ -17,7 +18,7 @@ export default class RecipeFullStore implements ILocalStore {
       _meta: observable,
       recipe: computed,
       meta: computed,
-      getRecipe: action,
+      fetchRecipe: action,
     });
   }
 
@@ -29,11 +30,11 @@ export default class RecipeFullStore implements ILocalStore {
     return this._meta;
   }
 
-  async getRecipe({ id, apiKey }: GetRecipeFullParams): Promise<void> {
+  async fetchRecipe({ id }: GetRecipeFullParams): Promise<void> {
     this._meta = Meta.loading;
     this._recipe = null;
 
-    const res = await fetchApi<RecipeFullApi>(`recipes/${id}/information?apiKey=${apiKey}`);
+    const res = await fetchApi<RecipeFullApi>(`recipes/${id}/information?apiKey=${API_KEY}`);
 
     if (!res.isError) {
       runInAction(() => {

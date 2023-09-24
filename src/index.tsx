@@ -12,6 +12,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   // </React.StrictMode>,
 );
 
-if(module.hot) {
-  module.hot.accept()
+if (module.hot) {
+  module.hot.accept();
 }

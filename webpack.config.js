@@ -1,8 +1,8 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TsCheckerPlugin = require('fork-ts-checker-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const buildPath = path.resolve(__dirname, 'dist');
 const srcPath = path.resolve(__dirname, 'src');
@@ -90,6 +90,8 @@ module.exports = {
       store: path.join(srcPath, 'store'),
       assets: path.join(srcPath, 'assets'),
       hooks: path.join(srcPath, 'hooks'),
+      entites: path.join(srcPath, 'entites'),
+      pages: path.join(srcPath, 'pages'),
     },
   },
   devServer: {

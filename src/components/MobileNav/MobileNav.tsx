@@ -14,7 +14,7 @@ const MobileNav: FC<MobileNavProps> = ({ closeNav, isOpen }) => {
     isActive ? style['navigation__link--active'] : style['navigation__link'];
   const classes = classNames(style.navigation, isOpen ? style['navigation--open'] : '');
 
-  const overlayClass = classNames(style.overlay, isOpen && style['overlay--open'])
+  const overlayClass = classNames(style.overlay, isOpen && style['overlay--open']);
   return (
     <>
       <div onClick={closeNav} className={overlayClass} />

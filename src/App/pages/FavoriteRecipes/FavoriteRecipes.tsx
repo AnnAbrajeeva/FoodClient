@@ -3,11 +3,9 @@ import { useContext, useEffect } from 'react';
 import Container from 'components/Container';
 import Loader from 'components/Loader';
 import NotFound from 'components/NotFound';
-import { API_KEY } from 'config/api/api';
+import RecipesWrapper from 'components/RecipesWrapper';
 import { StoresContext } from 'store/FavoriteRecipesStore/favoriteContext';
 import { Meta } from 'utils/meta';
-
-import RecipesWrapper from './components/RecipesWrapper';
 import s from './FavoriteRecipes.module.scss';
 
 const FavoriteRecipes = () => {
@@ -17,15 +15,16 @@ const FavoriteRecipes = () => {
     const ids = favoriteIds;
     if (ids.length > 0) {
       const idArr = ids.join(',');
-      getFavoriteRecipesList({ ids: idArr, apiKey: API_KEY });
+      getFavoriteRecipesList({ ids: idArr });
     }
-  }, [list]);
+  }, [favoriteIds, getFavoriteRecipesList]);
 
   return (
     <div className={s.favorite}>
       <Container>
         {meta === Meta.loading && <Loader size="l" />}
-        {list.length > 0 ? <RecipesWrapper recipes={list} /> : <NotFound />}
+        {meta === Meta.success && list.length < 0 && <NotFound />}
+        {list.length > 0 && <RecipesWrapper recipes={list} />}
       </Container>
     </div>
   );

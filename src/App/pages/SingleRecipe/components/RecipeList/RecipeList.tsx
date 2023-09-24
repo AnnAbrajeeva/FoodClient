@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { FC } from 'react';
 import Dish from 'assets/img/dish.svg';
 import Text from 'components/Text';
-import { IngredientModel } from 'store/RecipeFullStore/models/recipe';
+import { IngredientModel } from 'entites/Ingredient';
 import RecipeIngredient from '../RecipeIngredient';
 import styles from './RecipeList.module.scss';
 

@@ -25,7 +25,7 @@
     border-radius: $border-radius;
     border: 1px solid $input-border;
     background: $input-bg;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
 
     &:hover {
       box-shadow: $shadow-box-shadow;
@@ -36,7 +36,7 @@
     width: 30px;
     height: 30px;
     opacity: 0.3;
-    transition: all 0.3s linear;
+    transition: opacity 0.3s linear;
     cursor: pointer;
     z-index: 20;
 

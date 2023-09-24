@@ -1,16 +1,16 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
-import { RecipeModel, normalizeRecipe } from 'store/RecipesStore/models/recipe';
-import { GetRecipesApiResponse, GetRecipesParams } from 'store/RecipesStore/types';
-import { fetchApi } from 'utils/apiResponse';
-import { Meta } from 'utils/meta';
+import { API_KEY } from 'config/api/api';
+import { RecipeModel, normalizeRecipe } from 'entites/Recipe';
 import { ILocalStore } from 'hooks/useLocalStore';
+import { GetRecipesApiResponse, GetRecipesParams } from 'store/RecipesStore/types';
 import {
   CollectionModel,
   getInitialCollectionModel,
   linearizeCollection,
   normalizeCollection,
-} from './models/shared/collection';
-import { API_KEY } from 'config/api/api';
+} from 'store/common/collection';
+import { fetchApi } from 'utils/apiResponse';
+import { Meta } from 'utils/meta';
 
 type PrivateFields = '_list' | '_meta' | '_totalRecipe';
 
@@ -29,7 +29,7 @@ export default class RecipesStore implements ILocalStore {
       meta: computed,
       totalRecipe: computed,
       getRecipesList: action,
-      pageCount: computed
+      pageCount: computed,
     });
   }
 
@@ -47,7 +47,7 @@ export default class RecipesStore implements ILocalStore {
 
   get pageCount() {
     return Math.ceil(this._totalRecipe / this._limit);
-  };
+  }
 
   async getRecipesList({ offset, itemsPerPage, search, category }: GetRecipesParams): Promise<void> {
     this._meta = Meta.loading;
@@ -59,7 +59,7 @@ export default class RecipesStore implements ILocalStore {
     const categoryDish = category.length > 0 ? `&type=${categories}` : '';
 
     const res = await fetchApi<GetRecipesApiResponse>(
-      `recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&offset=${offset}&number=${itemsPerPage}&limitLicense=true${searchParams}${categoryDish}`
+      `recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&offset=${offset}&number=${itemsPerPage}&limitLicense=true${searchParams}${categoryDish}`,
     );
 
     if (!res.isError) {

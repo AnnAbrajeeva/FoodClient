@@ -10,15 +10,13 @@ import Loader from 'components/Loader';
 import MultiDropdown, { Option } from 'components/MultiDropdown';
 import NotFound from 'components/NotFound';
 import Pagination from 'components/Pagination';
-import { API_KEY } from 'config/api/api';
+import { mealTypes } from 'config/mealTypes';
+import { useLocalStore } from 'hooks/useLocalStore';
 import RecipesStore from 'store/RecipesStore';
 import rootStore from 'store/RootStore';
-import { getPageCount } from 'utils/getPageCount';
 import { getSelectedCategories } from 'utils/getSelectedCategories';
-import { mealTypes } from 'config/mealTypes';
 import { Meta } from 'utils/meta';
-import { useLocalStore } from 'hooks/useLocalStore';
-import RecipesWrapper from './components/RecipesWrapper';
+import RecipesWrapper from '../../../components/RecipesWrapper';
 import Search from './components/Search';
 import styles from './HomePage.module.scss';
 
@@ -28,7 +26,7 @@ const HomePage = () => {
   const [search, setSearch] = useState((rootStore.query.getParam('search') as string) || '');
   const [category, setCategory] = useState<Option[]>(getSelectedCategories() || []);
   const [page, setPage] = useState(Number(rootStore.query.getParam('page')) || 1);
-  const [_, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const offset = (page - 1) * ITEMS_PER_PAGE + 1;
 
@@ -55,9 +53,8 @@ const HomePage = () => {
     };
 
     const debouncedFetchRecipes = debounce(fetchRecipes, 1200);
-  
+
     debouncedFetchRecipes();
-  
   }, [offset, recipesStore, search, category]);
 
   const getRecipes = () => {

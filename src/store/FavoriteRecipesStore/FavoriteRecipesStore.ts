@@ -1,24 +1,24 @@
-import { IReactionDisposer, action, computed, makeObservable, observable, reaction, runInAction } from 'mobx';
+import { action, computed, makeObservable, observable, runInAction } from 'mobx';
 import { API_KEY } from 'config/api/api';
-import { RecipeApi, RecipeModel, normalizeRecipe } from 'store/RecipesStore/models/recipe';
-import { GetFavoriteRecipesParams } from 'store/RecipesStore/types';
-import { fetchApi } from 'utils/apiResponse';
-import { getLocalItem, removeLocalItem, setLocalItem } from 'utils/localStorage';
-import { Meta } from 'utils/meta';
+import { RecipeApi, RecipeModel, normalizeRecipe } from 'entites/Recipe';
 import { ILocalStore } from 'hooks/useLocalStore';
+import { GetFavoriteRecipesParams } from 'store/RecipesStore/types';
+import rootStore from 'store/RootStore/instance';
+import { fetchApi } from 'utils/apiResponse';
+import { Meta } from 'utils/meta';
 import {
   CollectionModel,
   getInitialCollectionModel,
   linearizeCollection,
   normalizeCollection,
-} from './models/shared/collection';
+} from '../common/collection';
 
 type PrivateFields = '_list' | '_meta' | '_favoriteIds';
 
 export default class FavoriteRecipesStore implements ILocalStore {
   private _list: CollectionModel<number, RecipeModel> = getInitialCollectionModel();
   private _meta: Meta = Meta.initial;
-  private _favoriteIds: number[] = getLocalItem('recipes') || [];
+  private _favoriteIds: number[] = rootStore.localStorage.getLocalItem('recipes') || [];
 
   constructor() {
     makeObservable<FavoriteRecipesStore, PrivateFields>(this, {
@@ -46,22 +46,19 @@ export default class FavoriteRecipesStore implements ILocalStore {
     return this._favoriteIds;
   }
 
-  async getFavoriteRecipesList({ apiKey, ids }: GetFavoriteRecipesParams): Promise<void> {
+  getFavoriteRecipesList = async ({ ids }: GetFavoriteRecipesParams): Promise<void> => {
     this._meta = Meta.loading;
     this._list = getInitialCollectionModel();
 
     const res = await fetchApi<RecipeApi[]>(
-      `recipes/informationBulk?ids=${ids}&apiKey=${apiKey}&includeNutrition=true`
+      `recipes/informationBulk?ids=${ids}&apiKey=${API_KEY}&includeNutrition=true`,
     );
 
     if (!res.isError) {
       runInAction(() => {
         if (res.data) {
           try {
-            const list: RecipeModel[] = [];
-            for (const item of res.data) {
-              list.push(normalizeRecipe(item));
-            }
+            const list = res.data.map(normalizeRecipe);
             this._list = normalizeCollection(list, (listItem) => listItem.id);
 
             this._meta = Meta.success;
@@ -78,33 +75,19 @@ export default class FavoriteRecipesStore implements ILocalStore {
         this._list = getInitialCollectionModel();
       });
     }
-  }
+  };
 
   addToFavorite = (id: number) => {
     this._favoriteIds.push(id);
-    setLocalItem('recipes', id);
+    rootStore.localStorage.setLocalItem('recipes', id);
   };
 
   removeFavorite = (id: number) => {
     this._favoriteIds = this._favoriteIds.filter((item) => item !== id);
-    removeLocalItem('recipes', id);
+    rootStore.localStorage.removeLocalItem('recipes', id);
   };
 
-  isFavorite = (id: number) => {
-    if (this._favoriteIds.length > 0) {
-      return this._favoriteIds.includes(id);
-    }
-    return false;
-  };
+  isFavorite = (id: number) => this._favoriteIds.includes(id);
 
-  destroy(): void {
-    this._changeIdsReaction();
-  }
-
-  private readonly _changeIdsReaction: IReactionDisposer = reaction(
-    () => this._favoriteIds,
-    (ids) => {
-      this.getFavoriteRecipesList({ ids: ids.join(','), apiKey: API_KEY });
-    }
-  );
+  destroy(): void {}
 }

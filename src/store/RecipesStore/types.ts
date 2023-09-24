@@ -1,5 +1,5 @@
 import { Option } from 'components/MultiDropdown';
-import { RecipeApi } from 'store/RecipesStore/models/recipe';
+import { RecipeApi } from 'entites/Recipe';
 
 export type GetRecipesParams = {
   offset: number;
@@ -9,7 +9,6 @@ export type GetRecipesParams = {
 };
 
 export type GetFavoriteRecipesParams = {
-  apiKey: string;
   ids: string;
 };
 
