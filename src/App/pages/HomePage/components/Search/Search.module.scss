@@ -16,8 +16,41 @@
     position: relative;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 19px;
+  }
+
+  &__input-box {
+    position: relative;
+    width: 100%;
+  }
+
+  &__autocomplite {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: $shadow-box-shadow;
+    border-radius: $border-radius;
+    list-style: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+    max-height: 240px;
+    height: auto;
+    overflow: auto;
+  }
+
+  &__autocomplite-item {
+    padding: 10px;
+
+    &:hover {
+      background: $text-secondary;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
   }
 
   &__input {

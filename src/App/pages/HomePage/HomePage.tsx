@@ -12,6 +12,7 @@ import NotFound from 'components/NotFound';
 import Pagination from 'components/Pagination';
 import { mealTypes } from 'config/mealTypes';
 import { useLocalStore } from 'hooks/useLocalStore';
+import AutocompleteStore from 'store/AutocompleteStore';
 import RecipesStore from 'store/RecipesStore';
 import rootStore from 'store/RootStore';
 import { getSelectedCategories } from 'utils/getSelectedCategories';
@@ -31,6 +32,7 @@ const HomePage = () => {
   const offset = (page - 1) * ITEMS_PER_PAGE + 1;
 
   const recipesStore = useLocalStore(() => new RecipesStore());
+  const autocompleteStore = useLocalStore(() => new AutocompleteStore());
 
   useLayoutEffect(() => {
     const updateSearchParams = async () => {
@@ -55,10 +57,15 @@ const HomePage = () => {
     const debouncedFetchRecipes = debounce(fetchRecipes, 1200);
 
     debouncedFetchRecipes();
-  }, [offset, recipesStore, search, category]);
+  }, [offset, recipesStore, category]);
 
   const getRecipes = () => {
     recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, search, category });
+  };
+
+  const handleChangeSearch = (value: string) => {
+    autocompleteStore.fetchAutocomplete({ value });
+    setSearch(value);
   };
 
   const changePage = useCallback((newPage: number) => {
@@ -70,10 +77,12 @@ const HomePage = () => {
     setPage(1);
   }, []);
 
-  const setSearchValue = useCallback((value: string) => {
-    setSearch(value);
+  const setSearchValue = useCallback((e: React.MouseEvent<HTMLLIElement>) => {
+    const target = e.target as HTMLLIElement;
+    setSearch(target.textContent || '');
     setPage(1);
-  }, []);
+    getRecipes();
+  }, [search]);
 
   const getTitle = (arr: Option[]) => {
     return arr.map((category) => category.value).join(', ');
@@ -88,7 +97,7 @@ const HomePage = () => {
       {recipesStore.meta === Meta.loading && <Loader size="l" />}
       {recipesStore.meta === Meta.success && (
         <Container>
-          <Search value={search} getRecipes={getRecipes} onChange={setSearchValue} />
+          <Search setSearchValue={setSearchValue} completeList={autocompleteStore.list} value={search} getRecipes={getRecipes} onChange={handleChangeSearch} />
           <MultiDropdown
             className={styles.homepage__category}
             getTitle={getTitle}
