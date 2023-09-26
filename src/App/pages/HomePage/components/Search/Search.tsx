@@ -46,8 +46,8 @@ const Search = ({ value, onChange, getRecipes, completeList, setSearchValue, del
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    getRecipes()
-  }
+    getRecipes();
+  };
 
   return (
     <div className={styles.search}>

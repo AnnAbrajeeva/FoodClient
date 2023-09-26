@@ -1,4 +1,4 @@
-import { StepApi, StepModel } from "entites/Step";
+import { StepApi, StepModel } from 'entites/Step';
 
 export type RecipeInstructionApi = {
   steps: StepApi[];

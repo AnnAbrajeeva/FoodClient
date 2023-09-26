@@ -1,5 +1,5 @@
-import { AutocompleteApi, AutocompleteModel } from "./entity";
+import { AutocompleteApi, AutocompleteModel } from './entity';
 
-import { normalizeAutocomlete } from "./normalizer";
+import { normalizeAutocomlete } from './normalizer';
 
-export {type AutocompleteApi, type AutocompleteModel, normalizeAutocomlete};
+export { type AutocompleteApi, type AutocompleteModel, normalizeAutocomlete };

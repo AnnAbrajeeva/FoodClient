@@ -32,7 +32,9 @@ const SingleRecipe = () => {
       <Container>
         {recipesStore.meta === Meta.loading && <Loader size="l" />}
 
-        {!recipesStore.recipe && similarRecipesStore.list.length < 0 && recipesStore.meta === Meta.success && <NotFound />}
+        {!recipesStore.recipe && similarRecipesStore.list.length < 0 && recipesStore.meta === Meta.success && (
+          <NotFound />
+        )}
 
         {recipesStore.meta === Meta.success && (
           <>
@@ -47,7 +49,9 @@ const SingleRecipe = () => {
 
             {recipesStore.recipe && <SingleRecipeDescr recipe={recipesStore.recipe} />}
 
-            {similarRecipesStore.list.length > 0 && <SimilarRecipes loading={recipesStore.meta} recipes={similarRecipesStore.list} />}
+            {similarRecipesStore.list.length > 0 && (
+              <SimilarRecipes loading={recipesStore.meta} recipes={similarRecipesStore.list} />
+            )}
           </>
         )}
       </Container>

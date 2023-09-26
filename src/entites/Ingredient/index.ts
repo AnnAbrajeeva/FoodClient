@@ -1,4 +1,3 @@
-
 import { IngredientApi, IngredientModel } from './entity';
 
 import { normalizeIngredient } from './normalizer';

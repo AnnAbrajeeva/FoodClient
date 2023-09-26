@@ -1,7 +1,7 @@
-import { AutocompleteApi } from "entites/Autocomlete";
+import { AutocompleteApi } from 'entites/Autocomlete';
 
 export type AutocomleteParams = {
-    value: string;
-}
+  value: string;
+};
 
 export type AutocomleteApiData = AutocompleteApi[];

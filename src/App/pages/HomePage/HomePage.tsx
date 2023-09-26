@@ -53,7 +53,6 @@ const HomePage = () => {
     recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, search, category });
   };
 
-
   const clearSearch = useCallback(() => {
     setSearch('');
     fetchRecipes();

@@ -1,4 +1,4 @@
-import { EquipmentApi, EquipmentModel } from "entites/Equipment";
+import { EquipmentApi, EquipmentModel } from 'entites/Equipment';
 
 export type StepApi = {
   number: number;

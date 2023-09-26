@@ -6,11 +6,11 @@ import { Meta } from 'utils/meta';
 import s from './SimilarRecipes.module.scss';
 
 type SimilarRecipesProps = {
-    recipes: RecipeModel[];
-    loading: Meta;
-}
+  recipes: RecipeModel[];
+  loading: Meta;
+};
 
-const SimilarRecipes: FC<SimilarRecipesProps> = ({recipes, loading}) => {
+const SimilarRecipes: FC<SimilarRecipesProps> = ({ recipes, loading }) => {
   return (
     <div className={s.recipes}>
       <Text tag="h2" view="title">
@@ -20,6 +20,5 @@ const SimilarRecipes: FC<SimilarRecipesProps> = ({recipes, loading}) => {
     </div>
   );
 };
-
 
 export default SimilarRecipes;

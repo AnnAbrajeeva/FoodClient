@@ -7,7 +7,7 @@ export type GetRecipesParams = {
 
 export type SimilarRecipeParams = {
   ids: string;
-}
+};
 
 export type GetSimilarRecipesApiResponse = {
   results: SimilarRecipeApi[];
@@ -20,7 +20,7 @@ export type GetRecipesApiResponse = {
 export type GetSimilarApiData = {
   isError: boolean;
   data: SimilarRecipeApi[];
-}
+};
 
 export type GetRecipeApiData = {
   isError: boolean;

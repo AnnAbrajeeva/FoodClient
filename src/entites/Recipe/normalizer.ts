@@ -37,4 +37,5 @@ export const normalizeRecipeFull = (from: RecipeFullApi): RecipeFullModel => {
   };
 };
 
-export const normalizeSimilarRecipe = (from: SimilarRecipeApi[]): SimilarRecipeModel => from.map((item) => String(item.id));
+export const normalizeSimilarRecipe = (from: SimilarRecipeApi[]): SimilarRecipeModel =>
+  from.map((item) => String(item.id));

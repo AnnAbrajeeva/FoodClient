@@ -59,12 +59,12 @@ export type RecipeFullModel = {
 };
 
 export type SimilarRecipeApi = {
-  id: number,
-  title: string,
-  imageType: string,
-  readyInMinutes: number,
-  servings: number,
-  sourceUrl: string
+  id: number;
+  title: string;
+  imageType: string;
+  readyInMinutes: number;
+  servings: number;
+  sourceUrl: string;
 };
 
 export type SimilarRecipeModel = string[];
