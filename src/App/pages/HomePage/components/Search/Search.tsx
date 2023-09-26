@@ -13,17 +13,13 @@ type SearchProps = {
   getRecipes: () => void;
   completeList: AutocompleteModel[];
   setSearchValue: (e: React.MouseEvent<HTMLLIElement>) => void;
+  deleteValue: () => void;
 };
 
-const Search = ({ value, onChange, getRecipes, completeList, setSearchValue }: SearchProps) => {
+const Search = ({ value, onChange, getRecipes, completeList, setSearchValue, deleteValue }: SearchProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const autocompleteBox = useRef<HTMLFormElement>(null);
-
-  const clearSearch = () => {
-    onChange('');
-    inputRef.current?.focus();
-  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -67,7 +63,7 @@ const Search = ({ value, onChange, getRecipes, completeList, setSearchValue }: S
             ref={inputRef}
             className={styles.search__input}
             value={value}
-            afterSlot={value && <DeleteIcon onClick={clearSearch} className={styles.search__delete} />}
+            afterSlot={value && <DeleteIcon onClick={deleteValue} className={styles.search__delete} />}
             onChange={onChange}
             placeholder="Enter dishes"
             onClick={handleInputClick}

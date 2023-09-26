@@ -47,7 +47,7 @@ const SingleRecipe = () => {
 
             {recipesStore.recipe && <SingleRecipeDescr recipe={recipesStore.recipe} />}
 
-            {similarRecipesStore.list.length > 0 && <SimilarRecipes recipes={similarRecipesStore.list} />}
+            {similarRecipesStore.list.length > 0 && <SimilarRecipes loading={recipesStore.meta} recipes={similarRecipesStore.list} />}
           </>
         )}
       </Container>
