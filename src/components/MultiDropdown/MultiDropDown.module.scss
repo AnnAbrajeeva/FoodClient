@@ -1,4 +1,4 @@
-@import 'styles/variables.scss';
+@import "styles/variables.scss";
 
 .dropdown {
   position: relative;
@@ -12,7 +12,7 @@
 
   &__box {
     position: absolute;
-    bottom: -200%;
+    top: 120%;
     width: 100%;
     background: $dropdown-options-bg;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
@@ -25,6 +25,10 @@
     align-items: center;
     align-self: stretch;
     cursor: pointer;
+
+    &:hover p {
+      color: $text-secondary;
+    }
   }
 
   &__placeholder input {

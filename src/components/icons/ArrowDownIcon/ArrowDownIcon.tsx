@@ -2,12 +2,11 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { IconProps } from '../Icon';
 import Icon from '../Icon/Icon';
-import s from './ArrowDownIcon.module.scss'
+import s from './ArrowDownIcon.module.scss';
 
 const ArrowDownIcon: React.FC<IconProps> = ({ color, className, width, height, ...rest }) => {
   const iconColor = color && s[`icon--${color}`];
   const classes = classNames('icon', className, iconColor);
-    
 
   return (
     <Icon>

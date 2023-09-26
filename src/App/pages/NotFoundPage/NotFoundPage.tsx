@@ -18,7 +18,7 @@ const NotFoundPage = () => {
             Sorry, page not found
           </Text>
           <Link to="/">
-            <Button className={styles.error__link}>Go to home</Button>
+            <Button className={styles.error__link}>Go home</Button>
           </Link>
         </div>
       </Container>

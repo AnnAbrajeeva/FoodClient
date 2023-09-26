@@ -1,17 +1,17 @@
-@import 'styles/variables.scss';
+@import "styles/variables.scss";
 
 .icon {
+  fill: $text-secondary;
+
+  &--secondary {
     fill: $text-secondary;
-    
-    &--secondary {
-        fill: $text-secondary;
-    }
+  }
 
-    &--primary {
-        fill: $text-primary;
-    }
+  &--primary {
+    fill: $text-primary;
+  }
 
-    &--accent {
-        fill: $text-accent;
-    }
+  &--accent {
+    fill: $text-accent;
+  }
 }

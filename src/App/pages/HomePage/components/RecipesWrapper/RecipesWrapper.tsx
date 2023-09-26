@@ -1,19 +1,18 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Link } from 'react-router-dom';
+import ActionSlot from 'components/ActionSlot';
 import Card from 'components/Card';
-import { Ingredient, Recipe } from 'utils/entityTypes';
-
-import ActionSlot from '../ActionSlot';
+import { IngredientModel, RecipeModel } from 'store/RecipesStore/models/recipe';
 import CaptionSlot from '../CaptionSlot';
 import ContentSlot from '../ContentSlot';
 import styles from './RecipesWrapper.module.scss';
 
 type RecipesWrapperProps = {
-  recipes: Recipe[];
+  recipes: RecipeModel[];
 };
 
 const RecipesWrapper: FC<RecipesWrapperProps> = ({ recipes }) => {
-  const getProducts = (ingredients: Ingredient[]) => {
+  const getProducts = (ingredients: IngredientModel[]) => {
     return ingredients.map((item) => item.name).join(' + ');
   };
 
@@ -31,7 +30,7 @@ const RecipesWrapper: FC<RecipesWrapperProps> = ({ recipes }) => {
               )
             }
             contentSlot={<ContentSlot options={nutrition.nutrients} />}
-            actionSlot={<ActionSlot />}
+            actionSlot={<ActionSlot id={id} />}
             subtitle={nutrition.ingredients ? getProducts(nutrition.ingredients) : ''}
             title={title}
             image={image}
@@ -42,4 +41,4 @@ const RecipesWrapper: FC<RecipesWrapperProps> = ({ recipes }) => {
   );
 };
 
-export default RecipesWrapper;
+export default memo(RecipesWrapper);

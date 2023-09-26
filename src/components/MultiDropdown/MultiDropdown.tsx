@@ -93,7 +93,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
         {...rest}
         className={className}
         onClick={handleDropdown}
-        afterSlot={<ArrowDownIcon color='secondary' />}
+        afterSlot={<ArrowDownIcon color="secondary" />}
         value={!isOpen && value.length ? getTitle(value) : ''}
         onChange={(e) => handleInputChange(e)}
         placeholder={isOpen ? getTitle(value) : 'Categories'}

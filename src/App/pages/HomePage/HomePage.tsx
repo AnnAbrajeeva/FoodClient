@@ -1,13 +1,23 @@
-import { useEffect, useState } from 'react';
+import debounce from 'lodash.debounce';
+import { observer } from 'mobx-react-lite';
+import { stringify } from 'qs';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HeroBg from 'assets/img/hero-bg.jpg';
 import HeroText from 'assets/img/hero-text.svg';
 import Container from 'components/Container';
 import Loader from 'components/Loader';
 import MultiDropdown, { Option } from 'components/MultiDropdown';
+import NotFound from 'components/NotFound';
 import Pagination from 'components/Pagination';
-import { api, API_KEY } from 'config/api/api';
-import { Recipe } from 'utils/entityTypes';
+import { API_KEY } from 'config/api/api';
+import RecipesStore from 'store/RecipesStore';
+import rootStore from 'store/RootStore';
 import { getPageCount } from 'utils/getPageCount';
+import { getSelectedCategories } from 'utils/getSelectedCategories';
+import { mealTypes } from 'utils/mealTypes';
+import { Meta } from 'utils/meta';
+import { useLocalStore } from 'utils/useLocalStore';
 import RecipesWrapper from './components/RecipesWrapper';
 import Search from './components/Search';
 import styles from './HomePage.module.scss';
@@ -15,88 +25,99 @@ import styles from './HomePage.module.scss';
 const ITEMS_PER_PAGE = 9;
 
 const HomePage = () => {
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState<Option[]>([]);
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [value, setValue] = useState((rootStore.query.getParam('search') as string) || '');
+  const [search, setSearch] = useState((rootStore.query.getParam('search') as string) || '');
+  const [category, setCategory] = useState<Option[]>(getSelectedCategories() || []);
+  const [page, setPage] = useState(Number(rootStore.query.getParam('page')) || 1);
+  const navigate = useNavigate();
 
   const offset = (page - 1) * ITEMS_PER_PAGE + 1;
 
+  const recipesStore = useLocalStore(() => new RecipesStore());
+
+  useLayoutEffect(() => {
+    const queryString = stringify({
+      offset,
+      page,
+      search,
+      category: getTitle(category),
+    });
+
+    const updateRoute = async () => {
+      await navigate(`?${queryString}`);
+    };
+
+    updateRoute();
+  }, [offset, search, page, navigate, category]);
+
   useEffect(() => {
-    async function getAllRecipes() {
-      try {
-        setIsLoading(true);
+    recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, apiKey: API_KEY, search, category });
+  }, [offset, recipesStore, search, category]);
 
-        const res = await api.get(
-          `recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&offset=${offset}&number=${ITEMS_PER_PAGE}&limitLicense=true`,
-        );
-
-        const totalPages = getPageCount(res.data.totalResults, ITEMS_PER_PAGE);
-
-        setTotal(totalPages);
-        setRecipes(res.data.results);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-
-        if (error instanceof Error) {
-          throw new Error(error.message);
-        }
-      }
-    }
-    getAllRecipes();
-  }, [page, offset]);
-
-  const changePage = (newPage: number) => {
-    setPage(newPage);
+  const getRecipes = () => {
+    recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, apiKey: API_KEY, search, category });
   };
 
-  const options: Option[] = [
-    {
-      key: 'MEAT',
-      value: 'Meat',
+  const totalPages = getPageCount(recipesStore.totalRecipe, ITEMS_PER_PAGE);
+
+  const changePage = useCallback((newPage: number) => {
+    setPage(newPage);
+  }, []);
+
+  const updateSearchValue = useCallback(
+    debounce((str: string) => {
+      setSearch(str);
+    }, 1200),
+    [],
+  );
+
+  const setSearchValue = useCallback(
+    (value: string) => {
+      setValue(value);
+      updateSearchValue(value);
     },
-    {
-      key: 'Apl',
-      value: 'Apple',
-    },
-  ];
+    [updateSearchValue],
+  );
 
   const getTitle = (arr: Option[]) => {
-    return Object.values(arr).join('');
+    return arr.map((category) => category.value).join(', ');
   };
+
   return (
     <div className={styles.homepage}>
       <div className={styles.homepage__hero}>
         <img className={styles.homepage__img} src={HeroBg} alt="Food" />
         <img className={styles['homepage__hero-text']} src={HeroText} alt="Recipes" />
       </div>
-      {isLoading ? (
-        <Loader size='l' />
-      ) : (
+      {recipesStore.meta === Meta.loading && <Loader size="l" />}
+      {recipesStore.meta === Meta.success && (
         <Container>
-          <Search value={search} onChange={setSearch} />
+          <Search value={value} getRecipes={getRecipes} onChange={setSearchValue} />
           <MultiDropdown
             className={styles.homepage__category}
             getTitle={getTitle}
-            options={options}
+            options={mealTypes}
             value={category}
             onChange={setCategory}
           />
-          {recipes && <RecipesWrapper recipes={recipes} />}
-          <Pagination
-            onChange={changePage}
-            current={page}
-            total={total}
-            perPage={ITEMS_PER_PAGE}
-            disable={{ left: page === 1, right: page === total }}
-          />
+          {recipesStore.list.length > 0 ? (
+            <>
+              <RecipesWrapper recipes={recipesStore.list} />
+              <Pagination
+                onChange={changePage}
+                current={page}
+                total={totalPages}
+                perPage={ITEMS_PER_PAGE}
+                disable={{ left: page === 1, right: page === totalPages }}
+              />
+            </>
+          ) : (
+            <NotFound />
+          )}
         </Container>
       )}
     </div>
   );
 };
 
-export default HomePage;
+export default observer(HomePage);

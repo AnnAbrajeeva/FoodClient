@@ -29,8 +29,6 @@ const Pagination: FC<PaginationProps> = ({ onChange, disable, current, total }) 
     onChange(next <= total ? next : current);
   }, [current, onChange, total]);
 
-  
-
   return (
     <div className={styles.pagination}>
       <Button disabled={disable?.left} onClick={getPrevPage} className={styles.pagination__btn}>
@@ -53,4 +51,3 @@ const Pagination: FC<PaginationProps> = ({ onChange, disable, current, total }) 
 };
 
 export default Pagination;
-

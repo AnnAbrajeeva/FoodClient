@@ -4,15 +4,31 @@ import styles from './RecipeParam.module.scss';
 
 type RecipeParamProps = {
   title: string;
-  param: string | number;
+  param: number;
 };
 
 const RecipeParam: FC<RecipeParamProps> = ({ title, param }) => {
+  let paramsValue = '';
+
+  switch (title) {
+    case 'Servings':
+      paramsValue = param && param > 0 ? `${param} servings` : 'unknown';
+      break;
+
+    case 'Ratings':
+      paramsValue = param && param > 0 ? `${param} likes` : 'unknown';
+      break;
+
+    default:
+      paramsValue = param && param > 0 ? `${param} minutes` : 'unknown';
+      break;
+  }
+
   return (
     <div className={styles.param}>
       <Text view="p-16">{title}</Text>
       <Text color="accent" view="p-16" weight="medium">
-        {param}
+        {paramsValue}
       </Text>
     </div>
   );
