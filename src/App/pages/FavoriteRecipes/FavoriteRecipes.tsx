@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react-lite';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import Container from 'components/Container';
 import RecipesWrapper from 'components/RecipesWrapper';
-import { StoresContext } from 'store/FavoriteRecipesStore/favoriteContext';
+import rootStore from 'store/RootStore/instance';
 import s from './FavoriteRecipes.module.scss';
 
 const FavoriteRecipes = () => {
-  const { list, favoriteIds, getFavoriteRecipesList, meta } = useContext(StoresContext);
+  const { list, favoriteIds, getFavoriteRecipesList, meta } = rootStore.favoriteRecipesStore;
 
   useEffect(() => {
     const ids = favoriteIds;

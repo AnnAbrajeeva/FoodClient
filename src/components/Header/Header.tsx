@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Favor from 'assets/img/favor.svg';
 import Logo from 'assets/img/logo.svg';
@@ -9,12 +9,12 @@ import Container from 'components/Container';
 import MobileNav from 'components/MobileNav';
 import Navigation from 'components/Navigation';
 import Text from 'components/Text';
-import { StoresContext } from 'store/FavoriteRecipesStore/favoriteContext';
+import rootStore from 'store/RootStore/instance';
 import styles from './Header.module.scss';
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
-  const { favoriteIds } = useContext(StoresContext);
+  const { favoriteIds } = rootStore.favoriteRecipesStore;
 
   const handleBurger = useCallback(() => {
     setOpen((val) => !val);

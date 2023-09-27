@@ -4,23 +4,25 @@ import { RecipeApi, RecipeModel, normalizeRecipe } from 'entites/Recipe';
 import { ILocalStore } from 'hooks/useLocalStore';
 import { GetFavoriteRecipesParams } from 'store/RecipesStore/types';
 import rootStore from 'store/RootStore/instance';
-import { fetchApi } from 'utils/apiResponse';
-import { Meta } from 'utils/meta';
 import {
   CollectionModel,
   getInitialCollectionModel,
   linearizeCollection,
   normalizeCollection,
-} from '../common/collection';
+} from 'store/common/collection';
+import { fetchApi } from 'utils/apiResponse';
+import { Meta } from 'utils/meta';
+import LocalStorageStore from '../LocalStorageStore';
 
 type PrivateFields = '_list' | '_meta' | '_favoriteIds';
 
 export default class FavoriteRecipesStore implements ILocalStore {
   private _list: CollectionModel<number, RecipeModel> = getInitialCollectionModel();
   private _meta: Meta = Meta.initial;
-  private _favoriteIds: number[] = rootStore.localStorage.getLocalItem('recipes') || [];
+  private _favoriteIds: number[]
 
-  constructor() {
+  constructor(localStorage: LocalStorageStore) {
+    this._favoriteIds = localStorage.getLocalItem('recipes') || [];
     makeObservable<FavoriteRecipesStore, PrivateFields>(this, {
       _list: observable.ref,
       _meta: observable,

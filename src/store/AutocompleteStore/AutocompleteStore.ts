@@ -14,7 +14,7 @@ export default class AutocompleteStore implements ILocalStore {
 
   constructor() {
     makeObservable<AutocompleteStore, PrivateFields>(this, {
-      _list: observable,
+      _list: observable.ref,
       _meta: observable,
       list: computed,
       meta: computed,
