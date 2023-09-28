@@ -1,26 +1,35 @@
 {
-    "compilerOptions": {
-      "allowJs": true,
-      "sourceMap": true,
-      "strict": true,
-      "strictNullChecks": true,
-      "skipLibCheck": true,
-      "module": "es6",
-      "target": "es6",
-      "moduleResolution": "node",
-        "jsx": "react-jsx",
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
-      "baseUrl": ".",
-      "paths": {
-        "*": ["./src/*"]
-      },
-      },
-      "ts-node": {
-        "compilerOptions": {
-            "module": "CommonJS"
-        }
-      },
-      "include": ["src/**/*"], 
-      "exclude": ["node_modules"] 
+  "compilerOptions": {
+    "noEmit": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "pages/*": ["src/pages/*"],
+      "config/*": ["src/config/*"],
+      "styles/*": ["src/styles/*"],
+      "utils/*": ["src/utils/*"],
+      "assets/*": ["src/assets/*"],
+      "store/*": ["src/store/*"],
+      "entites/*": ["src/entites/*"],
+      "hooks/*": ["src/hooks/*"],
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
