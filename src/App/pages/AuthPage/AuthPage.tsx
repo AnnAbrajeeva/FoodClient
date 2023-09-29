@@ -12,13 +12,6 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { authValidation } from 'entites/User/validation';
 
 const AuthPage = () => {
-  const [user, setUser] = useState<UserRegister>({
-    username: '',
-    surname: '',
-    email: '',
-    login: '',
-  });
-
   const {
     register,
     handleSubmit,
@@ -30,6 +23,7 @@ const AuthPage = () => {
       surname: '',
       email: '',
       login: '',
+      password: ''
     },
     resolver: yupResolver(authValidation),
     mode: 'onChange'
@@ -38,6 +32,7 @@ const AuthPage = () => {
   const onSubmit: SubmitHandler<UserRegister> = (data) => {
     if (!Object.keys(errors).length) {
       rootStore.userStore.createUser(data);
+      reset();
     }
   };
 
@@ -68,20 +63,26 @@ const AuthPage = () => {
               className={s.auth__input}
               placeholder="Enter your surname"
             />
-            <Text color="accent" view="p-14">
+            <Text className={s["auth__error-text"]} color="accent" view="p-14">
               {errors.surname?.message}
             </Text>
           </div>
           <div className={s['auth__input-wrapper']}>
             <Input defaultValue={''} {...register('email')} className={s.auth__input} placeholder="Enter your email" />
-            <Text color="accent" view="p-14">
+            <Text className={s["auth__error-text"]} color="accent" view="p-14">
               {errors.email?.message}
             </Text>
           </div>
           <div className={s['auth__input-wrapper']}>
             <Input defaultValue={''} {...register('login')} className={s.auth__input} placeholder="Enter your login" />
-            <Text color="accent" view="p-14">
+            <Text className={s["auth__error-text"]} color="accent" view="p-14">
               {errors.login?.message}
+            </Text>
+          </div>
+          <div className={s['auth__input-wrapper']}>
+            <Input defaultValue={''} {...register('password')} className={s.auth__input} placeholder="Enter your password" />
+            <Text className={s["auth__error-text"]} color="accent" view="p-14">
+              {errors.password?.message}
             </Text>
           </div>
           <Text>

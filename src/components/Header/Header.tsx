@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import Favor from 'assets/img/favor.svg';
 import Logo from 'assets/img/logo.svg';
 import User from 'assets/img/user.svg';
+import Chef from 'assets/img/chef.png';
 import Burger from 'components/Burger';
 import Container from 'components/Container';
 import MobileNav from 'components/MobileNav';
@@ -24,6 +25,8 @@ const Header = () => {
     document.body.style.overflow = isOpen ? 'hidden' : 'scroll';
   }, [isOpen]);
 
+  console.log(rootStore.userStore.user)
+
   return (
     <div className={styles.header}>
       <Container>
@@ -41,8 +44,12 @@ const Header = () => {
               <img className={styles['header__user-icon']} src={Favor} alt="Favorite Recipes" />
               {favoriteIds.length > 0 && <div className={styles['header__icon-count']}>{favoriteIds.length}</div>}
             </NavLink>
-            <NavLink to="/login">
-              <img className={styles['header__user-icon']} src={User} alt="Favorite Recipes" />
+            <NavLink to="/auth">
+              {rootStore.userStore.user ? (
+                <img className={styles['header__user-icon']} src={Chef} alt="Chef" />
+                ) : (
+                <img className={styles['header__user-icon']} src={User} alt="login" />
+              )}
             </NavLink>
             <Burger isOpen={isOpen} onChange={handleBurger} />
           </div>

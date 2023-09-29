@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SingleRecipe from './pages/SingleRecipe/SingleRecipe';
 import AuthPage from './pages/AuthPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   useQueryParamsStoreInit();
@@ -18,6 +19,7 @@ function App() {
           <Route path="/favorite" element={<FavoriteRecipes />} />
           <Route path="recipe/:id" element={<SingleRecipe />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

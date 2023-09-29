@@ -56,7 +56,7 @@ export default class UserStore implements ILocalStore {
     if (res.data) {
       runInAction(() => {
         try {
-          const newUser = { ...user, password: res.data.spoonacularPassword, hash: res.data.hash };
+          const newUser = { ...user, hash: res.data.hash };
 
           const docRef = collection(firestoreDatabase, 'users');
           addDoc(docRef, newUser);
@@ -78,7 +78,7 @@ export default class UserStore implements ILocalStore {
     this._user = null;
 
     runInAction(async () => {
-      const qry = query(collection(firestoreDatabase, 'users'), where('email', '==', user.login));
+      const qry = query(collection(firestoreDatabase, 'users'), where('login', '==', user.login));
       const querySnapshot = await getDocs(qry);
       if (querySnapshot.size === 0) {
         throw new Error('User does not exist');
