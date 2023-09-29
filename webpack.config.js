@@ -13,7 +13,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const getSettingsForStyles = (withModules = false) => {
   return [
-    MiniCssExtractPlugin.loader,
+    isProd ? MiniCssExtractPlugin.loader : 'style-loader',
     !withModules
       ? 'css-loader'
       : {

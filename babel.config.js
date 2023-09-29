@@ -11,7 +11,7 @@ module.exports = (api) => {
     const plugins = [
       '@babel/plugin-proposal-optional-chaining',
       ['module:fast-async', { spec: true }],
-      !api.env('production') && 'react-refresh/babel',
+      !isProd && 'react-refresh/babel',
     ].filter(Boolean);
   
     return {

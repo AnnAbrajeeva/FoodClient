@@ -1,0 +1,75 @@
+@import "styles/variables.scss";
+
+.auth {
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../../../assets/img/fon.jpg") center center/cover no-repeat;
+    filter: blur(5px);
+    opacity: 0.6;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    backdrop-filter: blur(10px);
+    background: hsla(0, 0%, 100%, 0.3);
+    border-left: 1px solid hsla(0, 0%, 100%, 0.3);
+    border-radius: 20px;
+    border-top: 1px solid hsla(0, 0%, 100%, 0.3);
+    box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap;
+    margin: 40px auto 0;
+    padding: 3em;
+    position: relative;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    width: 30%;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  &__form {
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+  }
+
+  &__input {
+    border-radius: $border-radius;
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+      box-shadow: $shadow-box-shadow;
+    }
+  }
+
+  &__error-text {
+    margin-top: 10px;
+  }
+
+  &__link {
+    color: $brand;
+  }
+
+  &__btn {
+    border-radius: $border-radius;
+  }
+}

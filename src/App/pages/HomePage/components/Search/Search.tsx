@@ -64,7 +64,7 @@ const Search = ({ value, onChange, getRecipes, completeList, setSearchValue, del
             className={styles.search__input}
             value={value}
             afterSlot={value && <DeleteIcon onClick={deleteValue} className={styles.search__delete} />}
-            onChange={onChange}
+            onChange={(e) => onChange(e.target.value)}
             placeholder="Enter dishes"
             onClick={handleInputClick}
           />

@@ -1,4 +1,5 @@
 import * as ReactDOM from 'react-dom/client';
+import * as firebase from 'utils/firebase';
 import { BrowserRouter } from 'react-router-dom';
 import 'regenerator-runtime';
 import App from './App';

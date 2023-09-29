@@ -14,3 +14,15 @@ export async function fetchApi<T>(url: string): Promise<{ isError: boolean; data
     return { isError: true, data: null };
   }
 }
+
+export async function postData<T>(url: string): Promise<{
+  isError: boolean;
+  data: T | null;
+}> {
+  try {
+    const response: AxiosResponse<T> = await api.post<T>(url);
+    return { isError: false, data: response.data };
+  } catch (error) {
+    return { isError: true, data: null };
+  }
+}

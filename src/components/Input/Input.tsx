@@ -1,12 +1,13 @@
 import classNames from 'classnames';
-import { forwardRef } from 'react';
+import { ChangeEventHandler, forwardRef } from 'react';
 import s from './Input.module.scss';
+import { ChangeHandler } from 'react-hook-form';
 
 export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> & {
   /** Значение поля */
-  value: string;
+  value?: string;
   /** Callback, вызываемый при вводе данных в поле */
-  onChange: (value: string) => void;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   /** Слот для иконки справа */
   afterSlot?: React.ReactNode;
 };
@@ -21,11 +22,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, after
         {...rest}
         ref={ref}
         className={classes}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
         value={value}
         placeholder={rest.placeholder || ''}
         type="text"
         disabled={rest.disabled}
+        autoComplete="new-password"
       />
       {afterSlot && <div className={s.input__icon}>{afterSlot}</div>}
     </div>

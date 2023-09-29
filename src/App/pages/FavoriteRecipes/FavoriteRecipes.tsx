@@ -4,6 +4,7 @@ import Container from 'components/Container';
 import RecipesWrapper from 'components/RecipesWrapper';
 import rootStore from 'store/RootStore/instance';
 import s from './FavoriteRecipes.module.scss';
+import NotFound from 'components/NotFound';
 
 const FavoriteRecipes = () => {
   const { list, favoriteIds, getFavoriteRecipesList, meta } = rootStore.favoriteRecipesStore;
@@ -20,6 +21,7 @@ const FavoriteRecipes = () => {
     <div className={s.favorite}>
       <Container>
         <RecipesWrapper loading={meta} recipes={list} />
+        {favoriteIds.length === 0 && <NotFound />}
       </Container>
     </div>
   );
