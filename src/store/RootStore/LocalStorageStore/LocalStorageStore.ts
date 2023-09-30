@@ -15,4 +15,8 @@ export default class LocalStorageStore {
     const newValue = item.length > 0 ? item.filter((val: unknown) => val !== value) : '';
     localStorage.setItem(key, JSON.stringify(newValue));
   };
+
+  removeItem = (key: string) => {
+    localStorage.removeItem(key);
+  };
 }

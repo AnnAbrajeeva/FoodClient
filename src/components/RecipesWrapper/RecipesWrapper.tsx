@@ -17,7 +17,6 @@ type RecipesWrapperProps = {
 };
 
 const RecipesWrapper: FC<RecipesWrapperProps> = ({ recipes, loading }) => {
-  console.log(loading)
   return (
     <>
       <div className={styles['recipes-wrapper']}>

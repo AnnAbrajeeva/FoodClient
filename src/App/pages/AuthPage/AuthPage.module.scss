@@ -68,9 +68,17 @@
   &__link {
     color: $brand;
     text-decoration: underline;
+    margin-left: 10px;
   }
 
   &__btn {
     border-radius: $border-radius;
+
+    svg {
+      margin: 0;
+      path {
+        fill: #fff;
+      }
+    }
   }
 }

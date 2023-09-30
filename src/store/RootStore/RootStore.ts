@@ -7,5 +7,5 @@ export default class RootStore {
   readonly query = new QueryParamsStore();
   readonly localStorage = new LocalStorageStore();
   readonly favoriteRecipesStore = new FavoriteRecipesStore(this.localStorage);
-  readonly userStore = new UserStore();
+  readonly userStore = new UserStore(this.localStorage);
 }

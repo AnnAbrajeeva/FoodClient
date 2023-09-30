@@ -7,6 +7,8 @@ import NotFoundPage from './pages/NotFoundPage';
 import SingleRecipe from './pages/SingleRecipe/SingleRecipe';
 import AuthPage from './pages/AuthPage';
 import LoginPage from './pages/LoginPage';
+import { useEffect } from 'react';
+import rootStore from 'store/RootStore/instance';
 
 function App() {
   useQueryParamsStoreInit();

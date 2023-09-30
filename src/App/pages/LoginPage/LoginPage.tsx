@@ -5,10 +5,11 @@ import Text from 'components/Text';
 import { UserLogin } from 'entites/User';
 import { loginValidation } from 'entites/User/validation';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import rootStore from 'store/RootStore';
 import { Meta } from 'utils/meta';
 import s from './LoginPage.module.scss';
+import { observer } from 'mobx-react-lite';
 
 const LoginPage = () => {
   const {
@@ -25,12 +26,17 @@ const LoginPage = () => {
     mode: 'onChange',
   });
 
+  const navigate = useNavigate();
+
   const hasErrors = Object.keys(errors).length > 0;
 
-  const onSubmit: SubmitHandler<UserLogin> = (data) => {
+  const onSubmit: SubmitHandler<UserLogin> = async (data) => {
     if (!hasErrors) {
-      rootStore.userStore.loginUser(data);
-      reset();
+      await rootStore.userStore.loginUser(data);
+      if (rootStore.userStore.meta === Meta.success) {
+        reset();
+        navigate('/');
+      }
     }
   };
 
@@ -38,7 +44,7 @@ const LoginPage = () => {
     <div className={s.auth}>
       <div className={s.auth__wrapper}>
         <Text className={s.auth__title} tag="h1" weight="bold">
-          Registration
+          Login
         </Text>
 
         <form onSubmit={handleSubmit(onSubmit)} className={s.auth__form}>
@@ -65,7 +71,7 @@ const LoginPage = () => {
               Registration
             </Link>
           </Text>
-          <Button disabled={hasErrors} loading={rootStore.userStore.meta === Meta.loading} className={s.auth__btn}>
+          <Button disabled={hasErrors || rootStore.userStore.meta === Meta.loading} loading={rootStore.userStore.meta === Meta.loading} className={s.auth__btn}>
             Login
           </Button>
         </form>
@@ -74,4 +80,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default observer(LoginPage);

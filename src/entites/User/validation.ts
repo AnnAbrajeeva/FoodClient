@@ -10,7 +10,7 @@ export const authValidation = yup
     surname: yup
       .string()
       .required('Surname is required.')
-      .min(2, 'Name is too short - it must be from 2 letters.')
+      .min(2, 'The field must be from 2 letters.')
       .matches(/[a-zA-Z]\D/, 'The field must contain only letters.'),
     email: yup.string().email().required('Email is required.'),
     login: yup
