@@ -14,4 +14,5 @@ export type MealPlaneModel = {
   readyInMinutes: number;
   servings: number;
   sourceUrl: string;
+  img?: string
 };

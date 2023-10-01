@@ -73,6 +73,7 @@ export default class RecipesStore implements ILocalStore {
             this._list = normalizeCollection(list, (listItem) => listItem.id);
             this._totalRecipe = res.data.totalResults;
             this._meta = Meta.success;
+            console.log(this._list)
             return;
           } catch (error) {
             this._meta = Meta.error;

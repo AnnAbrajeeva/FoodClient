@@ -1,6 +1,5 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
 import { API_KEY } from 'config/api/api';
-import { fetchApi, postData } from 'utils/apiResponse';
 import { Meta } from 'utils/meta';
 import { ILocalStore } from 'hooks/useLocalStore';
 import { UserLogin, UserRegister } from 'entites/User';

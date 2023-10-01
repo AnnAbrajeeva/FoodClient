@@ -47,39 +47,11 @@ export default class MealPlanesStore implements ILocalStore {
     );
 
     if (!res.isError) {
-      runInAction(() => {
+      runInAction(async () => {
         if (res.data) {
-          try {       
+          try {
             this._list = res.data;
-            this._meta = Meta.success;
-            return;
-          } catch (error) {
-            this._meta = Meta.error;
-            this._list = null;
-          }
-        }
-      });
-    } else {
-      runInAction(() => {
-        this._meta = Meta.error;
-        this._list = null;
-      });
-    }
-  }
-
-  async fetchMealPlanesImg({ id, type }: MealPlanesImgProps): Promise<void> {
-    this._meta = Meta.loading;
-    this._list = null;
-
-    const res = await fetchApi<MealPlanesApi>(
-      `/mealplanner/generate?timeFrame=day&targetCalories=${calory}&diet=${diet}&apiKey=${API_KEY}`,
-    );
-
-    if (!res.isError) {
-      runInAction(() => {
-        if (res.data) {
-          try {       
-            this._list = res.data;
+            this._list.meals = this._list.meals.map((item) => ({ ...item, img: `https://spoonacular.com/recipeImages/${item.id}-480x360.${item.imageType}` }));
             this._meta = Meta.success;
             return;
           } catch (error) {

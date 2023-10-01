@@ -5,8 +5,8 @@ const Skeleton = () => (
   <div className={s.skeleton}>
     <ContentLoader
       speed={2}
-      width={360}
-      height={582}
+      width={335}
+      height={542}
       viewBox="0 0 360 582"
       backgroundColor="#f9efeb"
       foregroundColor="#ffffff"

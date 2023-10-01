@@ -1,0 +1,25 @@
+@import "styles/variables.scss";
+
+.nutrients {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  border: 1px solid $text-secondary;
+  text-align: center;
+
+  &__title {
+    padding: 10px;
+    width: 100%;
+    font-weight: bold;
+    border: 1px solid $text-secondary;
+    text-transform: uppercase;
+    color: $brand;
+  }
+
+  &__value {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid $text-secondary;
+  }
+}
