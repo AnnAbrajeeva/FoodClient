@@ -73,7 +73,7 @@ const Header = () => {
               ) : (
                 <img className={styles['header__user-icon']} src={User} alt="login" />
               )}
-              {rootStore.userStore.user && isOpenUser && <UserMenu isOpen={isOpenUser} handleClose={setIsOpenUser} />}
+              {rootStore.userStore.user && isOpenUser && <UserMenu isOpen={isOpenUser} />}
             </div>
             <Burger isOpen={isOpen} onChange={handleBurger} />
           </div>

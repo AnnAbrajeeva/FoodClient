@@ -6,13 +6,9 @@ import classNames from 'classnames';
 
 type UserMenuProps = {
   isOpen: boolean;
-  handleClose: (value: boolean) => void;
 };
 
-const UserMenu: FC<UserMenuProps> = ({ isOpen, handleClose }) => {
-  
-
-
+const UserMenu: FC<UserMenuProps> = ({ isOpen }) => {
 
   const username = `${rootStore.userStore.user?.username} ${rootStore.userStore.user?.surname}`;
 

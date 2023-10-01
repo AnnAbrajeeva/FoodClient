@@ -25,7 +25,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, after
         onChange={onChange}
         value={value}
         placeholder={rest.placeholder || ''}
-        type="text"
         disabled={rest.disabled}
         autoComplete="new-password"
       />

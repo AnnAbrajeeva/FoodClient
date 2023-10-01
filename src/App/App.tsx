@@ -9,6 +9,7 @@ import AuthPage from './pages/AuthPage';
 import LoginPage from './pages/LoginPage';
 import { useEffect } from 'react';
 import rootStore from 'store/RootStore/instance';
+import DietPlan from './pages/DietPlan';
 
 function App() {
   useQueryParamsStoreInit();
@@ -22,6 +23,7 @@ function App() {
           <Route path="recipe/:id" element={<SingleRecipe />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/diet-plan" element={<DietPlan />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

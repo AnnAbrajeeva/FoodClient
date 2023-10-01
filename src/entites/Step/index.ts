@@ -1,5 +1,5 @@
 import { StepApi, StepModel } from './entity';
 
-import { normalizeStep } from './mormalizer';
+import { normalizeStep } from './normalizer';
 
 export { type StepApi, type StepModel, normalizeStep };
