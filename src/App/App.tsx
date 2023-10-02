@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import { useEffect } from 'react';
 import rootStore from 'store/RootStore/instance';
 import DietPlan from './pages/DietPlan';
+import ShoppingList from './pages/ShoppingList';
 
 function App() {
   useQueryParamsStoreInit();
@@ -24,6 +25,7 @@ function App() {
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/plan" element={<DietPlan />} />
+          <Route path="/shopping-list" element={<ShoppingList />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

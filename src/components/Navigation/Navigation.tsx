@@ -11,8 +11,8 @@ export const navLinks = [
     name: 'Meal Planing',
   },
   {
-    path: '/products',
-    name: 'Products',
+    path: '/shopping-list',
+    name: 'Shopping List',
   },
   {
     path: '/menu',

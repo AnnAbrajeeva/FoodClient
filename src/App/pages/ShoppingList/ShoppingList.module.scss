@@ -1,0 +1,14 @@
+@import 'styles/variables.scss';
+
+.shop {
+  &__title {
+    text-align: center;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid $test-secondary;
+  }
+}

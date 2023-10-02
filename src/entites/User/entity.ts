@@ -3,7 +3,8 @@ export type UserRegister = {
     surname: string;
     email: string;
     login: string;
-    password: string
+    password: string;
+    hash?: string
 }
 
 export type UserLogin = {

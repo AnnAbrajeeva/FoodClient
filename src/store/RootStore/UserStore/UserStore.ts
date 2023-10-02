@@ -55,14 +55,16 @@ export default class UserStore implements ILocalStore {
     });
 
     if (res.data) {
-      runInAction(() => {
+      runInAction(async () => {
         try {
           const newUser = { ...user, hash: res.data.hash };
 
           const docRef = collection(firestoreDatabase, 'users');
           addDoc(docRef, newUser);
           this._user = newUser;
+          rootStore.localStorage.removeItem('user')
           this.saveUserToLocal(newUser);
+          await rootStore.shoppingList.generateShoppingList()
           this._meta = Meta.success;
         } catch (error) {
           this._meta = Meta.error;
@@ -96,6 +98,7 @@ export default class UserStore implements ILocalStore {
       }
 
       this._user = userData as UserRegister;
+      rootStore.localStorage.removeItem('user')
       this.saveUserToLocal(this._user);
       this._meta = Meta.success;
     });

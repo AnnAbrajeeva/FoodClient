@@ -6,6 +6,7 @@ import RecipeList from '../RecipeList';
 import RecipeParam from '../RecipeParam';
 import styles from './SingleRecipeDescr.module.scss';
 import ProductsList from '../ProductsList';
+import rootStore from 'store/RootStore/instance';
 
 type SingleRecipeDescrProps = {
   recipe: RecipeFullModel;
@@ -42,8 +43,8 @@ const SingleRecipeDescr: FC<SingleRecipeDescrProps> = ({ recipe }) => {
             <Directions steps={analyzedInstructions} />
           </>
         )}
-          {extendedIngredients && (
-          <ProductsList className={hasBorder} extendedIngredients={extendedIngredients} />
+          {extendedIngredients.length > 0 && rootStore.userStore.user && (
+          <ProductsList extendedIngredients={extendedIngredients} />
         )}
       </div>
     </div>

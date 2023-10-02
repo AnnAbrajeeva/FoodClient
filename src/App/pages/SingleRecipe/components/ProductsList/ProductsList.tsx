@@ -8,10 +8,9 @@ import ProductItem from '../ProductItem';
 
 type ProductListProps = {
   extendedIngredients: IngredientModel[];
-  className: string;
 };
 
-const ProductsList: FC<ProductListProps> = ({className, extendedIngredients}) => {
+const ProductsList: FC<ProductListProps> = ({extendedIngredients}) => {
 
   const products = useMemo(() => extendedIngredients.map((item) => ({...item, image: `https://spoonacular.com/cdn/ingredients_100x100/${item.image}`})).filter((item, i, arr) => (i === arr.findIndex((prod) => prod.id === item.id))), [extendedIngredients]);
 

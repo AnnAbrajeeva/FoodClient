@@ -1,0 +1,16 @@
+@import "styles/variables.scss";
+
+.item {
+  display: flex;
+  align-items: center;
+  border: 1px solid $text-secondary;
+
+  &__img {
+    margin-right: 40px;
+  }
+
+  &__btn {
+    margin-left: auto;
+    min-height: auto;
+  }
+}
