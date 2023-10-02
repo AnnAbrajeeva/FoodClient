@@ -21,7 +21,7 @@ const RecipesWrapper: FC<RecipesWrapperProps> = ({ recipes, loading }) => {
         {loading === Meta.loading
           ? [...new Array(3)].map((_, i) => <Skeleton key={i} />)
           : recipes.map((item) => (
-              <Link key={item.id} to={`recipe/${item.id}`}>
+              <Link key={item.id} to={`/recipe/${item.id}`}>
                 <Card
                   className={styles['recipes-wrapper__card']}
                   captionSlot={<CaptionSlot timeToPrepare={item.readyInMinutes} />}

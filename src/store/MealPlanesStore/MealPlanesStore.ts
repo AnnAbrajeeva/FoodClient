@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
-import { API_KEY } from 'config/api/api';
+import { API_KEY, api } from 'config/api/api';
 import { RecipeModel, normalizeRecipe } from 'entites/Recipe';
 import { ILocalStore } from 'hooks/useLocalStore';
 import { GetRecipesApiResponse, GetRecipesParams } from 'store/RecipesStore/types';
@@ -45,6 +45,11 @@ export default class MealPlanesStore implements ILocalStore {
     const res = await fetchApi<MealPlanesApi>(
       `/mealplanner/generate?timeFrame=day&targetCalories=${calory}&diet=${diet}&apiKey=${API_KEY}`,
     );
+
+    // const newRes = await api.post(`/mealplanner/anuta04/shopping-list/items?hash=003600e79a156570b3c1d91c1a5dcddb74ffb540&apiKey=${API_KEY}`, {"item": "potato",
+    // "parse": true})
+
+    // console.log(newRes)
 
     if (!res.isError) {
       runInAction(async () => {

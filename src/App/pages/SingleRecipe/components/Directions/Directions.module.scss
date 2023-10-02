@@ -2,6 +2,29 @@
 @import "styles/breakpoints.scss";
 
 .directions {
+  position: relative;
+  padding-right: 30px;
+  border-right: 1px solid $brand;
+
+  @include size-950 {
+    border-right: none;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: -4px;
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+    background-color: $brand;
+
+    @include size-950 {
+      display: none;
+    }
+  }
+
   &__title {
     @include mobile {
       text-align: center;

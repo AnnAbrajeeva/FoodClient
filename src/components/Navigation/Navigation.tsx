@@ -7,8 +7,8 @@ export const navLinks = [
     name: 'Recipes',
   },
   {
-    path: '/diet-plan',
-    name: 'Meal Plan',
+    path: '/plan',
+    name: 'Meal Planing',
   },
   {
     path: '/products',
@@ -17,10 +17,6 @@ export const navLinks = [
   {
     path: '/menu',
     name: 'Menu Items',
-  },
-  {
-    path: '/plan',
-    name: 'Meal Planning',
   },
 ];
 

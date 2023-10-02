@@ -5,6 +5,7 @@ import RecipeEquip from '../RecipeEquip';
 import RecipeList from '../RecipeList';
 import RecipeParam from '../RecipeParam';
 import styles from './SingleRecipeDescr.module.scss';
+import ProductsList from '../ProductsList';
 
 type SingleRecipeDescrProps = {
   recipe: RecipeFullModel;
@@ -40,6 +41,9 @@ const SingleRecipeDescr: FC<SingleRecipeDescrProps> = ({ recipe }) => {
             <RecipeEquip title="Equipment" equipments={analyzedInstructions} />
             <Directions steps={analyzedInstructions} />
           </>
+        )}
+          {extendedIngredients && (
+          <ProductsList className={hasBorder} extendedIngredients={extendedIngredients} />
         )}
       </div>
     </div>
