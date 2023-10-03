@@ -7,11 +7,12 @@ import { API_KEY } from 'config/api/api';
 import rootStore from 'store/RootStore/instance';
 import { AddToShoppingListProps } from './types';
 import { ShoppingItemModel } from 'entites/ShoppingItem';
+import { IngredientApi } from 'entites/Ingredient';
 
 type PrivateFields = '_list' | '_meta';
 
 export default class ShoppingListStore implements ILocalStore {
-  private _list: ShoppingItemModel[] | null = null;
+  private _list: ShoppingItemModel[] | never[] = [];
   private _meta: Meta = Meta.initial;
 
   constructor() {
@@ -70,7 +71,7 @@ export default class ShoppingListStore implements ILocalStore {
 
   async getShoppingList(): Promise<void> {
     this._meta = Meta.loading;
-    this._list = null;
+    this._list = [];
 
     const res = await fetchApi<ShoppingListModel>(
       `/mealplanner/${rootStore.userStore.user?.login}/shopping-list/?hash=${rootStore.userStore.user?.hash}&apiKey=${API_KEY}`,
@@ -87,13 +88,21 @@ export default class ShoppingListStore implements ILocalStore {
             result.forEach((item: any) => {
               idToImage[item.id] = item.image;
             });
-            const arr = list.map((item) => idToImage[item.ingredientId] ? {...item, img: `https://spoonacular.com/cdn/ingredients_100x100/${idToImage[item.ingredientId]}`} : item)
+            const arr = list.map((item) =>
+              idToImage[item.ingredientId]
+                ? { ...item, img: `https://spoonacular.com/cdn/ingredients_100x100/${idToImage[item.ingredientId]}` }
+                : item,
+            );
 
-            this._meta = Meta.success;
-            this._list = arr;
+            runInAction(() => {
+              this._list = arr;
+              this._meta = Meta.success;
+            });
             return;
           } catch (error) {
-            this._meta = Meta.error;
+            runInAction(() => {
+              this._meta = Meta.error;
+            });
           }
         }
       });
@@ -107,7 +116,7 @@ export default class ShoppingListStore implements ILocalStore {
   async addToShoppingList(product: AddToShoppingListProps): Promise<void> {
     this._meta = Meta.loading;
 
-    const res = await PostApi<ShoppingListModel>(
+    const res = await PostApi<ShoppingItemModel>(
       `/mealplanner/${rootStore.userStore.user?.login}/shopping-list/items?hash=${rootStore.userStore.user?.hash}&apiKey=${API_KEY}`,
       product,
     );
@@ -116,10 +125,20 @@ export default class ShoppingListStore implements ILocalStore {
       runInAction(() => {
         if (res.data) {
           try {
-            this._meta = Meta.success;
+            runInAction(async () => {
+              let newProduct;
+              if (res.data?.ingredientId) {
+                const ingredient = await this.getIngredient(res.data?.ingredientId);
+                newProduct = ingredient ? {...res.data, img: `https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} : {...res.data};
+              }
+              this._list = newProduct ? [...this._list, newProduct] : this._list;
+              this._meta = Meta.success;
+            });
             return;
           } catch (error) {
-            this._meta = Meta.error;
+            runInAction(() => {
+              this._meta = Meta.error;
+            });
           }
         }
       });
@@ -141,6 +160,7 @@ export default class ShoppingListStore implements ILocalStore {
       runInAction(() => {
         if (res.data) {
           try {
+            this._list = this._list.filter((item) => item.id !== id);
             this._meta = Meta.success;
             return;
           } catch (error) {
@@ -155,8 +175,8 @@ export default class ShoppingListStore implements ILocalStore {
     }
   }
 
-  async getIngredient(id: number) {
-    const res = await fetchApi(`/food/ingredients/${id}/information?amount=1&apiKey=${API_KEY}`);
+  async getIngredient(id: number): Promise<IngredientApi | null | undefined> {
+    const res = await fetchApi<IngredientApi>(`/food/ingredients/${id}/information?amount=1&apiKey=${API_KEY}`);
 
     if (!res.isError) {
       return res.data;

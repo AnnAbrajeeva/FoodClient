@@ -15,6 +15,7 @@ import { Meta } from 'utils/meta';
 import SimilarRecipes from './components/SimilarRecipes';
 import SingleRecipeDescr from './components/SingleRecipeDescr';
 import styles from './SingleResipe.module.scss';
+import rootStore from 'store/RootStore';
 
 const SingleRecipe = () => {
   const recipesStore = useLocalStore(() => new RecipeFullStore());
@@ -25,6 +26,7 @@ const SingleRecipe = () => {
   useEffect(() => {
     recipesStore.fetchRecipe({ id });
     similarRecipesStore.fetchSimilarIds({ id });
+    rootStore.shoppingList.getShoppingList();
   }, [id, recipesStore, similarRecipesStore]);
 
   return (

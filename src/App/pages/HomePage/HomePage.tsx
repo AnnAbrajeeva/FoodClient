@@ -49,6 +49,15 @@ const HomePage = () => {
     fetchRecipes();
   }, [offset, recipesStore, category]);
 
+  useEffect(() => {
+    const getList = async () => {
+      await rootStore.shoppingList.getShoppingList();
+    };
+    if (rootStore.userStore.user) {
+      getList();
+    }
+  }, [rootStore.userStore.user]);
+
   const fetchRecipes = () => {
     recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, search, category });
   };

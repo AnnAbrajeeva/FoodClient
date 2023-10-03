@@ -1,16 +1,68 @@
 @import "styles/variables.scss";
+@import "styles/breakpoints.scss";
 
 .item {
   display: flex;
-  align-items: center;
   border: 1px solid $text-secondary;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+
+  td {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+
+  &:hover {
+    background-color: $button-primary-bg-disabled;
+  }
+
+  &__name {
+    text-align: left;
+    font-size: 12px;
+  }
+
+  &__text {
+    @include mobile {
+      font-size: 12px;
+    }
+  }
+
+  &__wrap {
+    width: 100px;
+    text-align: center;
+
+    @include mobile {
+      width: 80px;
+    }
+  }
 
   &__img {
-    margin-right: 40px;
+    display: block;
+    margin: 0 auto;
+
+    @include size-600 {
+      width: 70px;
+    }
+  }
+
+  &__btn-wrap {
+    width: 100px;
+
+    @include size-600 {
+      width: 50px;
+    }
+
+    @include mobile {
+      padding: 10px 15px;
+      font-size: 12px;
+    }
   }
 
   &__btn {
-    margin-left: auto;
+    margin: 0 auto;
     min-height: auto;
   }
 }
