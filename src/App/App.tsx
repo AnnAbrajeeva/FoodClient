@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import rootStore from 'store/RootStore/instance';
 import DietPlan from './pages/DietPlan';
 import ShoppingList from './pages/ShoppingList';
+import MealPlan from './pages/MealPlan';
 
 function App() {
   useQueryParamsStoreInit();
@@ -26,6 +27,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/plan" element={<DietPlan />} />
           <Route path="/shopping-list" element={<ShoppingList />} />
+          <Route path="/meal-plan" element={<MealPlan />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

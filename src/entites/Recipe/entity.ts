@@ -12,6 +12,7 @@ export type RecipeApi = {
     nutrients: CaloryApi[];
     ingredients: IngredientApi[];
   };
+  servings: number
 };
 
 export type RecipeModel = {
@@ -24,6 +25,7 @@ export type RecipeModel = {
     nutrients: CaloryModel[];
     ingredients: IngredientModel[];
   };
+  servings: number
 };
 
 export type RecipeFullApi = {

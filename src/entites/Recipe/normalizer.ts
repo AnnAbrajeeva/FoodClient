@@ -14,6 +14,7 @@ export const normalizeRecipe = (from: RecipeApi): RecipeModel => {
       nutrients: from.nutrition.nutrients.map(normalizeCalory),
       ingredients: from.nutrition.ingredients.map(normalizeIngredient),
     },
+    servings: from.servings
   };
 };
 

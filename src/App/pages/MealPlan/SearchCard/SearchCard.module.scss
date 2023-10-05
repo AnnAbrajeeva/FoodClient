@@ -1,0 +1,29 @@
+@import "styles/variables.scss";
+
+.card {
+    position: relative;
+  border: 1px solid $text-secondary;
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 5px;
+  width: 100px;
+
+  &:hover {
+    box-shadow: $shadow-box-shadow;
+  }
+
+  &__img {
+    display: flex;
+    width: 80px;
+
+    img {
+      display: block;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__text {
+    font-size: 10px;
+  }
+}

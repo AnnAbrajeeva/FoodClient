@@ -1,0 +1,16 @@
+.search {
+  display: flex;
+  flex-direction: column;
+
+
+  &__cards-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 20px;
+    background-color: #fff;
+    height: 400px;
+    overflow: auto;
+    margin-top: 20px;
+  }
+}

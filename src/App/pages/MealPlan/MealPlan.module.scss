@@ -1,0 +1,14 @@
+.plan {
+  margin: 40px 0;
+  
+  &__title {
+    text-align: center;
+  }
+
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+  }
+}

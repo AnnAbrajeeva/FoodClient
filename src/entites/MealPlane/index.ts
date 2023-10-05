@@ -1,5 +1,5 @@
-import { MealPlaneApi, MealPlaneModel } from './entity';
+import { MealPlaneApi, MealPlaneModel, UserMealPlanApi, UserMealPlanModel } from './entity';
 
-import { normalizeMealPlane } from './normalizer';
+import { normalizeMealPlane, normalizeUserMealPlane } from './normalizer';
 
-export { type MealPlaneApi, type MealPlaneModel, normalizeMealPlane };
+export { type MealPlaneApi, type MealPlaneModel, type UserMealPlanApi, type UserMealPlanModel, normalizeMealPlane, normalizeUserMealPlane };

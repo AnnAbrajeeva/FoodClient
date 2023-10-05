@@ -53,9 +53,7 @@ export default class ShoppingListStore implements ILocalStore {
       runInAction(() => {
         if (res.data) {
           try {
-            console.log(res.data);
             this._meta = Meta.success;
-            console.log(this._list);
             return;
           } catch (error) {
             this._meta = Meta.error;

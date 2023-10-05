@@ -1,3 +1,6 @@
+import { MealPlaneDayApi, MealPlaneDayModel } from 'entites/MealPlaneDay';
+import { MealPlanItemApi } from 'entites/MealPlaneItem';
+
 export type MealPlaneApi = {
   id: number;
   title: string;
@@ -14,5 +17,13 @@ export type MealPlaneModel = {
   readyInMinutes: number;
   servings: number;
   sourceUrl: string;
-  img?: string
+  img?: string;
+};
+
+export type UserMealPlanApi = {
+  days: MealPlaneDayApi[];
+};
+
+export type UserMealPlanModel = {
+  days: MealPlaneDayModel[];
 };
