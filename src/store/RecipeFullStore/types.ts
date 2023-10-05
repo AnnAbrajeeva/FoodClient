@@ -1,8 +1,7 @@
-import { RecipeFullApi } from './models/recipe/recipe';
+import { RecipeFullApi } from 'entites/Recipe';
 
 export type GetRecipeFullParams = {
   id: string | undefined;
-  apiKey: string;
 };
 
 export type GetRecipeFullApiData = {

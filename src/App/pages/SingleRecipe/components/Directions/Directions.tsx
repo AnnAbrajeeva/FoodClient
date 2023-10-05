@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Text from 'components/Text';
-import { RecipeInstructionModel } from 'store/RecipeFullStore/models/recipe';
+import { RecipeInstructionModel } from 'entites/Instruction';
 import Step from '../Step';
 import styles from './Directions.module.scss';
 

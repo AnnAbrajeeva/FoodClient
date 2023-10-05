@@ -1,0 +1,8 @@
+@import "styles/variables.scss";
+
+.skeleton {
+  background: $card-bg;
+  padding: $spacing-12;
+  border-radius: $border-radius;
+  width: 360px;
+}

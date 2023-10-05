@@ -1,34 +1,35 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
+    "noEmit": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true,
     "skipLibCheck": true,
-    "baseUrl": "src",
-    "paths": {
-      "components": ["components/*"],
-      "assets": ["assets/*"],
-      "config": ["config/*"],
-      "styles": ["styles/*"],
-      "utils": ["utils/*"],
-      "store": ["store/*"]
-    },
-
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "pages/*": ["src/pages/*"],
+      "config/*": ["src/config/*"],
+      "styles/*": ["src/styles/*"],
+      "utils/*": ["src/utils/*"],
+      "assets/*": ["src/assets/*"],
+      "store/*": ["src/store/*"],
+      "entites/*": ["src/entites/*"],
+      "hooks/*": ["src/hooks/*"],
+    }
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

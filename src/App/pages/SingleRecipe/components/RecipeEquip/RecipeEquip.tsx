@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react';
 import Equipment from 'assets/img/equipment.svg';
 import Text from 'components/Text';
-import { RecipeInstructionModel } from 'store/RecipeFullStore/models/recipe';
+import { RecipeInstructionModel } from 'entites/Instruction';
 import RecipeIngredient from '../RecipeIngredient';
 import styles from './RecipeEquip.module.scss';
 

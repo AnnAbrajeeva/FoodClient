@@ -1,3 +1,5 @@
+@import "styles/variables.scss";
+
 .header {
   background: #fff;
   padding: 20px 0;
@@ -17,6 +19,10 @@
     }
   }
 
+  &__link-wrap {
+    position: relative;
+  }
+
   &__user {
     margin-left: auto;
     display: flex;
@@ -24,11 +30,33 @@
     gap: 17px;
   }
 
+  &__user-link {
+    position: relative;
+    cursor: pointer;
+  }
+
   &__user-icon {
+    max-width: 25px;
     transition: transform 0.3s ease;
   }
 
   &__user-icon:hover {
     transform: scale(1.1);
+  }
+
+  &__icon-count {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 11px;
+    right: -11px;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    background-color: #b5460f;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
   }
 }

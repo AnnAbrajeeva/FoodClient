@@ -1,16 +1,14 @@
 import { Option } from 'components/MultiDropdown';
-import { RecipeApi } from 'store/RecipesStore/models/recipe';
+import { RecipeApi } from 'entites/Recipe';
 
 export type GetRecipesParams = {
   offset: number;
   itemsPerPage: number;
-  apiKey: string;
   search: string;
   category: Option[];
 };
 
 export type GetFavoriteRecipesParams = {
-  apiKey: string;
   ids: string;
 };
 

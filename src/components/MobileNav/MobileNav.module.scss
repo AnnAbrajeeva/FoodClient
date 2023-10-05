@@ -2,9 +2,9 @@
 
 .navigation {
   display: flex;
-  position: absolute;
+  position: fixed;
   top: 0;
-  right: 0;
+  right: -100%;
   width: 50%;
   height: 100vh;
   padding: 50px 40px;
@@ -13,16 +13,14 @@
   gap: 50px;
   z-index: 999;
   box-shadow: $shadow-box-shadow;
-  transform: translateX(-100%);
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: right 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
 
   @media (max-width: 600px) {
     width: 100%;
   }
 
   &--open {
-    transform: translateX(0);
-    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    right: 0;
   }
 
   &__link {
@@ -63,12 +61,16 @@
 
 .overlay {
   position: absolute;
+  opacity: 0;
   top: 0;
   left: 0;
-  right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 900;
-  color: white;
-  transition: all 0.3s ease;
+  transition: opacity 0.5s ease;
+
+  &--open {
+    opacity: 1;
+    right: 0;
+  }
 }

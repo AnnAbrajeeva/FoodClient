@@ -1,15 +1,16 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
-import { RecipeModel, normalizeRecipe } from 'store/RecipesStore/models/recipe';
+import { API_KEY } from 'config/api/api';
+import { RecipeModel, normalizeRecipe } from 'entites/Recipe';
+import { ILocalStore } from 'hooks/useLocalStore';
 import { GetRecipesApiResponse, GetRecipesParams } from 'store/RecipesStore/types';
-import { fetchApi } from 'utils/apiResponse';
-import { Meta } from 'utils/meta';
-import { ILocalStore } from 'utils/useLocalStore';
 import {
   CollectionModel,
   getInitialCollectionModel,
   linearizeCollection,
   normalizeCollection,
-} from './models/shared/collection';
+} from 'store/common/collection';
+import { fetchApi } from 'utils/apiResponse';
+import { Meta } from 'utils/meta';
 
 type PrivateFields = '_list' | '_meta' | '_totalRecipe';
 
@@ -17,6 +18,7 @@ export default class RecipesStore implements ILocalStore {
   private _list: CollectionModel<number, RecipeModel> = getInitialCollectionModel();
   private _totalRecipe = 0;
   private _meta: Meta = Meta.initial;
+  private _limit: number = 9;
 
   constructor() {
     makeObservable<RecipesStore, PrivateFields>(this, {
@@ -27,6 +29,7 @@ export default class RecipesStore implements ILocalStore {
       meta: computed,
       totalRecipe: computed,
       getRecipesList: action,
+      pageCount: computed,
     });
   }
 
@@ -42,7 +45,11 @@ export default class RecipesStore implements ILocalStore {
     return this._totalRecipe;
   }
 
-  async getRecipesList({ apiKey, offset, itemsPerPage, search, category }: GetRecipesParams): Promise<void> {
+  get pageCount() {
+    return Math.ceil(this._totalRecipe / this._limit);
+  }
+
+  async getRecipesList({ offset, itemsPerPage, search, category }: GetRecipesParams): Promise<void> {
     this._meta = Meta.loading;
     this._list = getInitialCollectionModel();
 
@@ -52,7 +59,7 @@ export default class RecipesStore implements ILocalStore {
     const categoryDish = category.length > 0 ? `&type=${categories}` : '';
 
     const res = await fetchApi<GetRecipesApiResponse>(
-      `recipes/complexSearch?apiKey=${apiKey}&addRecipeNutrition=true&offset=${offset}&number=${itemsPerPage}&limitLicense=true${searchParams}${categoryDish}`,
+      `recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&offset=${offset}&number=${itemsPerPage}&limitLicense=true${searchParams}${categoryDish}`,
     );
 
     if (!res.isError) {
@@ -66,6 +73,7 @@ export default class RecipesStore implements ILocalStore {
             this._list = normalizeCollection(list, (listItem) => listItem.id);
             this._totalRecipe = res.data.totalResults;
             this._meta = Meta.success;
+            console.log(this._list)
             return;
           } catch (error) {
             this._meta = Meta.error;

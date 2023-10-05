@@ -1,0 +1,40 @@
+@import "assets/fonts/Roboto/fonts.scss";
+
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  background: rgba(255, 192, 118, 0.23);
+  font-family: Roboto, "sans-serif";
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+figure,
+pre {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

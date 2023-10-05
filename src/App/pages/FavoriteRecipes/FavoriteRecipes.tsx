@@ -1,44 +1,28 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import Container from 'components/Container';
-import Loader from 'components/Loader';
-import NotFound from 'components/NotFound';
-import { API_KEY } from 'config/api/api';
-import FavoriteRecipesStore from 'store/FavoriteRecipesStore';
-import { StoresContext } from 'utils/favoriteContext';
-import { Meta } from 'utils/meta';
-import { useLocalStore } from 'utils/useLocalStore';
-// import { useStores } from 'utils/useStores';
-import RecipesWrapper from './components/RecipesWrapper';
+import RecipesWrapper from 'components/RecipesWrapper';
+import rootStore from 'store/RootStore/instance';
 import s from './FavoriteRecipes.module.scss';
-
-
+import NotFound from 'components/NotFound';
 
 const FavoriteRecipes = () => {
-  const recipesStore = useLocalStore(() => new FavoriteRecipesStore());
+  const { list, favoriteIds, getFavoriteRecipesList, meta } = rootStore.favoriteRecipesStore;
 
   useEffect(() => {
-    const ids = recipesStore.favoriteIds;
+    const ids = favoriteIds;
     if (ids.length > 0) {
       const idArr = ids.join(',');
-      recipesStore.getFavoriteRecipesList({ ids: idArr, apiKey: API_KEY });
+      getFavoriteRecipesList({ ids: idArr });
     }
-  }, [recipesStore]);
+  }, [favoriteIds, getFavoriteRecipesList]);
 
   return (
     <div className={s.favorite}>
-      <StoresContext.Provider value={recipesStore}>
-        <Container>
-          {recipesStore.meta === Meta.loading && <Loader size="l" />}
-          {recipesStore.list.length > 0 ? (
-            <RecipesWrapper
-              recipes={recipesStore.list}
-            />
-          ) : (
-            <NotFound />
-          )}
-        </Container>
-      </StoresContext.Provider>
+      <Container>
+        <RecipesWrapper loading={meta} recipes={list} />
+        {favoriteIds.length === 0 && <NotFound />}
+      </Container>
     </div>
   );
 };

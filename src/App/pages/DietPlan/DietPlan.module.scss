@@ -1,0 +1,55 @@
+@import "styles/variables.scss";
+@import "styles/breakpoints.scss";
+
+.diet {
+  margin: 40px 0;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+  &__form-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 20px;
+    width: 100%;
+  }
+
+  &__label {
+    flex: 1;
+
+    @include size-600 {
+      flex: auto;
+    }
+  }
+
+  &__label-text {
+    margin-bottom: 10px;
+  }
+
+  &__btn {
+    width: 100%;
+    border-radius: $border-radius;
+
+    svg {
+      margin: 0;
+    }
+  }
+
+  &__nutrients {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

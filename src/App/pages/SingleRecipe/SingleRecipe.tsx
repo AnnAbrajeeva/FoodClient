@@ -7,37 +7,36 @@ import Loader from 'components/Loader';
 import NotFound from 'components/NotFound';
 import Text from 'components/Text';
 import Arrow from 'components/icons/Arrow';
-import { API_KEY } from 'config/api/api';
+import { useLocalStore } from 'hooks/useLocalStore';
 import RecipeFullStore from 'store/RecipeFullStore';
+import SimilarRecipesStore from 'store/SimilarRecipesStore';
 import { goBack } from 'utils/goBackToPrevPage';
 import { Meta } from 'utils/meta';
-import { useLocalStore } from 'utils/useLocalStore';
-import Directions from './components/Directions';
-import RecipeEquip from './components/RecipeEquip';
-import RecipeList from './components/RecipeList';
-import RecipeParam from './components/RecipeParam';
+import SimilarRecipes from './components/SimilarRecipes';
+import SingleRecipeDescr from './components/SingleRecipeDescr';
 import styles from './SingleResipe.module.scss';
+import rootStore from 'store/RootStore';
 
 const SingleRecipe = () => {
   const recipesStore = useLocalStore(() => new RecipeFullStore());
+  const similarRecipesStore = useLocalStore(() => new SimilarRecipesStore());
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    recipesStore.getRecipe({ apiKey: API_KEY, id });
-  }, [id, recipesStore]);
-
-  const { title, recipeParams, extendedIngredients, image, summary, analyzedInstructions } = recipesStore.recipe || {};
-
-  const hasBorder =
-    extendedIngredients && extendedIngredients.length > 0 && analyzedInstructions && analyzedInstructions.length > 0
-      ? 'recipe-list--border'
-      : '';
+    recipesStore.fetchRecipe({ id });
+    similarRecipesStore.fetchSimilarIds({ id });
+    rootStore.shoppingList.getShoppingList();
+  }, [id, recipesStore, similarRecipesStore]);
 
   return (
     <div className={styles.recipe}>
       <Container>
         {recipesStore.meta === Meta.loading && <Loader size="l" />}
+
+        {!recipesStore.recipe && similarRecipesStore.list.length < 0 && recipesStore.meta === Meta.success && (
+          <NotFound />
+        )}
 
         {recipesStore.meta === Meta.success && (
           <>
@@ -46,36 +45,14 @@ const SingleRecipe = () => {
                 <Arrow width={32} height={32} color="#B5460F" />
               </Button>
               <Text weight="bold" view="title">
-                {title ? title : 'Go back'}
+                {recipesStore.recipe?.title ? recipesStore.recipe.title : 'Go back'}
               </Text>
             </div>
 
-            {recipesStore.recipe ? (
-              <>
-                <div className={styles.recipe__header}>
-                  <div className={styles.recipe__img}>
-                    <img src={image} alt={title} />
-                  </div>
-                  <div className={styles.recipe__params}>
-                    {recipeParams &&
-                      Object.entries(recipeParams).map(([key, value]) => (
-                        <RecipeParam key={key} title={key} param={value} />
-                      ))}
-                  </div>
-                </div>
-                <div className={styles.recipe__descr} dangerouslySetInnerHTML={{ __html: summary ? summary : '' }} />
+            {recipesStore.recipe && <SingleRecipeDescr recipe={recipesStore.recipe} />}
 
-                <div className={styles.recipe__products}>
-                  {extendedIngredients && (
-                    <RecipeList className={hasBorder} title="Ingredients" extendedIngredients={extendedIngredients} />
-                  )}
-                  {analyzedInstructions && <RecipeEquip title="Equipment" equipments={analyzedInstructions} />}
-                </div>
-
-                {analyzedInstructions && <Directions steps={analyzedInstructions} />}
-              </>
-            ) : (
-              <NotFound />
+            {similarRecipesStore.list.length > 0 && (
+              <SimilarRecipes loading={recipesStore.meta} recipes={similarRecipesStore.list} />
             )}
           </>
         )}

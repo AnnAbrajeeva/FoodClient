@@ -1,5 +1,5 @@
+import { mealTypes } from 'config/mealTypes';
 import rootStore from 'store/RootStore';
-import { mealTypes } from 'utils/mealTypes';
 
 export const getSelectedCategories = () => {
   const arr = rootStore.query.getParam('category');

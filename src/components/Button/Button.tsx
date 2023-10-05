@@ -16,7 +16,7 @@ const Button: FC<ButtonProps> = ({ children, loading, className, onClick, ...res
   const btnClass = classNames(s.btn, className && className, loading && s.btn__loading);
 
   return (
-    <button onClick={onClick} className={btnClass} disabled={rest.disabled || loading} {...rest}>
+    <button onClick={onClick} type='submit' className={btnClass} disabled={rest.disabled || loading} {...rest}>
       {loading ? <Loader size="s" className={s['loader--button']} /> : null}
       {children}
     </button>

@@ -13,7 +13,7 @@ export type CardProps = {
   /** Заголовок карточки */
   title: React.ReactNode;
   /** Описание карточки */
-  subtitle: React.ReactNode;
+  subtitle?: React.ReactNode;
   /** Содержимое карточки (футер/боковая часть), может быть пустым */
   contentSlot?: React.ReactNode;
   /** Клик на карточку */
@@ -23,7 +23,7 @@ export type CardProps = {
 };
 
 const Card: React.FC<CardProps> = ({ className, image, captionSlot, title, subtitle, contentSlot, actionSlot }) => {
-  const classes = classNames(s.card, className && className);
+  const classes = classNames(s.card, className);
 
   const actionWithCard = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
@@ -55,7 +55,7 @@ const Card: React.FC<CardProps> = ({ className, image, captionSlot, title, subti
             {contentSlot}
           </Text>
         )}
-        <div onClick={(e) => actionWithCard(e)} className={s.card__action}>
+        <div onClick={actionWithCard} className={s.card__action}>
           {actionSlot}
         </div>
       </div>

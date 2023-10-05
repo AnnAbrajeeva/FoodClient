@@ -1,0 +1,57 @@
+@import "styles/variables.scss";
+
+.menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: $shadow-box-shadow;
+  padding: 20px 10px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  &--open {
+    width: 200px;
+    top: 32px;
+    opacity: 1;
+    pointer-events: initial;
+    z-index: 20;
+  }
+
+  &__name {
+    cursor: default;
+  }
+
+  &__logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    transition: color 0.3s ease;
+    text-align: center;
+
+    & p {
+      transition: color 0.3s ease;
+    }
+
+    & svg {
+      transition: fill 0.3s ease;
+    }
+
+    &:hover p {
+      color: $brand;
+    }
+
+    &:hover svg path {
+      fill: $brand;
+    }
+  }
+}

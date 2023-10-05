@@ -1,0 +1,23 @@
+@import 'styles/variables.scss';
+
+.product {
+  &__wrap {
+    display: flex;
+    align-items: center;
+    border: 1px solid $text-secondary;
+    padding: 5px;
+  }
+
+  &__img {
+    height: 50px;
+    width: 50px;
+    margin-right: 20px;
+  }
+
+  &__btn {
+    margin-left: 40px;
+    padding: 10px 14px;
+    min-height: auto;
+    font-size: 14px;
+  }
+}

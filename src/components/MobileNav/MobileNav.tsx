@@ -13,13 +13,15 @@ const MobileNav: FC<MobileNavProps> = ({ closeNav, isOpen }) => {
   const setActive = ({ isActive }: { isActive: boolean }): string =>
     isActive ? style['navigation__link--active'] : style['navigation__link'];
   const classes = classNames(style.navigation, isOpen ? style['navigation--open'] : '');
+
+  const overlayClass = classNames(style.overlay, isOpen && style['overlay--open']);
   return (
     <>
-      <div onClick={closeNav} className={style.overlay} />
+      <div onClick={closeNav} className={overlayClass} />
       <nav onClick={closeNav} className={classes}>
         {navLinks.map((link) => {
           return (
-            <NavLink onClick={closeNav} className={setActive} key={link.path} to={link.path}>
+            <NavLink className={setActive} key={link.path} to={link.path}>
               {link.name}
             </NavLink>
           );

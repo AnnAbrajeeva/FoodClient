@@ -1,4 +1,4 @@
-const path = require('path');
+import path from 'path';
 
 module.exports = {
   root: true,
@@ -25,11 +25,11 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:react/jsx-runtime',
   ],
   plugins: ['@typescript-eslint', 'import', 'prettier', 'react', 'react-hooks'],
   rules: {
     'no-console': 'warn',
+    "react/react-in-jsx-scope": "off",
     'import/order': [
       'error',
       {
@@ -46,7 +46,6 @@ module.exports = {
         ],
       },
     ],
-    '@typescript-eslint/no-var-requires': 'off',
   },
   settings: {
     'import/parsers': {

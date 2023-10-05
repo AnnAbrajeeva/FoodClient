@@ -36,7 +36,6 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   getTitle,
   ...rest
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<any>();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -95,7 +94,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
         onClick={handleDropdown}
         afterSlot={<ArrowDownIcon color="secondary" />}
         value={!isOpen && value.length ? getTitle(value) : ''}
-        onChange={(e) => handleInputChange(e)}
+        onChange={(e) => handleInputChange(e.target.value)}
         placeholder={isOpen ? getTitle(value) : 'Categories'}
         disabled={disabled}
       />
