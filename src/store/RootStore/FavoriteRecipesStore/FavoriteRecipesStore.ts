@@ -24,7 +24,7 @@ export default class FavoriteRecipesStore implements ILocalStore {
   constructor(localStorage: LocalStorageStore) {
     this._favoriteIds = localStorage.getLocalItem('recipes') || [];
     makeObservable<FavoriteRecipesStore, PrivateFields>(this, {
-      _list: observable.ref,
+      _list: observable,
       _meta: observable,
       _favoriteIds: observable,
       list: computed,

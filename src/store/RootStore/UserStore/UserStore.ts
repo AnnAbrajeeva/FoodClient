@@ -8,6 +8,7 @@ import { collection, addDoc, getDocs, query, where } from 'firebase/firestore';
 import { api } from 'config/api/api';
 import rootStore from '../instance';
 import LocalStorageStore from '../LocalStorageStore';
+import { tableData } from 'utils/tableData';
 
 type PrivateFields = '_user' | '_meta';
 
@@ -57,15 +58,16 @@ export default class UserStore implements ILocalStore {
     if (res.data) {
       runInAction(async () => {
         try {
-          const newUser = { ...user, hash: res.data.hash };
+          const newUser = { ...user, hash: res.data.hash, boards: [...tableData] };
 
           const docRef = collection(firestoreDatabase, 'users');
-          addDoc(docRef, newUser);
-          this._user = newUser;
-          rootStore.localStorage.removeItem('user')
+          await addDoc(docRef, newUser);
+          rootStore.localStorage.removeItem('user');
           this.saveUserToLocal(newUser);
-          await rootStore.shoppingList.generateShoppingList()
-          this._meta = Meta.success;
+          runInAction(() => {
+            this._user = newUser;
+            this._meta = Meta.success;
+          });
         } catch (error) {
           this._meta = Meta.error;
           this._user = null;
@@ -98,7 +100,7 @@ export default class UserStore implements ILocalStore {
       }
 
       this._user = userData as UserRegister;
-      rootStore.localStorage.removeItem('user')
+      rootStore.localStorage.removeItem('user');
       this.saveUserToLocal(this._user);
       this._meta = Meta.success;
     });
@@ -109,7 +111,7 @@ export default class UserStore implements ILocalStore {
       this._user = null;
       rootStore.localStorage.removeItem('user');
     });
-  }
+  };
 
   saveUserToLocal(user: UserLogin) {
     const userLocal = rootStore.localStorage.getLocalItem('user');

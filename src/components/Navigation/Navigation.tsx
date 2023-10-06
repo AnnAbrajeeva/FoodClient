@@ -15,8 +15,8 @@ export const navLinks = [
     name: 'Shopping List',
   },
   {
-    path: '/menu',
-    name: 'Menu Items',
+    path: '/week-plan',
+    name: 'Week Plan',
   },
 ];
 

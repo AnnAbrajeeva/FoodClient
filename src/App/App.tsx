@@ -27,7 +27,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/plan" element={<DietPlan />} />
           <Route path="/shopping-list" element={<ShoppingList />} />
-          <Route path="/meal-plan" element={<MealPlan />} />
+          <Route path="/week-plan" element={<MealPlan />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

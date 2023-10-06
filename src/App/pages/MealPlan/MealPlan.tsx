@@ -14,6 +14,9 @@ import { IngredientModel } from 'entites/Ingredient';
 import SearchRecipesStore from 'store/SearchRecipesStore';
 import MealSearch from './MealSearch';
 import { observer } from 'mobx-react-lite';
+import LocalStorageStore from 'store/RootStore/LocalStorageStore';
+import rootStore from 'store/RootStore/instance';
+import { tableData } from 'utils/tableData';
 
 export type MealDay = {
   id: number;
@@ -36,125 +39,20 @@ interface MealPlanContextType {
 }
 export const MealPlanContext = createContext<MealPlanContextType>({} as MealPlanContextType);
 
-const arr = [
-  {
-    id: 1,
-    title: 'Morning',
-    day: [
-      {
-        slot: 0,
-        items: [],
-      },
-      {
-        slot: 1,
-        items: [],
-      },
-      {
-        slot: 2,
-        items: [],
-      },
-      {
-        slot: 3,
-        items: [],
-      },
-      {
-        slot: 4,
-        items: [],
-      },
-      {
-        slot: 5,
-        items: [],
-      },
-      {
-        slot: 6,
-        items: [],
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: 'Noon',
-    day: [
-      {
-        slot: 0,
-        items: [],
-      },
-      {
-        slot: 1,
-        items: [],
-      },
-      {
-        slot: 2,
-        items: [],
-      },
-      {
-        slot: 3,
-        items: [],
-      },
-      {
-        slot: 4,
-        items: [],
-      },
-      {
-        slot: 5,
-        items: [],
-      },
-      {
-        slot: 6,
-        items: [],
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Evening',
-    day: [
-      {
-        slot: 0,
-        items: [],
-      },
-      {
-        slot: 1,
-        items: [],
-      },
-      {
-        slot: 2,
-        items: [],
-      },
-      {
-        slot: 3,
-        items: [],
-      },
-      {
-        slot: 4,
-        items: [],
-      },
-      {
-        slot: 5,
-        items: [],
-      },
-      {
-        slot: 6,
-        items: [],
-      },
-    ],
-  },
-];
-
 const MealPlan = () => {
   const userMealPlanStore = useLocalStore(() => new UserMealPlanStore());
   const searchStore = useLocalStore(() => new SearchRecipesStore());
+  
+  let userBoards: MealDay[]
+  const user = rootStore.localStorage.getLocalItem('user');
+  if (user) {
+    userBoards = user[0].boards
+  }
 
-
-  const [boards, setBoards] = useState<MealDay[]>(arr);
+  const [boards, setBoards] = useState<MealDay[]>(user && user[0].boards || tableData);
 
   const [currentBoard, setCurrentBoard] = useState<MealDay | null>(null);
   const [currentItem, setCurrentItem] = useState<RecipeModel | null>(null);
-
-  // useEffect(() => {
-  //   const date = new Date();
-  //   userMealPlanStore.fetchMealPlan(date.getTime());
-  // }, []);
 
   function dragOverHandler(e: any): void {
     e.preventDefault();
@@ -214,6 +112,13 @@ const MealPlan = () => {
 
       setCurrentBoard(null);
       setCurrentItem(null);
+
+      let user = rootStore.localStorage.getLocalItem('user')[0];
+      user = { ...user, boards: boards };
+
+      rootStore.localStorage.removeItem('user');
+      rootStore.localStorage.setLocalItem('user', user);
+      // userMealPlanStore.addToMealPlan(boards)
     }
   }
 
@@ -224,16 +129,23 @@ const MealPlan = () => {
           <Text tag="h1" view="title" weight="bold" className={s.plan__title}>
             Meal Planner with Recipes and Products
           </Text>
-          <div className={s.plan__wrapper}>
-            <MealSearch
-              dragOverHandler={dragOverHandler}
-              dragLeaveHandler={dragLeaveHandler}
-              dragStartHandler={dragStartHandler}
-              dragEndHandler={dragEndHandler}
-              store={searchStore}
-            />
-            <Table onDrop={(e, board, index) => dropHandler(e, board, index)} />
-          </div>
+          {!rootStore.userStore.user && (
+            <div className={s.plan__attention}>
+              <Text>You must login to use the shopping list.</Text>
+            </div>
+          )}
+          {rootStore.userStore.user && (
+            <div className={s.plan__wrapper}>
+              <MealSearch
+                dragOverHandler={dragOverHandler}
+                dragLeaveHandler={dragLeaveHandler}
+                dragStartHandler={dragStartHandler}
+                dragEndHandler={dragEndHandler}
+                store={searchStore}
+              />
+              <Table onDrop={(e, board, index) => dropHandler(e, board, index)} />
+            </div>
+          )}
         </Container>
       </div>
     </MealPlanContext.Provider>

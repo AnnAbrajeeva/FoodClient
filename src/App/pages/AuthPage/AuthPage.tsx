@@ -15,7 +15,6 @@ const AuthPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<UserRegister>({
     defaultValues: {
       username: '',
@@ -32,11 +31,10 @@ const AuthPage = () => {
 
   const hasErrors = Object.keys(errors).length > 0;
 
-  const onSubmit: SubmitHandler<UserRegister> = (data) => {
-    if (!Object.keys(errors).length) {
-      rootStore.userStore.createUser(data);
+  const onSubmit: SubmitHandler<UserRegister> = async (data) => {
+    if (!hasErrors) {
+      await rootStore.userStore.createUser(data);
       if (rootStore.userStore.meta === Meta.success) {
-        reset();
         navigate('/');
       }
     }

@@ -10,9 +10,9 @@ const FavoriteRecipes = () => {
   const { list, favoriteIds, getFavoriteRecipesList, meta } = rootStore.favoriteRecipesStore;
 
   useEffect(() => {
-    const ids = favoriteIds;
-    if (ids.length > 0) {
-      const idArr = ids.join(',');
+    console.log(favoriteIds)
+    if (favoriteIds.length >= 0) {
+      const idArr = favoriteIds.join(',');
       getFavoriteRecipesList({ ids: idArr });
     }
   }, [favoriteIds, getFavoriteRecipesList]);
@@ -21,7 +21,6 @@ const FavoriteRecipes = () => {
     <div className={s.favorite}>
       <Container>
         <RecipesWrapper loading={meta} recipes={list} />
-        {favoriteIds.length === 0 && <NotFound />}
       </Container>
     </div>
   );

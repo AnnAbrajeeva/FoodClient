@@ -72,7 +72,7 @@ export default class ShoppingListStore implements ILocalStore {
     this._list = [];
 
     const res = await fetchApi<ShoppingListModel>(
-      `/mealplanner/${rootStore.userStore.user?.login}/shopping-list/?hash=${rootStore.userStore.user?.hash}&apiKey=${API_KEY}`,
+      `/mealplanner/${rootStore.userStore.user?.login}/shopping-list?hash=${rootStore.userStore.user?.hash}&apiKey=${API_KEY}`,
     );
 
     if (!res.isError) {

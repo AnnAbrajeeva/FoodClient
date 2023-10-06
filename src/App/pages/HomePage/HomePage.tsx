@@ -58,8 +58,8 @@ const HomePage = () => {
     }
   }, [rootStore.userStore.user]);
 
-  const fetchRecipes = () => {
-    recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, search, category });
+  const fetchRecipes = async () => {
+    await recipesStore.getRecipesList({ offset: offset, itemsPerPage: ITEMS_PER_PAGE, search, category });
   };
 
   const clearSearch = useCallback(() => {

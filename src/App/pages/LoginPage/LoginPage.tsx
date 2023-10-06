@@ -75,6 +75,7 @@ const LoginPage = () => {
             Login
           </Button>
         </form>
+        <p>login: anuta, password: 11111111</p>
       </div>
     </div>
   );

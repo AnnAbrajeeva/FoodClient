@@ -30,7 +30,6 @@ const ListItem: FC<ListItemProps> = ({ product }) => {
       <td className={s["item__btn-wrap"]}>
         <Button
           onClick={() => deleteProduct(product.id)}
-          loading={rootStore.shoppingList.meta === Meta.loading}
           className={s.item__btn}
         >
           Delete

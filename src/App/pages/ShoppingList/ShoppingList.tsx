@@ -7,7 +7,6 @@ import Container from 'components/Container';
 import ListItem from './components/ListItem';
 import { ShoppingItemModel } from 'entites/ShoppingItem';
 import { Meta } from 'utils/meta';
-import SkeletonList from 'components/SkeletonList';
 import Loader from 'components/Loader';
 
 const ShoppingList = () => {
@@ -44,10 +43,10 @@ const ShoppingList = () => {
         {!rootStore.userStore.user && <div className={s.shop__attention}>
           <Text>You must login to use the shopping list.</Text>
         </div>}
+        {meta === Meta.loading && <Loader />}
         {rootStore.userStore.user && (
           <table className={s.shop__list}>
             <tbody>
-              {meta === Meta.loading && <Loader />}
               {products?.length > 0 &&
                 meta !== Meta.loading &&
                 products.map((product) => {

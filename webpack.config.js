@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TsCheckerPlugin = require('fork-ts-checker-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 const path = require('path');
 
@@ -102,6 +103,16 @@ module.exports = {
     !isProd && new ReactRefreshWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name]-[hash].css',
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'public', "chef.png"),
+        },
+        {
+          from: path.resolve(__dirname, 'public', "_redirects"),
+        },
+      ],
     }),
     new TsCheckerPlugin(),
   ].filter(Boolean),
